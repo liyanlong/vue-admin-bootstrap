@@ -1,1 +1,34 @@
 // 工具栏样式
+/**
+ * sidebar-full sidebar-mini
+ *
+ */
+ .sidebar-box(@width){
+     width: @width;
+     display: block;
+ }
+
+ .sidebar(@width){
+     .@{namespace}-sidebar{
+         .sidebar-box(@width);
+     }
+ }
+
+
+.@{namespace}{
+
+    &-sidebar-full{
+        .sidebar(180px);
+    }
+
+    &-sidebar-mini{
+        .sidebar(70px);
+    }
+
+    &-sidebar{
+        &.sidebar-full{
+            .sidebar-box(180px);
+        }
+        background-color : @sidebar-bg-color;
+    }
+}

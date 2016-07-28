@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/liyanlong/vue-admin-bootstrap#readme",
   "devDependencies": {
-    "bootstrap": "^3.3.7"
+    "bootstrap": "^3.3.7",
+    "grunt-contrib-less": "^1.3.0"
   }
 }
