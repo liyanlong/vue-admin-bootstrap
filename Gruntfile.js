@@ -4,18 +4,11 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg : grunt.file.readJSON('package.json'),
     less: {
-
-        // 子任务
         compileCore : {
             options: {
-
               strictMath: true,
-              // 输出 sourceMap
               sourceMap: true,
-
               outputSourceFiles: true,
-
-              // 输出 sourceMap地址
               sourceMapURL: '<%= pkg.name %>.css.map',
               sourceMapFilename: 'dist/css/<%= pkg.name %>.css.map'
             },
@@ -23,14 +16,23 @@ module.exports = function(grunt) {
             dest: 'dist/css/<%= pkg.name %>.css'
         }
     },
+    watch: {
+        less: {
+            files: ['less/**/*.less'],
+            tasks:['less:compileCore'],
+            options: {livereload:false}
+        },
+        css: {
+            files: ['dist/**/*.css'],
+            options: {livereload:true}
+        }
+    },
   });
 
   grunt.loadNpmTasks('grunt-contrib-less');
-
-  // 编译 less 为 css
+  grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.registerTask('less-compile', ['less:compileCore']);
 
 
-  // 默认任务
-  grunt.registerTask('default',['less-compile']);
+  grunt.registerTask('default',['watch']);
 };
