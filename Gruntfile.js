@@ -50,11 +50,7 @@ module.exports = function(grunt) {
           files: 'less/**/*.less',
           tasks:['less:compileCore'],
           options: {livereload:false}
-        },
-      css: {
-          files: ['dist/**/*.css'],
-          options: {livereload:true}
-      }
+        }
     }
   });
 

@@ -1,4 +1,7 @@
 /*--------------
+     topbar
+---------------*/
+/*--------------
      sidebar
 ---------------*/
 /**
@@ -17,15 +20,24 @@
   width: 180px;
   display: block;
 }
-.viewFrameWork-sidebar-full .viewFrameWork-content {
+.viewFrameWork-sidebar-full .viewFrameWork-product {
   left: 180px;
 }
 .viewFrameWork-sidebar-mini .viewFrameWork-sidebar {
   width: 50px;
   display: block;
 }
-.viewFrameWork-sidebar-mini .viewFrameWork-content {
+.viewFrameWork-sidebar-mini .viewFrameWork-product {
   left: 50px;
+}
+.viewFrameWork-sidebar-mini .viewFrameWork-sidebar .sidebar-content {
+  width: 70px;
+}
+.viewFrameWork-sidebar-mini .viewFrameWork-sidebar .sidebar-nav {
+  width: 50px;
+}
+.viewFrameWork-sidebar-mini .viewFrameWork-sidebar .sidebar-fold {
+  width: 50px;
 }
 .viewFrameWork-sidebar {
   background-color: #293038;
@@ -143,7 +155,7 @@
   overflow: auto;
   overflow-x: hidden;
 }
-.viewFrameWork-content {
+.viewFrameWork-product {
   width: auto;
   position: absolute;
   top: 0px;
@@ -152,5 +164,10 @@
   right: 0px;
   overflow: hidden;
   background: #FFF;
+}
+.viewFrameWork-sidebar-mini .viewFrameWork-sidebar .sidebar-nav .nav-title,
+.viewFrameWork-sidebar-mini .viewFrameWork-sidebar .sidebar-title-text,
+.viewFrameWork-sidebar-mini .viewFrameWork-sidebar .sidebar-manage {
+  display: none !important;
 }
 /*# sourceMappingURL=vue-admin-bootstrap.css.map */

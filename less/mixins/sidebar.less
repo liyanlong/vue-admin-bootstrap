@@ -4,6 +4,7 @@
        display: block;
      }
  }
+
  // 展开 关闭
 .sidebar-fold(){
   height: 30px;
@@ -20,14 +21,6 @@
 }
 
 .sidebar-variant(@sidebar-bg-color,@sidebar-title-color,@sidebar-title-bg-color){
-    background-color : @sidebar-bg-color;
-    width: 0px;
-    display: none;
-    position: fixed;
-    top: 50px;
-    bottom: 0px;
-    z-index: 102;
-    overflow-x: hidden;
 
     .sidebar-nav{
        width: 180px;
@@ -35,6 +28,7 @@
         &:hover{
           background: lighten(@sidebar-bg-color, 12%);
         }
+
         height: 40px;
         background: @sidebar-title-bg-color;
         color: @sidebar-title-color;

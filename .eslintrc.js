@@ -16,6 +16,19 @@ module.exports = {
     'arrow-parens': 0,
     // allow async-await
     'generator-star-spacing': 0,
+
+    // 缩进风格
+    "indent": ["error", 4],
+
+    //
+    'semi': 0,
+
+    // 强制驼峰式命名
+    'camelcase': 2,
+
+    // 关键字后面是否允许 空格
+    'space-after-keywords': 0,
+
     // allow debugger during development
     'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0
   }

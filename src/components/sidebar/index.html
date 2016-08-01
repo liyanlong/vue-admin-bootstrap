@@ -1,0 +1,40 @@
+<!-- 工具栏 -->
+<div class="viewFrameWork-sidebar">
+    <div class="sidebar-content">
+        <div class="sidebar-inner">
+            <!-- 折叠按钮 -->
+            <div class="sidebar-fold" @click="toggleSidebar">
+                <i  class="fa" :class="foldIcon" aria-hidden="true"></i>
+            </div>
+            <!-- 折叠按钮 -->
+            <!--工具列表-->
+            <template v-for="(index,navConfig) in navTree">
+                <div class="sidebar-nav" :class="{ 'main-nav': index == 0 , 'sidebar-nav-fold' : navConfig.product && navConfig.product.folded}">
+                    <div class="sidebar-title" v-if="navConfig.product">
+                        <div class="sidebar-title-inner" @click="navConfig.product.folded = !navConfig.product.folded">
+                            <span class="sidebar-title-icon">
+                              <i class="fa"  :class="{'fa-caret-down': !navConfig.product.folded,'fa-caret-right': navConfig.product.folded}"></i>
+                            </span>
+                            <span class="sidebar-title-text">{{navConfig.product.name}}</span>
+                            <span class="sidebar-manage" @click.stop>
+                              <i class="fa fa-cog" aria-hidden="true" :tooltip-placement="navConfig.product.tooltip.placement" :tooltip-content="navConfig.product.tooltip.content" tooltip></i>
+                            </span>
+                        </div>
+                    </div>
+                    <ul class="sidebar-trans" v-for="item in navConfig.serviceList">
+                        <li class="nav-item" :class="{'active' : item.active}">
+                          <a :href="item.href">
+                            <div class="nav-icon">
+                              <i class="fa" :class="item.icon"></i>
+                            </div>
+                            <span class="nav-title">{{item.name}}</span>
+                          </a>
+                        </li>
+                    </ul>
+                </div>
+            </template>
+            <!--工具列表-->
+        </div>
+  </div>
+</div>
+<!-- 工具栏 -->
