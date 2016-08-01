@@ -1,21 +1,17 @@
 
 module.exports = function(grunt) {
-
+  var configBridge = grunt.file.readJSON('./grunt/configBridge.json', { encoding: 'utf8' });
   grunt.initConfig({
     pkg : grunt.file.readJSON('package.json'),
     less: {
-
-        // 子任务
         compileCore : {
             options: {
 
               strictMath: true,
-              // 输出 sourceMap
               sourceMap: true,
 
               outputSourceFiles: true,
 
-              // 输出 sourceMap地址
               sourceMapURL: '<%= pkg.name %>.css.map',
               sourceMapFilename: 'dist/css/<%= pkg.name %>.css.map'
             },
@@ -23,14 +19,58 @@ module.exports = function(grunt) {
             dest: 'dist/css/<%= pkg.name %>.css'
         }
     },
+    autoprefixer: {
+      options: {
+        browsers: configBridge.config.autoprefixerBrowsers
+      },
+      // 娣诲姞娴忚鍣ㄥ墠缂�
+      core: {
+        options: {
+          map: true
+        },
+        src: 'dist/css/<%= pkg.name %>.css'
+      }
+    },
+
+
+    copy : {
+        css : {
+            expand: true,
+            cwd: 'dist/css/',
+            src : '**',
+            dest: 'static/css/',
+            filter: 'isFile'
+        }
+    },
+
+    // Task configuration.
+    clean: {
+        dist: 'dist'
+    },
+
+
+    watch: {
+        less: {
+          files: 'less/**/*.less',
+          tasks: 'less'
+        }
+    }
   });
 
   grunt.loadNpmTasks('grunt-contrib-less');
+  grunt.loadNpmTasks('grunt-autoprefixer');
+  grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-contrib-clean');
+  grunt.loadNpmTasks('grunt-contrib-watch');
 
-  // 编译 less 为 css
+  // 缂栬瘧鎴恈ss
   grunt.registerTask('less-compile', ['less:compileCore']);
 
 
-  // 默认任务
-  grunt.registerTask('default',['less-compile']);
+  grunt.registerTask('dist-css',['less-compile', 'autoprefixer:core','copy:css']);
+
+  grunt.registerTask('clean',['clean:dist']);
+
+  // clean  dist
+  grunt.registerTask('default',['clean','dist-css']);
 };

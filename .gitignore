@@ -1,9 +1,7 @@
-npm-debug.log
-
-# OS or Editor folders
 .DS_Store
-.idea
-
-# Folders to ignore
-bower_components
-node_modules
+node_modules/
+dist/
+npm-debug.log
+selenium-debug.log
+test/unit/coverage
+test/e2e/reports
