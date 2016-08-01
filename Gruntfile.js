@@ -6,12 +6,9 @@ module.exports = function(grunt) {
     less: {
         compileCore : {
             options: {
-
               strictMath: true,
               sourceMap: true,
-
               outputSourceFiles: true,
-
               sourceMapURL: '<%= pkg.name %>.css.map',
               sourceMapFilename: 'dist/css/<%= pkg.name %>.css.map'
             },
@@ -48,12 +45,16 @@ module.exports = function(grunt) {
         dist: 'dist'
     },
 
-
     watch: {
         less: {
           files: 'less/**/*.less',
-          tasks: 'less'
-        }
+          tasks:['less:compileCore'],
+          options: {livereload:false}
+        },
+      css: {
+          files: ['dist/**/*.css'],
+          options: {livereload:true}
+      }
     }
   });
 

@@ -1,0 +1,15 @@
+.transition(@property;@rest...) when not(@property = all){
+  transition: @property @rest;
+  -o-transition: ~"-o-@{property} @{rest}";
+  -ms-transition: ~"-ms-@{property} @{rest}";
+  -moz-transition: ~"-moz-@{property} @{rest}";
+  -webkit-transition: ~"-webkit-@{property} @{rest}";
+}
+
+.transition(all;@rest...){
+  transition: all @rest;
+  -o-transition: all @rest;
+  -ms-transition: all @rest;
+  -moz-transition: all @rest;
+  -webkit-transition: all @rest;
+}

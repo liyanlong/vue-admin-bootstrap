@@ -1,34 +1,50 @@
-// 工具栏样式
 /**
  * sidebar-full sidebar-mini
  *
  */
- .sidebar-box(@width){
-     width: @width;
-     display: block;
- }
 
- .sidebar(@width){
-     .@{namespace}-sidebar{
-         .sidebar-box(@width);
-     }
- }
 
 
 .@{namespace}{
-
+    &-body{
+      position: absolute;
+      width: 100%;
+      top: 50px;
+      bottom: 0px;
+      background-color: #000;
+      z-index: 100;
+    }
     &-sidebar-full{
-        .sidebar(180px);
+        .sidebar-box(180px);
+
+        .@{namespace}-content{
+          left: 180px;
+        }
     }
 
     &-sidebar-mini{
-        .sidebar(70px);
+        .sidebar-box(50px);
+        .@{namespace}-content{
+          left: 50px;
+        }
     }
 
     &-sidebar{
-        &.sidebar-full{
-            .sidebar-box(180px);
-        }
-        background-color : @sidebar-bg-color;
+      .sidebar-fold{
+        .sidebar-fold();        
+      }
+      .sidebar-variant(@sidebar-bg-color,@sidebar-title-color,@sidebar-title-bg-color);
     }
+
+    &-content{
+      width: auto;
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      bottom: 0px;
+      right: 0px;
+      overflow: hidden;
+      background: #FFF;
+    }
+
 }
