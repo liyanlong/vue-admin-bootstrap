@@ -1,0 +1,16 @@
+/**
+ * sidebar-full sidebar-mini
+ *
+ */
+.viewFrameWork-sidebar-full {
+  width: 140px;
+  display: block;
+}
+.viewFrameWork-sidebar-mini {
+  width: 70px;
+  display: block;
+}
+.viewFrameWork-sidebar {
+  background-color: #293038;
+}
+/*# sourceMappingURL=vue-admin-bootstrap.css.map */
