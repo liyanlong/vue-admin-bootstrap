@@ -57,8 +57,27 @@
         z-index: 102;
         overflow-x: hidden;
 
+        // 折叠按钮
         .sidebar-fold{
-          .sidebar-fold();
+            height: 30px;
+            width: @sidebar-full-width;
+            background:lighten(@sidebar-bg-color, 12%);
+            color: #aeb9c2;
+            text-align: center;
+            line-height: 30px !important;
+            font-size: 12px;
+            user-select: none;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+        }
+
+        // 服务列表动画
+        .sidebar-trans{
+            -o-transition: all 0.12s ease,0.12s ease;
+            -ms-transition: all 0.12s ease,0.12s ease;
+            -moz-transition: all 0.12s ease,0.12s ease;
+            -webkit-transition: all 0.12s ease,0.12s ease;
         }
         .sidebar-variant(@sidebar-bg-color,@sidebar-title-color,@sidebar-title-bg-color);
     }

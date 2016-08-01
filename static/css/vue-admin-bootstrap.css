@@ -52,7 +52,7 @@
 .viewFrameWork-sidebar .sidebar-fold {
   height: 30px;
   width: 180px;
-  background: #394555;
+  background: #434e5b;
   color: #aeb9c2;
   text-align: center;
   line-height: 30px !important;
@@ -64,6 +64,12 @@
   cursor: pointer;
   -webkit-user-select: none;
   -moz-user-select: none;
+}
+.viewFrameWork-sidebar .sidebar-trans {
+  -o-transition: all 0.12s ease,0.12s ease;
+  -ms-transition: all 0.12s ease,0.12s ease;
+  -moz-transition: all 0.12s ease,0.12s ease;
+  -webkit-transition: all 0.12s ease,0.12s ease;
 }
 .viewFrameWork-sidebar .sidebar-nav {
   width: 180px;
@@ -144,6 +150,12 @@
 .viewFrameWork-sidebar .sidebar-nav-fold .sidebar-title {
   background: #3a4450;
   border-bottom: 1px solid #414d5c;
+}
+.viewFrameWork-sidebar .sidebar-nav-fold .sidebar-title-icon {
+  -webkit-transform: rotate(-90deg);
+      -ms-transform: rotate(-90deg);
+       -o-transform: rotate(-90deg);
+          transform: rotate(-90deg);
 }
 .viewFrameWork-sidebar .sidebar-nav-fold ul {
   height: 0 !important;

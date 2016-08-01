@@ -2,17 +2,19 @@
   <div id="app" class="viewFrameWork-body" :class="sidebarClass">
       <sidebar :type.sync="sidebarType"></sidebar>
       <div class="viewFrameWork-product">
-        content
+        <hello></hello>
       </div>
   </div>
 </template>
 
 <script>
 import Sidebar from './components/Sidebar'
+import Hello from './components/Hello'
 
 export default {
     components: {
-        Sidebar
+        Sidebar,
+        Hello
     },
     computed: {
         sidebarClass: function () {

@@ -13,7 +13,7 @@
                     <div class="sidebar-title" v-if="navConfig.product">
                         <div class="sidebar-title-inner" @click="navConfig.product.folded = !navConfig.product.folded">
                             <span class="sidebar-title-icon">
-                              <i class="fa"  :class="{'fa-caret-down': !navConfig.product.folded,'fa-caret-right': navConfig.product.folded}"></i>
+                              <i class="fa fa-caret-down"></i>
                             </span>
                             <span class="sidebar-title-text">{{navConfig.product.name}}</span>
                             <span class="sidebar-manage" @click.stop>
@@ -21,8 +21,8 @@
                             </span>
                         </div>
                     </div>
-                    <ul class="sidebar-trans" v-for="item in navConfig.serviceList">
-                        <li class="nav-item" :class="{'active' : item.active}">
+                    <ul class="sidebar-trans">
+                        <li v-for="item in navConfig.serviceList" class="nav-item" :class="{'active' : item.active}">
                           <a :href="item.href">
                             <div class="nav-icon">
                               <i class="fa" :class="item.icon"></i>

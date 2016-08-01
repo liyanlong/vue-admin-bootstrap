@@ -5,20 +5,7 @@
      }
  }
 
- // 展开 关闭
-.sidebar-fold(){
-  height: 30px;
-  width: 180px;
-  background: #394555;
-  color: #aeb9c2;
-  text-align: center;
-  line-height: 30px !important;
-  font-size: 12px;
-  user-select: none;
-  cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-}
+
 
 .sidebar-variant(@sidebar-bg-color,@sidebar-title-color,@sidebar-title-bg-color){
 
@@ -112,11 +99,13 @@
         background: lighten(@sidebar-bg-color, 8%);
         border-bottom: 1px solid #414d5c;
       }
-
-       ul{
+      .sidebar-title-icon{
+          transform: rotate(-90deg);
+      }
+      ul{
          height: 0 !important;
          overflow: hidden;
-       }
+      }
     }
 
     .sidebar-content{

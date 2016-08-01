@@ -1,9 +1,10 @@
 import Vue from 'vue'
 import App from './App'
 import VueRouter from 'vue-router'
+import Tooltip from './directives/tooltip'
 
 Vue.use(VueRouter);
-Vue.config.debug = true;
+Tooltip(Vue);
 /* eslint-disable no-new */
 new Vue({
     el: 'body',

@@ -10,10 +10,19 @@ export var navTree = [{
     serviceList: [{
         name: '日历',
         href: '#canlendar',
-        icon: 'fa fa-calendar',
+        icon: 'fa-calendar',
         active: true,
         tooltip: {
             content: '描述日历',
+            placement: 'right'
+        }
+    }, {
+        name: '云',
+        href: '#cloud',
+        icon: 'fa-cloud',
+        active: false,
+        tooltip: {
+            content: '描述云',
             placement: 'right'
         }
     }]
@@ -29,7 +38,7 @@ export var navTree = [{
     serviceList: [{
         name: '数据库',
         href: '#',
-        icon: 'fa fa-database',
+        icon: 'fa-database',
         active: false,
         tooltip: {
             content: '数据库',
