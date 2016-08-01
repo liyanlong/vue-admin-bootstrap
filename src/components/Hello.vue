@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    <h1 v-tooltip="{ title: 'white', palcement: 'right' }">{{ msg }}</h1>
+    <h1 v-tooltip tooltip-title="你好!" tooltip-trigger="hover" tooltip-placement="right">{{ msg }}</h1>
   </div>
 </template>
 
@@ -14,6 +14,9 @@ export default {
             // its initial state.
             msg: 'Hello World!'
         }
+    },
+    ready () {
+        console.log('ready')
     }
 }
 </script>

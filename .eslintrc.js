@@ -29,6 +29,8 @@ module.exports = {
     // 关键字后面是否允许 空格
     'space-after-keywords': 0,
 
+    // 允许 new
+    'no-new-object': 0,
     // allow debugger during development
     'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0
   }
