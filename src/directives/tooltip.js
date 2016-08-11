@@ -14,7 +14,7 @@ export default function (Vue) {
 
             // 插入文档后调用
             directive.vm.$on('hook:ready', () => {
-                this.tooltip = new Tooltip(this.el, options);
+                // $.tooltip(this.el, options);
             });
 
             // 准备工作
@@ -29,7 +29,8 @@ export default function (Vue) {
         unbind: function () {
             // 清理工作
             // 例如，删除 bind() 添加的事件监听器
-            this.tooltip.destroy();
+            // this.tooltip.destroy();
+            // 删除节点
         }
 
     });
