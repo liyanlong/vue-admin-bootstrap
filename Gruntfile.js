@@ -13,7 +13,7 @@ module.exports = function(grunt) {
               sourceMapFilename: 'dist/css/<%= pkg.name %>.css.map'
             },
             src: 'less/admin-bootstrap.less',
-            dest: 'dist/css/<%= pkg.name %>.css'
+            dest: 'static/css/<%= pkg.name %>.css'
         }
     },
     autoprefixer: {
@@ -25,19 +25,8 @@ module.exports = function(grunt) {
         options: {
           map: true
         },
-        src: 'dist/css/<%= pkg.name %>.css'
+        src: 'static/css/<%= pkg.name %>.css'
       }
-    },
-
-
-    copy : {
-        css : {
-            expand: true,
-            cwd: 'dist/css/',
-            src : '**',
-            dest: 'static/css/',
-            filter: 'isFile'
-        }
     },
 
     // Task configuration.
@@ -64,7 +53,7 @@ module.exports = function(grunt) {
   grunt.registerTask('less-compile', ['less:compileCore']);
 
 
-  grunt.registerTask('dist-css',['less-compile', 'autoprefixer:core','copy:css']);
+  grunt.registerTask('dist-css',['less-compile', 'autoprefixer:core']);
 
   grunt.registerTask('clean',['clean:dist']);
 

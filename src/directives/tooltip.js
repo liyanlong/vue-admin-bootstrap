@@ -1,4 +1,3 @@
-import Tooltip from '../class/Tooltip'
 export default function (Vue) {
     Vue.directive('tooltip', {
         params: [
@@ -11,7 +10,7 @@ export default function (Vue) {
         bind: function () {
             var directive = this;
             var options = this.params;
-
+            console.log(options);
             // 插入文档后调用
             directive.vm.$on('hook:ready', () => {
                 // $.tooltip(this.el, options);

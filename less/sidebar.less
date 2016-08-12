@@ -3,7 +3,7 @@
  *
  */
 
-.@{namespace}{
+.viewFrameWork{
 
     &-body{
       position: absolute;
@@ -15,7 +15,7 @@
     }
     &-sidebar-full{
         .sidebar-box(@sidebar-full-width);
-        .@{namespace}-product{
+        .viewFrameWork-product{
           left: @sidebar-full-left-content;
         }
     }
@@ -23,12 +23,12 @@
     &-sidebar-mini{
         .sidebar-box(@sidebar-mini-width);
 
-        .@{namespace}-product{
+        .viewFrameWork-product{
           left:  @sidebar-mini-left-content;
         }
 
         // 覆盖 全局sidebar
-        .@{namespace}-sidebar{
+        .viewFrameWork-sidebar{
             .sidebar-content{
                 width: (@sidebar-mini-width + 20px);
             }
