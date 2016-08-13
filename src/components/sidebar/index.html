@@ -16,8 +16,8 @@
                               <i class="fa fa-caret-down"></i>
                             </span>
                             <span class="sidebar-title-text">{{navConfig.product.name}}</span>
-                            <span class="sidebar-manage" @click.stop>
-                              <i class="fa fa-cog" aria-hidden="true" :tooltip-placement="navConfig.product.tooltip.placement" :tooltip-content="navConfig.product.tooltip.content" tooltip></i>
+                            <span class="sidebar-manage" @click.stop  v-tooltip="navConfig.product.tooltip">
+                              <i class="fa fa-cog" aria-hidden="true"></i>
                             </span>
                         </div>
                     </div>

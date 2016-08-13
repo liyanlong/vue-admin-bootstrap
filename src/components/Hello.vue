@@ -1,9 +1,9 @@
 <template>
   <div class="hello">
-    <h1 v-tooltip tooltip-title="你好!" tooltip-trigger="hover" tooltip-placement="right" tooltip-container="body">{{ msg }}</h1>
-    <p v-tooltip tooltip-title="你啊啊啊！" tooltip-trigger="click" tooltip-placement="right" tooltip-container="body" :tooltip-viewport="{selector:'body', padding: 0 }" title="zheshism">
-        abc
-    </p>
+    <h1 v-tooltip="{ title: msg, placement:'top',container:'body'}" :tooltip-show="show">
+        {{ msg }}
+    </h1>
+    <button type="button" name="button" @click="toggle">开关</button>
   </div>
 </template>
 
@@ -11,11 +11,26 @@
 export default {
     data () {
         return {
+            show: false,
             // note: changing this line won't causes changes
             // with hot-reload because the reloaded component
             // preserves its current state and we are modifying
             // its initial state.
             msg: 'Hello World!'
+        }
+    },
+    methods: {
+        toggle () {
+            this.show = !this.show;
+            this.msg = '你好';
+        },
+        showHandler () {
+            console.log(arguments);
+        }
+    },
+    events: {
+        'tooltip-show' () {
+            console.log(arguments);
         }
     }
 }

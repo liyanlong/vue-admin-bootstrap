@@ -1,11 +1,39 @@
-/*--------------
-     topbar
----------------*/
+//== Typography
+//
+//## Font, line-height, and color for body text, headings, and more.
+
+@font-family-sans-serif:  "Helvetica Neue", Helvetica, Arial, sans-serif;
+@font-family-serif:       Georgia, "Times New Roman", Times, serif;
+//** Default monospace fonts for `<code>`, `<kbd>`, and `<pre>`.
+@font-family-monospace:   Menlo, Monaco, Consolas, "Courier New", monospace;
+@font-family-base:        @font-family-sans-serif;
+
+@font-size-base:          14px;
+@font-size-large:         ceil((@font-size-base * 1.25)); // ~18px
+@font-size-small:         ceil((@font-size-base * 0.85)); // ~12px
+
+//** Unit-less `line-height` for use in components like buttons.
+@line-height-base:        1.428571429; // 20/14
+//** Computed "line-height" (`font-size` * `line-height`) for use with `margin`, `padding`, etc.
+@line-height-computed:    floor((@font-size-base * @line-height-base)); // ~20px
+
+
+// Components
+@zindex-tooltip : 1070;
+
+// border-radius
+@border-radius-base: 4px;
+
+
+
+//== Topbar
+//
+//##
 @topbar-height       : 50px;
 
-/*--------------
-     sidebar
----------------*/
+//== Sidebar
+//
+//##
 @sidebar-full-width  : 180px;
 @sidebar-mini-width  : 50px;
 
@@ -16,3 +44,20 @@
 
 @sidebar-full-left-content : 180px;
 @sidebar-mini-left-content : 50px;
+
+
+//== Tooltips
+//
+//##
+//** Tooltip max width
+@tooltip-max-width:           200px;
+//** Tooltip text color
+@tooltip-color:               #fff;
+//** Tooltip background color
+@tooltip-bg:                  #425160;
+@tooltip-opacity:             .9;
+
+//** Tooltip arrow width
+@tooltip-arrow-width:         5px;
+//** Tooltip arrow color
+@tooltip-arrow-color:         @tooltip-bg;

@@ -1,9 +1,3 @@
-/*--------------
-     topbar
----------------*/
-/*--------------
-     sidebar
----------------*/
 /**
  * sidebar-full sidebar-mini
  *
@@ -176,6 +170,107 @@
   right: 0px;
   overflow: hidden;
   background: #FFF;
+}
+.admin-sidebar-tooltip {
+  position: absolute;
+  z-index: 1070;
+  display: block;
+  font-size: 12px;
+  line-height: 1.4;
+  opacity: 0;
+  visibility: visible;
+}
+.admin-sidebar-tooltip .tooltip-inner {
+  max-width: 200px;
+  padding: 12px 8px;
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 0 0;
+  background-color: #425160;
+}
+.admin-sidebar-tooltip .tooltip-arrow {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+}
+.admin-sidebar-tooltip.in {
+  opacity: 0.9;
+  filter: alpha(opacity=90);
+}
+.admin-sidebar-tooltip.top {
+  margin-top: -3px;
+  padding: 5px 0;
+}
+.admin-sidebar-tooltip.right {
+  margin-left: 3px;
+  padding: 0 5px;
+}
+.admin-sidebar-tooltip.bottom {
+  margin-top: 3px;
+  padding: 5px 0;
+}
+.admin-sidebar-tooltip.left {
+  margin-left: -3px;
+  padding: 0 5px;
+}
+.admin-sidebar-tooltip.top .tooltip-arrow {
+  bottom: 0;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px 5px 0;
+  border-top-color: #425160;
+}
+.admin-sidebar-tooltip.top-left .tooltip-arrow {
+  bottom: 0;
+  right: 5px;
+  margin-bottom: -5px;
+  border-width: 5px 5px 0;
+  border-top-color: #425160;
+}
+.admin-sidebar-tooltip.top-right .tooltip-arrow {
+  bottom: 0;
+  left: 5px;
+  margin-bottom: -5px;
+  border-width: 5px 5px 0;
+  border-top-color: #425160;
+}
+.admin-sidebar-tooltip.right .tooltip-arrow {
+  top: 50%;
+  left: 0;
+  margin-top: -5px;
+  border-width: 5px 5px 5px 0;
+  border-right-color: #425160;
+}
+.admin-sidebar-tooltip.left .tooltip-arrow {
+  top: 50%;
+  right: 0;
+  margin-top: -5px;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #425160;
+}
+.admin-sidebar-tooltip.bottom .tooltip-arrow {
+  top: 0;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 0 5px 5px;
+  border-bottom-color: #425160;
+}
+.admin-sidebar-tooltip.bottom-left .tooltip-arrow {
+  top: 0;
+  right: 5px;
+  margin-top: -5px;
+  border-width: 0 5px 5px;
+  border-bottom-color: #425160;
+}
+.admin-sidebar-tooltip.bottom-right .tooltip-arrow {
+  top: 0;
+  left: 5px;
+  margin-top: -5px;
+  border-width: 0 5px 5px;
+  border-bottom-color: #425160;
 }
 .viewFrameWork-sidebar-mini .viewFrameWork-sidebar .sidebar-nav .nav-title,
 .viewFrameWork-sidebar-mini .viewFrameWork-sidebar .sidebar-title-text,

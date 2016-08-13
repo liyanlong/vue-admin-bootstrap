@@ -3,7 +3,7 @@ export var navTree = [{
         folded: true,
         name: '标题',
         tooltip: {
-            content: '描述',
+            title: '描述',
             placement: 'right'
         }
     },
@@ -13,7 +13,7 @@ export var navTree = [{
         icon: 'fa-calendar',
         active: true,
         tooltip: {
-            content: '描述日历',
+            title: '描述日历',
             placement: 'right'
         }
     }, {
@@ -22,7 +22,7 @@ export var navTree = [{
         icon: 'fa-cloud',
         active: false,
         tooltip: {
-            content: '描述云',
+            title: '描述云',
             placement: 'right'
         }
     }]
@@ -31,7 +31,7 @@ export var navTree = [{
         folded: false,
         name: '标题2',
         tooltip: {
-            content: '描述2',
+            title: '描述2',
             placement: 'right'
         }
     },
@@ -41,7 +41,7 @@ export var navTree = [{
         icon: 'fa-database',
         active: false,
         tooltip: {
-            content: '数据库',
+            title: '数据库',
             placement: 'right'
         }
     }]

@@ -31,6 +31,8 @@ module.exports = {
 
     // 允许 new
     'no-new-object': 0,
+    'no-new': 0,
+    
     // allow debugger during development
     'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0
   }
