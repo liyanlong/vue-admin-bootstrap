@@ -12,20 +12,12 @@ export default {
     data () {
         return {
             show: false,
-            // note: changing this line won't causes changes
-            // with hot-reload because the reloaded component
-            // preserves its current state and we are modifying
-            // its initial state.
             msg: 'Hello World!'
         }
     },
     methods: {
         toggle () {
-            this.show = !this.show;
             this.msg = '你好';
-        },
-        showHandler () {
-            console.log(arguments);
         }
     },
     events: {

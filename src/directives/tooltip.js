@@ -6,7 +6,8 @@ export default function (Vue) {
             'tooltip-show'
         ],
         paramWatchers: {
-            'tooltipShow': function (val, oldValue) {
+            // 手动 使用 tooltip('show');
+            tooltipShow: function (val, oldValue) {
                 // 更新加入队列
                 this.$el.timeout = setTimeout(() => {
                     if (val) {
@@ -39,11 +40,8 @@ export default function (Vue) {
         },
         update: function (newValue, oldValue) {
             var tooltip = this.$el.data('bs.tooltip');
-
-            // 重新
             if (tooltip) {
-                // 删除原有的节点
-                // 清空计时器
+                // 初始化 tip
                 tooltip.init('tooltip', this.el, newValue);
             } else {
                 this.$el.tooltip(newValue);

@@ -23,17 +23,16 @@ export default {
     ready: function () {},
     methods: {
         // 折叠工具栏
-        toggleSidebar: function () {
+        toggleSidebar () {
             var status = {
                 'full': 'mini',
                 'mini': 'full'
             }
             this.type = status[this.type];
         },
-
-        // 折叠服务列表
-        toggleNavFold: function (sidebarNav) {
-            sidebarNav.product.folded = !sidebarNav.product.folded;
+        // 返回tooltip 的 title
+        sidebarTitle (tooltip) {
+            return this.type === 'full' ? '' : (tooltip.title || '');
         }
     },
     components: {}
