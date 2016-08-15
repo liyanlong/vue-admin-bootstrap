@@ -1,12 +1,9 @@
 import Vue from 'vue'
+import Tooltip from '../directives/tooltip'
+import Dropdown from '../directives/dropdown'
 export default {
-    register: function (directives) {
-        if (typeof directives === 'string') {
-            directives = [directives];
-        }
-        if (!Array.isArray(directives)) {
-            return;
-        }
+    init () {
+        var directives = [Tooltip, Dropdown];
         directives.forEach(directive => {
             directive(Vue);
         });

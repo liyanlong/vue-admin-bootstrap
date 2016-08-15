@@ -75,13 +75,29 @@
         z-index: 1;
         top: 0;
         right: 0;
-        
+
         .topbar-btn{
             padding: 0 10px;
             height: @topbar-height;
             display: block;
             z-index: 2;
             background: @topbar-bg-color;
+        }
+
+        .topbar-info-btn{
+            height: 40px;
+            border-bottom: 1px solid #eaedf1;
+        }
+    }
+    .topbar-info-item {
+        display: inline-block;
+        margin-left: 1px;
+    }
+    // 下拉菜单栏按钮
+    .topbar-nav-btn,.topbar-info-btn {
+        a{
+            line-height: 39px;
+            padding-left: 10px;
         }
     }
 

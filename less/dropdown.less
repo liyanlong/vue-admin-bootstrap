@@ -1,6 +1,14 @@
 // vue-admin-bootstrap reset dropdown
 .dropdown {
     position: relative;
+    .caret{
+        transition: transform 0.2s, vertical-align 0.2s;
+    }
+    &.open {
+        .caret {
+             transform: rotate(-180deg);
+        }
+    }
 }
 .dropdown-menu {
     font-size: 12px;
@@ -42,5 +50,8 @@
         font-size: 12px;
         border-radius: 0;
         box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        a{
+            padding: 0;
+        }
     }
 }

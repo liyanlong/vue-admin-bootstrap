@@ -8,13 +8,15 @@
                 <span>Vue-Admin-Bootstrap</span>
             </a>
         </div>
-        <div class="topbar-nav topbar-left dropdown">
-              <a href="#" class="topbar-btn topbar-nav-btn" v-dropdown="{'trigger':'click'}">
+        <div class="topbar-nav topbar-left dropdown" v-dropdown >
+              <a href="#" class="topbar-btn topbar-nav-btn">
                   下拉列表
                  <span class="caret"></span>
               </a>
-              <ul class="dropdown-menu topbar-clearfix open">
-                  <li>列表</li>
+              <ul class="dropdown-menu topbar-clearfix">
+                  <li class="topbar-nav-btn">
+                     <a>列表</a> 
+                  </li>
                   <li role="separator" class="divider"></li>
               </ul>
         </div>
@@ -23,11 +25,10 @@
         </div>
 
         <div class="topbar-info topbar-right topbar-clearfix">
-
             <div class="topbar-info-item dropdown">
                 <a href="#">帮助</a>
                 <ul class="dropdown-menu topbar-clearfix">
-                    <li>列表1</li>
+                    <li class="topbar-info-btn">列表1</li>
                     <li role="separator" class="divider"></li>
                 </ul>
             </div>

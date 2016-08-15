@@ -8,8 +8,7 @@ bootstrapHandler.init();
 
 // 自定义指令
 import directiveHandler from './class/directiveHandler'
-import Tooltip from './directives/tooltip'
-directiveHandler.register([Tooltip]);
+directiveHandler.init();
 
 Vue.use(VueRouter);
 new Vue({
