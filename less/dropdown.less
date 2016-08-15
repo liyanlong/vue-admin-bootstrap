@@ -1,0 +1,46 @@
+// vue-admin-bootstrap reset dropdown
+.dropdown {
+    position: relative;
+}
+.dropdown-menu {
+    font-size: 12px;
+    border-radius: 0px;
+    padding: 0px;
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.2);
+}
+.open > .dropdown-menu {
+    display: block;
+}
+
+// vue-admin-bootstrap topbar dropdown
+.admin-topbar{
+    // topbar-nav
+    .topbar-nav .dropdown.open .topbar-nav-btn{
+        background: #fff;
+        color: #333;
+    }
+
+    // topbar-info
+    .topbar-info .dropdown{
+        .dropdown-menu{
+            width: 100%;
+            min-width: 0;
+            margin: 0;
+            border: none;
+        }
+        &.open{
+            .topbar-btn {
+                color: #333;
+                background: #fff;
+                border-bottom: 1px solid #eaedf1;
+                position: relative;
+            }
+        }
+    }
+    .dropdown .dropdown-menu{
+        z-index: 1;
+        font-size: 12px;
+        border-radius: 0;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+}

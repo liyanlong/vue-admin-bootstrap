@@ -18,18 +18,28 @@
 @line-height-computed:    floor((@font-size-base * @line-height-base)); // ~20px
 
 
-// Components
-@zindex-tooltip : 1070;
+@zindex-framework-body    : 100;
+@zindex-framework-topbar  : 101;
+@zindex-framework-sidebar : 102;
+
+
+@zindex-sidebar-tooltip: 1030;
+@zindex-topbar         : @zindex-framework-body;
 
 // border-radius
 @border-radius-base: 4px;
 
 
+// Components
 
 //== Topbar
 //
 //##
 @topbar-height       : 50px;
+@topbar-logo-width   : 50px;
+
+@topbar-bg-color      : #09C;
+@topbar-bg-hover-color: darken(@topbar-bg-color,4%);
 
 //== Sidebar
 //

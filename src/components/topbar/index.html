@@ -1,0 +1,37 @@
+<div class="admin-topbar">
+    <div class="topbar-wrap topbar-clearfix">
+        <div class="topbar-head topbar-left">
+            <a href="/" class="topbar-logo topbar-left">
+                <i class="fa fa-desktop"></i>
+            </a>
+            <a href="#/home" class="topbar-home-link topbar-btn topbar-left">
+                <span>Vue-Admin-Bootstrap</span>
+            </a>
+        </div>
+        <div class="topbar-nav topbar-left dropdown">
+              <a href="#" class="topbar-btn topbar-nav-btn" v-dropdown="{'trigger':'click'}">
+                  下拉列表
+                 <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu topbar-clearfix open">
+                  <li>列表</li>
+                  <li role="separator" class="divider"></li>
+              </ul>
+        </div>
+        <div class="topbar-nav topbar-left dropdown">
+              <a href="#" class="topbar-btn topbar-nav-btn">无下拉列表</a>
+        </div>
+
+        <div class="topbar-info topbar-right topbar-clearfix">
+
+            <div class="topbar-info-item dropdown">
+                <a href="#">帮助</a>
+                <ul class="dropdown-menu topbar-clearfix">
+                    <li>列表1</li>
+                    <li role="separator" class="divider"></li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,7 +1,3 @@
-/**
- * sidebar-full sidebar-mini
- *
- */
 .viewFrameWork-body {
   position: absolute;
   width: 100%;
@@ -9,6 +5,101 @@
   bottom: 0px;
   background-color: #000;
   z-index: 100;
+}
+.viewFramework-topbar {
+  position: fixed;
+  width: 100%;
+  height: 50px;
+  background: #09C;
+  z-index: 101;
+}
+.admin-topbar .topbar-wrap,
+.admin-topbar .topbar-logo,
+.admin-topbar .topbar-home,
+.admin-topbar .topbar-home-link,
+.admin-topbar .topbar-nav,
+.admin-topbar .topbar-info {
+  height: 100%;
+}
+.admin-topbar .topbar-clearfix:before,
+.admin-topbar .topbar-clearfix:after {
+  display: table;
+  content: " ";
+}
+.admin-topbar .topbar-left {
+  float: left;
+}
+.admin-topbar .topbar-btn,
+.admin-topbar .topbar-nav-btn {
+  color: #fff;
+  font-size: 14px;
+  line-height: 50px;
+}
+.admin-topbar .topbar-btn:hover,
+.admin-topbar .topbar-btn.topbar-btn-dark {
+  background: #008ab8;
+}
+.admin-topbar .topbar-nav-btn {
+  padding: 0 20px;
+  display: inline-block;
+  height: 50px;
+}
+.admin-topbar a {
+  text-decoration: none;
+}
+.admin-topbar {
+  position: relative;
+  z-index: 100;
+  clear: both;
+  height: 50px;
+  background: #09C;
+  font-size: 12px;
+  min-width: 990px;
+}
+.admin-topbar .topbar-head {
+  background: #008fbf;
+  height: 50px;
+  position: relative;
+  z-index: 3;
+}
+.admin-topbar .topbar-nav {
+  position: relative;
+  z-index: 2;
+  background: #09C;
+}
+.admin-topbar .topbar-info {
+  background: #09C;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  right: 0;
+}
+.admin-topbar .topbar-info .topbar-btn {
+  padding: 0 10px;
+  height: 50px;
+  display: block;
+  z-index: 2;
+  background: #09C;
+}
+.admin-topbar .topbar-logo {
+  display: block;
+  width: 50px;
+  background: #007399;
+  font-size: 28px;
+  color: #FFF;
+  text-align: center;
+  line-height: 50px;
+}
+.admin-topbar .topbar-logo span {
+  line-height: 50px;
+}
+.admin-topbar .topbar-home-link {
+  padding: 0 20px;
+  margin-right: 1px;
+  background: #09C;
+}
+.admin-topbar .topbar-home-link:hover {
+  background: #008ab8;
 }
 .viewFrameWork-sidebar-full .viewFrameWork-sidebar {
   width: 180px;
@@ -51,10 +142,7 @@
   text-align: center;
   line-height: 30px !important;
   font-size: 12px;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
+  user-select: none;
   cursor: pointer;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -90,6 +178,7 @@
   transition: transform 0.12s;
   -o-transition: -o-transform 0.12s;
   -ms-transition: -ms-transform 0.12s;
+  -moz-transition: -moz-transform 0.12s;
   -webkit-transition: -webkit-transform 0.12s;
 }
 .viewFrameWork-sidebar .sidebar-nav .sidebar-manage {
@@ -146,10 +235,7 @@
   border-bottom: 1px solid #414d5c;
 }
 .viewFrameWork-sidebar .sidebar-nav-fold .sidebar-title-icon {
-  -webkit-transform: rotate(-90deg);
-      -ms-transform: rotate(-90deg);
-       -o-transform: rotate(-90deg);
-          transform: rotate(-90deg);
+  transform: rotate(-90deg);
 }
 .viewFrameWork-sidebar .sidebar-nav-fold ul {
   height: 0 !important;
@@ -173,12 +259,13 @@
 }
 .admin-sidebar-tooltip {
   position: absolute;
-  z-index: 1070;
+  z-index: 1030;
   display: block;
-  font-size: 12px;
   line-height: 1.4;
-  opacity: 0;
+  font-size: 12px;
   visibility: visible;
+  opacity: 0;
+  filter: alpha(opacity=0);
 }
 .admin-sidebar-tooltip .tooltip-inner {
   max-width: 200px;

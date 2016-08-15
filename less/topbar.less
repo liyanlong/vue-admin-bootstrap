@@ -1,0 +1,108 @@
+.viewFramework-topbar {
+    position: fixed;
+    width: 100%;
+    height: @topbar-height;
+    background: @topbar-bg-color;
+    z-index: @zindex-framework-topbar;
+}
+
+.admin-topbar {
+    .topbar-wrap,
+    .topbar-logo,
+    .topbar-home,
+    .topbar-home-link,
+    .topbar-nav,
+    .topbar-info {
+        height: 100%;
+    }
+
+    .topbar-clearfix:before,
+    .topbar-clearfix:after {
+        display: table;
+        content: " ";
+    }
+
+    .topbar-left {
+        float:left;
+    }
+    .topbar-btn {
+        color: #fff;
+        font-size: 14px;
+        line-height:  @topbar-height;
+        &:hover,&.topbar-btn-dark{
+            background: @topbar-bg-hover-color;
+        }
+    }
+
+    .topbar-nav-btn{
+        &:extend(.admin-topbar .topbar-btn);
+        padding: 0 20px;
+        display: inline-block;
+        height: @topbar-height;
+    }
+
+    a {
+        text-decoration: none;
+    }
+}
+
+
+.admin-topbar {
+    position: relative;
+    z-index: @zindex-topbar;
+    clear: both;
+    height: @topbar-height;
+    background: @topbar-bg-color;
+    font-size: 12px;
+    min-width: 990px;
+
+    .topbar-head {
+        background: #008fbf;
+        height: @topbar-height;
+        position: relative;
+        z-index: 3;
+    }
+
+    .topbar-nav {
+        position: relative;
+        z-index: 2;
+        background: @topbar-bg-color;
+    }
+
+    .topbar-info {
+        background: @topbar-bg-color;
+        position: absolute;
+        z-index: 1;
+        top: 0;
+        right: 0;
+        
+        .topbar-btn{
+            padding: 0 10px;
+            height: @topbar-height;
+            display: block;
+            z-index: 2;
+            background: @topbar-bg-color;
+        }
+    }
+
+    .topbar-logo{
+        display: block;
+        width: @topbar-logo-width;
+        background: darken(@topbar-bg-color,10%);
+        font-size: 28px;
+        color: #FFF;
+        text-align: center;
+        line-height: @topbar-height;
+        span{
+            line-height: @topbar-height;
+        }
+    }
+    .topbar-home-link{
+        padding: 0 20px;
+        margin-right: 1px;
+        background: @topbar-bg-color;
+        &:hover{
+            background: @topbar-bg-hover-color;
+        }
+    }
+}

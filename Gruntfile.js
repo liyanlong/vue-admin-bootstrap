@@ -1,4 +1,3 @@
-
 module.exports = function(grunt) {
   var configBridge = grunt.file.readJSON('./grunt/configBridge.json', { encoding: 'utf8' });
   grunt.initConfig({
@@ -10,7 +9,7 @@ module.exports = function(grunt) {
               sourceMap: true,
               outputSourceFiles: true,
               sourceMapURL: '<%= pkg.name %>.css.map',
-              sourceMapFilename: 'dist/css/<%= pkg.name %>.css.map'
+              sourceMapFilename: 'static/css/<%= pkg.name %>.css.map'
             },
             src: 'less/admin-bootstrap.less',
             dest: 'static/css/<%= pkg.name %>.css'
@@ -52,7 +51,7 @@ module.exports = function(grunt) {
   // 编译成css
   grunt.registerTask('less-compile', ['less:compileCore']);
 
-
+  // 添加浏览器前缀
   grunt.registerTask('dist-css',['less-compile', 'autoprefixer:core']);
 
   grunt.registerTask('clean',['clean:dist']);

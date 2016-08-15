@@ -1,13 +1,12 @@
 .admin-sidebar-tooltip {
     position: absolute;
-    z-index: @zindex-tooltip;
+    z-index: @zindex-sidebar-tooltip;
     display: block;
     font-size: 12px;
     line-height: 1.4;
     font-size: @font-size-small;
-    .opacity(0);
     visibility: visible;
-
+    .opacity(0);
     .tooltip-inner {
         max-width: @tooltip-max-width;
         padding: 12px 8px;
@@ -30,6 +29,7 @@
     &.bottom { margin-top:   3px; padding: @tooltip-arrow-width 0; }
     &.left   { margin-left: -3px; padding: 0 @tooltip-arrow-width; }
 }
+
 .admin-sidebar-tooltip {
   &.top .tooltip-arrow {
     bottom: 0;

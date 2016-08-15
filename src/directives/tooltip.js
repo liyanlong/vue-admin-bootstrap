@@ -27,12 +27,13 @@ export default function (Vue) {
             'inserted.bs.tooltip': 'tooltip-inserted'
         },
         bind: function () {
-            var name;
-            var options = {};
+            let name;
+            let options = {};
             this.$el = $(this.el);
             for (name in this.events) {
-                options[name] = (e) => {
-                    this.vm.$emit(this.events[name], e, this);
+                let eventName = name;
+                options[eventName] = (e) => {
+                    this.vm.$emit(this.events[eventName], e, this);
                 };
             }
             // 注册事件

@@ -17,8 +17,7 @@ module.exports = {
         alias: {
             'src': path.resolve(__dirname, '../src'),
             'assets': path.resolve(__dirname, '../src/assets'),
-            'components': path.resolve(__dirname, '../src/components'),
-            // 'jquery': path.join(__dirname, '../node_modules/jquery/dist/jquery')
+            'components': path.resolve(__dirname, '../src/components')
         }
     },
     resolveLoader: {

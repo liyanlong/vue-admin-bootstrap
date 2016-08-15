@@ -1,18 +1,4 @@
-/**
- * sidebar-full sidebar-mini
- *
- */
-
 .viewFrameWork{
-
-    &-body{
-      position: absolute;
-      width: 100%;
-      top: @topbar-height;
-      bottom: 0px;
-      background-color: #000;
-      z-index: 100;
-    }
     &-sidebar-full{
         .sidebar-box(@sidebar-full-width);
         .viewFrameWork-product{
@@ -54,7 +40,7 @@
         position: fixed;
         top: @topbar-height;
         bottom: 0px;
-        z-index: 102;
+        z-index: @zindex-framework-sidebar;
         overflow-x: hidden;
 
         // 折叠按钮

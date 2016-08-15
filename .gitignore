@@ -10,4 +10,3 @@ test/e2e/reports
 # Folders to ignore
 bower_components/
 node_modules/
-dist/

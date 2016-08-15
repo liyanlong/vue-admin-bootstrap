@@ -1,7 +1,6 @@
 <template src='./sidebar/index.html' lang='html'></template>
 <script>
 import {navTree} from './sidebar/data.js';
-console.log(navTree);
 export default {
     props: ['type'],
     data: function () {
@@ -10,6 +9,7 @@ export default {
         };
     },
     computed: {
+        // 工具栏按钮
         foldIcon: function () {
             var iconEnum = {
                 'full': 'fa-ellipsis-h',
@@ -30,7 +30,7 @@ export default {
             }
             this.type = status[this.type];
         },
-        // 返回tooltip 的 title
+        // 返回 tooltip 的 title
         sidebarTitle (tooltip) {
             return this.type === 'full' ? '' : (tooltip.title || '');
         }
