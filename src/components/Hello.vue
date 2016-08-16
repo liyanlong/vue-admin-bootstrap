@@ -23,7 +23,6 @@ export default {
     },
     events: {
         'tooltip-show' () {
-            console.log(arguments);
         }
     }
 }

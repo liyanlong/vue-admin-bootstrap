@@ -25,7 +25,12 @@
     .topbar-left {
         float:left;
     }
-    .topbar-btn {
+
+    .topbar-right{
+        float:right;
+    }
+
+    .topbar-btn,.topbar-info .topbar-btn{
         color: #fff;
         font-size: 14px;
         line-height:  @topbar-height;
@@ -35,10 +40,14 @@
     }
 
     .topbar-nav-btn{
-        &:extend(.admin-topbar .topbar-btn);
         padding: 0 20px;
         display: inline-block;
         height: @topbar-height;
+    }
+
+    .topbar-info-btn{
+        height: 40px;
+        border-bottom: 1px solid #eaedf1;
     }
 
     a {
@@ -55,9 +64,11 @@
     background: @topbar-bg-color;
     font-size: 12px;
     min-width: 990px;
+}
 
+.admin-topbar{
     .topbar-head {
-        background: #008fbf;
+        background: @topbar-bg-hover-color;
         height: @topbar-height;
         position: relative;
         z-index: 3;
@@ -69,38 +80,31 @@
         background: @topbar-bg-color;
     }
 
+    // 下拉
+    .topbar-nav-list {
+        border: none;
+        padding: 10px;
+        margin-top: 0;
+        white-space: nowrap;
+    }
+
     .topbar-info {
-        background: @topbar-bg-color;
+        background: @topbar-bg-hover-color;
         position: absolute;
         z-index: 1;
         top: 0;
         right: 0;
-
-        .topbar-btn{
-            padding: 0 10px;
-            height: @topbar-height;
-            display: block;
-            z-index: 2;
-            background: @topbar-bg-color;
-        }
-
-        .topbar-info-btn{
-            height: 40px;
-            border-bottom: 1px solid #eaedf1;
-        }
     }
+
+    // topbar-info 选项卡
     .topbar-info-item {
         display: inline-block;
         margin-left: 1px;
     }
-    // 下拉菜单栏按钮
-    .topbar-nav-btn,.topbar-info-btn {
-        a{
-            line-height: 39px;
-            padding-left: 10px;
-        }
-    }
+}
 
+// 选项卡的按钮
+.admin-topbar{
     .topbar-logo{
         display: block;
         width: @topbar-logo-width;
@@ -119,6 +123,75 @@
         background: @topbar-bg-color;
         &:hover{
             background: @topbar-bg-hover-color;
+        }
+    }
+}
+
+// 选项卡列表
+.admin-topbar{
+
+    // 导航下拉列表
+    .topbar-nav-list {
+        border: none;
+        padding: 10px;
+        margin-top: 0;
+        white-space: nowrap;
+
+        // 列
+        .topbar-nav-col {
+            display: inline-block;
+            vertical-align: top;
+            padding: 0 10px;
+        }
+
+        // 组分割线
+        .topbar-nav-gap {
+            border-top: 1px solid #f2f2f2;
+            width: 100%;
+            margin: 6px 0 10px;
+        }
+        // 组
+        .topbar-nav-item-list{
+            padding: 0;
+            margin: 8px 0 0 0;
+            list-style: none;
+            li{
+                min-width: 160px;
+                height: 28px;
+                line-height: 28px;
+                margin-bottom: 2px;
+            }
+            a{
+                display: block;
+                height: 100%;
+                padding: 0 10px;
+                text-decoration: none;
+                color: #333;
+                &:hover{
+                    background-color: #f2f2f2;
+                }
+            }
+        }
+
+        // 组名标题
+        .topbar-nav-item-title{
+            margin: 3px 0px;
+            color: #999;
+            font-weight: 600;
+        }
+    }
+    .topbar-info {
+        .topbar-btn{
+            padding: 0 10px;
+            height: @topbar-height;
+            display: block;
+            z-index: 2;
+            background: @topbar-bg-color;
+        }
+         // 下拉菜单栏按钮
+        .topbar-info-btn a{
+            line-height: 39px;
+            padding-left: 10px;
         }
     }
 }

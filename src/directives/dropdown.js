@@ -1,42 +1,74 @@
 import $ from 'jquery'
+
 export default function (Vue) {
+    var openClass = 'open';
+    var dropdownList = [];
+    // 关闭其它下拉菜单
+    var clearMenus = function (e) {
+        if (e && e.which === 3) {
+            return;
+        }
+        $(dropdownList).each(function (index, directive) {
+            var el = directive.el;
+            var $el = $(el);
+            var relatedTarget = {
+                relatedTarget: el
+            };
+            if (!$el.hasClass('open')) {
+                return;
+            }
+            if (e && e.type === 'click' && /input|textarea/i.test(e.target.tagName) && $.contains(el, e.target)) {
+                return;
+            }
+            directive.vm.$emit('dropdown-hide', e = $.Event('hide.bs.dropdown', relatedTarget));
+            if (e.isDefaultPrevented()) {
+                return;
+            }
+            $el.removeClass('open');
+            directive.vm.$emit($.Event('hidden.bs.dropdown', relatedTarget));
+        });
+    };
     Vue.directive('dropdown', {
         $el: false,
         bind () {
             this.$el = $(this.el);
-            var openClass = 'open';
-            // 注册事件
-            this.$el.on('click', (e) => {
+            dropdownList.push(this);
+
+            // 注册打开事件
+            this.$el.on('click.v.dropdown', (e) => {
                 var relatedTarget = {
                     relatedTarget: this.el
                 };
-                if (this.$el.hasClass(openClass)) {
-                    // 已打开, 准备关闭
-                    this.vm.$emit('dropdown-hide', e = $.Event('hide.bs.dropdown', relatedTarget));
+                var isActive = this.$el.hasClass(openClass);
+                clearMenus();
+                if (!isActive) {
+                    // 已关闭, 准备打开
+                    this.vm.$emit('dropdown-show', e = $.Event('show.bs.dropdown', relatedTarget));
                     if (e.isDefaultPrevented()) {
                         return;
                     }
-                    // 已关闭
-                    this.$el.removeClass(openClass);
-                    this.vm.$emit('dropdown-hidden', e = $.Event('hidden.bs.dropdown', relatedTarget));
-                    this.toggle = true;
-                    return;
+                    this.$el.addClass(openClass);
+                    // 已打开下拉菜单
+                    this.vm.$emit('dropdown-shown', e = $.Event('shown.bs.dropdown'), relatedTarget);
                 }
-
-                // 已关闭, 准备打开
-                this.vm.$emit('dropdown-show', e = $.Event('show.bs.dropdown', relatedTarget));
-                if (e.isDefaultPrevented()) {
-                    return;
-                }
-                this.$el.addClass(openClass);
-                // 已开启
-                this.vm.$emit('dropdown-shown', e = $.Event('shown.bs.dropdown'), relatedTarget);
+                return false;
             });
         },
         update () {
         },
         unbind () {
-            this.$el.off('click');
+            var index = -1;
+            this.$el.off('click.v.dropdown');
+            dropdownList.forEach((dropdown, offset) => {
+                if (dropdown === this) {
+                    index = offset;
+                }
+            });
+            if (index >= 0) {
+                dropdownList.splice(index, 1);
+            }
         }
     });
+    // 文档注册关闭菜单事件
+    $(document).on('click.v.dropdown.data-api', clearMenus);
 }

@@ -1,10 +1,10 @@
 <template src='./sidebar/index.html' lang='html'></template>
 <script>
-import {navTree} from './sidebar/data.js';
+import {type, navTree} from './sidebar/data.js';
 export default {
-    props: ['type'],
     data: function () {
         return {
+            type: type,
             navTree: navTree
         };
     },
@@ -20,21 +20,27 @@ export default {
     },
     created: function () {},
     attached: function () {},
-    ready: function () {},
+    ready: function () {
+        this.$dispatch('toggle-sidebar', this.type);
+    },
     methods: {
         // 折叠工具栏
         toggleSidebar () {
             var status = {
                 'full': 'mini',
                 'mini': 'full'
-            }
-            this.type = status[this.type];
+            };
+            var oldType = this.type;
+            var newType = status[this.type];
+            this.type = newType;
+            this.$dispatch('toggle-sidebar', newType, oldType);
         },
-        // 返回 tooltip 的 title
+        // 返回 sidebar 中 tooltip 的 title
         sidebarTitle (tooltip) {
             return this.type === 'full' ? '' : (tooltip.title || '');
         }
     },
+    events: {},
     components: {}
 }
 </script>

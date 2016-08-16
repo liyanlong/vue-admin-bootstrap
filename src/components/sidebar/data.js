@@ -1,3 +1,4 @@
+export var type = 'mini';
 export var navTree = [{
     product: {
         folded: true,

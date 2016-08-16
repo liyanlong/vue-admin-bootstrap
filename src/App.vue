@@ -4,7 +4,7 @@
         <topbar></topbar>
     </div>
     <div class="viewFrameWork-body" :class="sidebarClass">
-        <sidebar :type.sync="sidebarType"></sidebar>
+        <sidebar v-on:toggle-sidebar="handlerClass"></sidebar>
         <div class="viewFrameWork-product">
             <hello></hello>
         </div>
@@ -31,6 +31,11 @@ export default {
         return {
             sidebarType: 'full'
         };
+    },
+    methods: {
+        handlerClass (type) {
+            this.sidebarType = type;
+        }
     }
 }
 
