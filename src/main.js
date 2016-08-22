@@ -2,12 +2,12 @@ import Vue from 'vue'
 import App from './App'
 import VueRouter from 'vue-router'
 
-// 自定义jQuery
-import bootstrapHandler from './class/bootstrapHandler'
+// 自定义 bootstrap.js
+import bootstrapHandler from './handlers/bootstrapHandler'
 bootstrapHandler.init();
 
 // 自定义指令
-import directiveHandler from './class/directiveHandler'
+import directiveHandler from './handlers/directiveHandler'
 directiveHandler.init();
 
 Vue.use(VueRouter);

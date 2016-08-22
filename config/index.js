@@ -7,7 +7,7 @@ module.exports = {
     index: path.resolve(__dirname, '../dist/index.html'),
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
-    // 发布目录
+    // 静态文件的发布目录
     assetsPublicPath: './',
     productionSourceMap: true,
     // Gzip off by default as many popular static hosts such as
