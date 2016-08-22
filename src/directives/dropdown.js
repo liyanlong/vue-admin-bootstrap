@@ -8,6 +8,7 @@ export default function (Vue) {
         if (e && e.which === 3) {
             return;
         }
+        // 所有下拉列表
         $(dropdownList).each(function (index, directive) {
             var el = directive.el;
             var $el = $(el);
@@ -29,7 +30,7 @@ export default function (Vue) {
         });
     };
     Vue.directive('dropdown', {
-        $el: false,
+        $el: null,
         bind () {
             this.$el = $(this.el);
             dropdownList.push(this);
@@ -40,7 +41,9 @@ export default function (Vue) {
                     relatedTarget: this.el
                 };
                 var isActive = this.$el.hasClass(openClass);
+                // 关闭所有的下拉窗口
                 clearMenus();
+
                 if (!isActive) {
                     // 已关闭, 准备打开
                     this.vm.$emit('dropdown-show', e = $.Event('show.bs.dropdown', relatedTarget));

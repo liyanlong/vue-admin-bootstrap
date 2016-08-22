@@ -12,45 +12,97 @@
           <div class="admin-topbar">
               <div class="topbar-wrap topbar-clearfix">
                   <div class="topbar-head topbar-left">
-                      <a href="#" class="topbar-logo topbar-left">
-                          <i class="icon-log"></i>
+                      <a href="/" class="topbar-logo topbar-left">
+                          <i class="fa fa-desktop"></i>
                       </a>
-                      <a href="#" class="topbar-home-link topbar-btn topbar-left">
+                      <a href="#/home" class="topbar-home-link topbar-btn topbar-left">
                           <span>Vue-Admin-Bootstrap</span>
                       </a>
                   </div>
-                  <div class="topbar-nav topbar-left">
-                      <div class="topbar-nav-item dropdown">
-                            <a href="#">下拉列表</a>
-                            <ul class="dropdown-menu topbar-clearfix">
-                                <li>列表</li>
-                                <li role="separator" class="divider"></li>
-                            </ul>
-                      </div>
-                      <div class="topbar-nav-item dropdown">
-                            <a href="#">下拉列表2</a>
-                            <ul class="dropdown-menu topbar-clearfix">
-                                <li>列表2</li>
-                                <li role="separator" class="divider"></li>
-                            </ul>
-                      </div>
-                      <div class="topbar-nav-item">
-                          <a href="#">test</a>
-                      </div>
+                  <div class="topbar-nav topbar-left dropdown" v-dropdown>
+                        <a href="#" class="topbar-btn topbar-nav-btn">
+                            导航
+                           <span class="caret"></span>
+                        </a>
+                        <div class="dropdown-menu topbar-nav-list topbar-clearfix">
+                            <div class="topbar-nav-col">
+                                <div class="topbar-nav-item">
+                                    <p class="topbar-nav-item-title">
+                                        标题
+                                    </p>
+                                    <ul class="topbar-nav-item-list">
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-bar-chart"></i>
+                                                <span >avbb</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="topbar-nav-gap"></div>
+                                <div class="topbar-nav-item">
+                                    <p class="topbar-nav-item-title">
+                                        标题
+                                    </p>
+                                    <ul class="topbar-nav-item-list">
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-bar-chart"></i>
+                                                <span >avbb</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="topbar-nav-col">
+                                <div class="topbar-nav-item">
+                                    <p class="topbar-nav-item-title">
+                                        标题2
+                                    </p>
+                                    <ul class="topbar-nav-item-list">
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-bar-chart"></i>
+                                                <span >avbb</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                   </div>
                   <div class="topbar-info topbar-right topbar-clearfix">
 
-                      <div class="topbar-info-item dropdown">
-                          <a href="#">帮助</a>
+                      <div class="topbar-left topbar-info-item dropdown" v-dropdown>
+                          <a href="#" class="topbar-btn">
+                              帮助
+                              <span class="caret"></span>
+                          </a>
                           <ul class="dropdown-menu topbar-clearfix">
-                              <li>列表1</li>
-                              <li role="separator" class="divider"></li>
+                              <li class="topbar-info-btn">
+                                  <a href="#">列表1</a>
+                              </li>
+                              <li class="topbar-info-btn">
+                                  <a href="#">列表1</a>
+                              </li>
                           </ul>
                       </div>
-
+                      <div class="topbar-left topbar-info-item dropdown" v-dropdown>
+                          <a href="#" class="topbar-btn">
+                              295697141@qq.com
+                              <span class="caret"></span>
+                          </a>
+                          <ul class="dropdown-menu topbar-clearfix">
+                              <li class="topbar-info-btn">
+                                  <a href="#">列表1</a>
+                              </li>
+                              <li class="topbar-info-btn">
+                                  <a href="#">列表1</a>
+                              </li>
+                          </ul>
+                      </div>
                   </div>
               </div>
-
           </div>
       </div>
   </body>

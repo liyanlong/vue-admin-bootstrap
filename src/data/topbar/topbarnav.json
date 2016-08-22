@@ -1,0 +1,35 @@
+{
+    "navList": [
+        [{
+            "title": "col-1 row-1",
+            "navList": [{
+                "href": "/home",
+                "icon": "fa-chart",
+                "content": "第一列,第一行,第一个"
+            }, {
+                "href": "#/my",
+                "icon": "fa-chart",
+                "content": "第一列,第一行，第二个"
+            }]
+        },{
+            "title": "col-1 row-2",
+            "navList": [{
+                "href": "#/list",
+                "icon": "fa-chart",
+                "content": "第一列,第二行,第一个"
+            }, {
+                "href": "#/contact",
+                "icon": "fa-chart",
+                "content": "第一列,第二行,第二个"
+            }]
+        }],
+        [{
+            "title": "col-2",
+            "navList": [{
+                "href": "#/test",
+                "icon": "fa-chart",
+                "content": "第二列,第一行"
+            }]
+        }]
+    ]
+}

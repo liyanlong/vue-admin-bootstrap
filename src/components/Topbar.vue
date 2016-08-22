@@ -1,5 +1,6 @@
 <template src='./topbar/index.html' lang='html'></template>
 <script>
+import TopbarNav from 'components/topbar/TopbarNav'
 export default {
     data () {
         return {
@@ -12,6 +13,8 @@ export default {
     ready: function () {},
     methods: {
     },
-    components: {}
+    components: {
+        TopbarNav
+    }
 }
 </script>
