@@ -1,3 +1,21 @@
+body {
+  font-size: 12px;
+}
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+  font-family: "Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma, "Hiragino Sans GB", STHeiti, "Microsoft YaHei";
+}
 .admin-sidebar-tooltip {
   position: absolute;
   z-index: 1030;
@@ -104,17 +122,23 @@
   position: relative;
 }
 .dropdown .caret {
-  transition: transform 0.2s, vertical-align 0.2s;
+  -webkit-transition: -webkit-transform 0.2s, vertical-align 0.2s;
+       -o-transition: -o-transform 0.2s, vertical-align 0.2s;
+          transition: transform 0.2s, vertical-align 0.2s;
 }
 .dropdown.open .caret {
-  transform: rotate(-180deg);
+  -webkit-transform: rotate(-180deg);
+      -ms-transform: rotate(-180deg);
+       -o-transform: rotate(-180deg);
+          transform: rotate(-180deg);
 }
 .admin-topbar .dropdown-menu {
   padding: 0px;
   z-index: 1;
   font-size: 12px;
   border-radius: 0;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 .admin-topbar .dropdown-menu a {
   padding: 0;
@@ -139,6 +163,19 @@
   bottom: 0px;
   background-color: #000;
   z-index: 100;
+}
+.viewFramework-product-body {
+  position: absolute;
+  width: auto;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  overflow: hidden;
+  overflow-y: auto;
+  -webkit-transition: all 0.2s ease;
+       -o-transition: all 0.2s ease;
+          transition: all 0.2s ease;
 }
 .viewFramework-topbar {
   position: fixed;
@@ -341,13 +378,18 @@
   text-align: center;
   line-height: 30px !important;
   font-size: 12px;
-  user-select: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
   cursor: pointer;
   -webkit-user-select: none;
   -moz-user-select: none;
 }
 .viewFrameWork-sidebar .sidebar-trans {
-  transition: all 0.12s ease,0.12s ease;
+  -webkit-transition: all 0.12s ease,0.12s ease;
+       -o-transition: all 0.12s ease,0.12s ease;
+          transition: all 0.12s ease,0.12s ease;
 }
 .viewFrameWork-sidebar .sidebar-nav {
   width: 180px;
@@ -374,7 +416,6 @@
   transition: transform 0.12s;
   -o-transition: -o-transform 0.12s;
   -ms-transition: -ms-transform 0.12s;
-  -moz-transition: -moz-transform 0.12s;
   -webkit-transition: -webkit-transform 0.12s;
 }
 .viewFrameWork-sidebar .sidebar-nav .sidebar-manage {
@@ -431,7 +472,10 @@
   border-bottom: 1px solid #414d5c;
 }
 .viewFrameWork-sidebar .sidebar-nav-fold .sidebar-title-icon {
-  transform: rotate(-90deg);
+  -webkit-transform: rotate(-90deg);
+      -ms-transform: rotate(-90deg);
+       -o-transform: rotate(-90deg);
+          transform: rotate(-90deg);
 }
 .viewFrameWork-sidebar .sidebar-nav-fold ul {
   height: 0 !important;
@@ -452,6 +496,23 @@
   right: 0px;
   overflow: hidden;
   background: #FFF;
+}
+/* 修改背景色 */
+.modal-backdrop {
+  background-color: #fff;
+}
+.modal-content {
+  border-radius: 0px;
+  border: 1px solid #999;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
+          box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
+}
+.modal-title {
+  font-size: 14px;
+}
+.modal-footer {
+  margin-top: 0px;
 }
 .viewFrameWork-sidebar-mini .viewFrameWork-sidebar .sidebar-nav .nav-title,
 .viewFrameWork-sidebar-mini .viewFrameWork-sidebar .sidebar-title-text,

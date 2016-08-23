@@ -1,13 +1,15 @@
 <template>
-  <div class="hello">
-    <h1 v-tooltip="{ title: msg, placement:'top',container:'body'}" :tooltip-toggle="show">
-        {{ msg }}
-    </h1>
-    <button type="button" name="button" @click="toggle">开关</button>
-  </div>
+  <modal :show="show" v-on:close-modal="show=false">
+      <template slot="title">标题ss</template>
+      <template>
+        abcaaffssff
+      </template>
+  </modal>
+  <button type="button" name="button" @click="show=true">Toggle</button>
 </template>
 
 <script>
+import Modal from 'components/modal/Modal'
 export default {
     data () {
         return {
@@ -18,12 +20,12 @@ export default {
     methods: {
         toggle () {
             this.msg = '你好';
-            this.show = !this.show;
         }
     },
     events: {
-        'tooltip-show' () {
-        }
+    },
+    components: {
+        Modal
     }
 }
 </script>
