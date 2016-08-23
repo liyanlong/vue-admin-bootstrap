@@ -6,10 +6,13 @@
     <div class="viewFrameWork-body" :class="sidebarClass">
         <sidebar v-on:toggle-sidebar="handlerClass"></sidebar>
         <div class="viewFrameWork-product">
-            <hello></hello>
+            <div class="viewFramework-product-body">
+                <hello></hello>
+            </div>
         </div>
     </div>
 </div>
+
 </template>
 <script>
 import Topbar from './components/Topbar'

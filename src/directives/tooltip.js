@@ -3,14 +3,30 @@ export default function (Vue) {
     Vue.directive('tooltip', {
         deep: true,
         params: [
-            'tooltip-toggle'
+            'tooltip-toggle',
+            'tooltip-show',
+            'tooltip-hide'
         ],
         paramWatchers: {
             tooltipToggle (val, oldValue) {
-                // 更新加入队列
+                var method = val ? 'show' : 'hide';
                 this.$el.timeout = setTimeout(() => {
-                    this.$el.tooltip('toggle');
+                    this.$el.tooltip(method);
                 }, 0);
+            },
+            tooltipShow (val, oldValue) {
+                if (val) {
+                    this.$el.timeout = setTimeout(() => {
+                        this.$el.tooltip('show');
+                    }, 0);
+                }
+            },
+            tooltipHide (val, oldValue) {
+                if (val) {
+                    this.$el.timeout = setTimeout(() => {
+                        this.$el.tooltip('hide');
+                    }, 0);
+                }
             }
         },
         $el: null,
@@ -38,10 +54,9 @@ export default function (Vue) {
             var tooltip = this.$el.data('bs.tooltip');
             if (tooltip) {
                 // 初始化 tip
-                tooltip.init('tooltip', this.el, newValue);
-            } else {
-                this.$el.tooltip(newValue);
+                return tooltip.init('tooltip', this.el, newValue);
             }
+            this.$el.tooltip(newValue);
         },
         unbind () {
             // 删除节点

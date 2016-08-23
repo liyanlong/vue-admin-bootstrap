@@ -61,7 +61,8 @@ export default function (Vue) {
         },
         unbind () {
             var index = -1;
-            this.$el.off('click.v.dropdown');
+            this.$el.off('.v.dropdown');
+            // 从下拉列表队列中移除
             dropdownList.forEach((dropdown, offset) => {
                 if (dropdown === this) {
                     index = offset;
