@@ -1,5 +1,5 @@
 <template>
-  <modal :show="show" v-on:close-modal="show=false">
+  <modal :show.sync="show">
       <template slot="title">标题ss</template>
       <template>
         abcaaffssff
