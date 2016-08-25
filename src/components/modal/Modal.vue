@@ -26,6 +26,7 @@
 
 <script>
 import $ from 'jquery'
+
 export default {
     props: {
         show: {
@@ -69,7 +70,6 @@ export default {
     },
     attached () {
         console.log('attached');
-        this.$appendTo('body');
     },
     detached () {
         console.log('detach');
@@ -81,8 +81,6 @@ export default {
         backdrop (callback) {
             var doAnimate = this.doAnimate;
             var $body = $(document.body);
-            console.log(this.show, this.backdrop);
-
             // 打开背景层
             if (this.show && this.backdrop) {
                 // 去掉 body 的 scroll-ball
@@ -95,11 +93,12 @@ export default {
                 // 设置点击元素 是否关闭弹层
                 if (this.backdropStatic) {
                     $(this.$el).on('click.v.close.modal', (e) => {
-                        // 不为 modal元素
-                        if (e.target !== e.currentTarget) {
-                            return;
+                        // modal元素
+                        if (e.target === e.currentTarget) {
+                            // 关闭
+                            // 不能执行 close 方法
+                            this.hide();
                         }
-                        this.close();
                     });
                 }
                 // 是否需要有动画css,如果有则强制重绘
@@ -122,17 +121,15 @@ export default {
 
             // 关闭背景层
             if (!this.show && this.backdrop) {
-                console.log(this.$backdrop);
                 this.$backdrop.removeClass('in');
                 let callbackRemove = () => {
-                    this.$backdrop && this.$backdrop.remove()
+                    this.$backdrop && this.$backdrop.remove();
                     this.$backdrop = null;
                     if (!callback || typeof callback !== 'function') {
                         callback();
                     }
                 };
                 doAnimate ? this.$backdrop.one('bsTransitionEnd', callbackRemove) : callbackRemove();
-                $body.removeClass('modal-open');
                 return;
             }
 
@@ -144,13 +141,11 @@ export default {
         hide () {
             this.show = false;
         },
-        close (e) {
+        _close () {
             var el = this.$el;
             var $el = $(el);
             var doAnimate = this.doAnimate;
-            if (e) {
-                e.preventDefault();
-            }
+            var e;
             this.$emit('hide-modal', e = $.Event('hide.v.modal'));
             // modal没有打开 或者阻止了 事件
             if (e.isDefaultPrevented()) {
@@ -163,15 +158,19 @@ export default {
 
             // 是否有动画
             if (doAnimate) {
-                $el.one('bsTransitionEnd', () => { this.closeModal(); });
+                $el.one('bsTransitionEnd', () => { this._closeModal(); });
             } else {
-                this.closeModal();
+                this._closeModal();
             }
         },
-        closeModal () {
+        _closeModal () {
             var $body = $(document.body);
             // 隐藏 modal
             $(this.$el).hide();
+
+            // 移除modal
+            this.$remove();
+
             // 动画结束后执行 hidden.v.modal 事件
             this.backdrop(() => {
                 $body.removeClass('modal-open');
@@ -184,10 +183,11 @@ export default {
             var $el = $(el);
             var doAnimate = this.doAnimate;
             this.backdrop(() => {
+                this.$appendTo('body');
                 // 打开样式
                 $el
-                  .show()
-                  .scrollTop(0);
+                .show()
+                .scrollTop(0);
                 if (doAnimate) {
                     // force reflow
                     el.offsetWidth;
@@ -203,7 +203,7 @@ export default {
                 // 需要打开
                 this.open();
             } else {
-                this.close();
+                this._close();
             }
         }
     }
