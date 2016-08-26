@@ -1,6 +1,6 @@
 <template lang="html">
 <div class="modal" :class="{'fade': animate}" >
-    <div class="modal-dialog" >
+    <div class="modal-dialog" :class="{'modal-lg': large, 'modal-sm': small}" >
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close"  aria-label="Close"  @click="hide"><span aria-hidden="true">&times;</span></button>
@@ -26,7 +26,9 @@
 
 <script>
 import $ from 'jquery'
-
+import transitionEvent from 'src/utils/transitionEvent.js'
+import coerceBoolean from 'src/utils/coerceBoolean'
+const transitionEnd = transitionEvent.end
 export default {
     props: {
         show: {
@@ -36,20 +38,32 @@ export default {
         },
         backdrop: {
             type: Boolean,
+            coerce: coerceBoolean,
             default: true
         },
+        // 点击遮罩层是否关闭
         backdropStatic: {
             type: Boolean,
+            coerce: coerceBoolean,
             default: true
         },
         animate: {
             type: String,
             default: 'fade'
+        },
+        large: {
+            type: Boolean,
+            coerce: coerceBoolean,
+            default: false
+        },
+        small: {
+            type: Boolean,
+            coerce: coerceBoolean,
+            default: false
         }
     },
     data () {
-        return {
-        };
+        return {};
     },
     computed: {
         modalSize () {
@@ -59,14 +73,8 @@ export default {
             }[this.type] || '';
         },
         doAnimate () {
-            return $.support.transition && this.animate !== '';
+            return transitionEnd && this.animate !== '';
         }
-    },
-    compiled () {
-        console.log('compile');
-    },
-    ready () {
-
     },
     attached () {
         console.log('attached');
@@ -75,12 +83,16 @@ export default {
         console.log('detach');
     },
     destroyed () {
-
+        this._backdropDestroy();
     },
     methods: {
-        backdrop (callback) {
+        hide () {
+            this.show = false;
+        },
+        _backdrop (callback) {
             var doAnimate = this.doAnimate;
             var $body = $(document.body);
+            console.log(callback.toString(), this.show, this.backdrop);
             // 打开背景层
             if (this.show && this.backdrop) {
                 // 去掉 body 的 scroll-ball
@@ -114,7 +126,7 @@ export default {
                     return;
                 }
                 // 打开后执行回调函数
-                doAnimate ? this.$backdrop.one('bsTransitionEnd', callback)
+                doAnimate ? this.$backdrop.one(transitionEnd, callback)
                         : callback();
                 return;
             }
@@ -123,13 +135,12 @@ export default {
             if (!this.show && this.backdrop) {
                 this.$backdrop.removeClass('in');
                 let callbackRemove = () => {
-                    this.$backdrop && this.$backdrop.remove();
-                    this.$backdrop = null;
-                    if (!callback || typeof callback !== 'function') {
+                    this._backdropDestroy();
+                    if (callback && typeof callback === 'function') {
                         callback();
                     }
                 };
-                doAnimate ? this.$backdrop.one('bsTransitionEnd', callbackRemove) : callbackRemove();
+                doAnimate ? this.$backdrop.one(transitionEnd, callbackRemove) : callbackRemove();
                 return;
             }
 
@@ -138,8 +149,9 @@ export default {
                 callback();
             }
         },
-        hide () {
-            this.show = false;
+        _backdropDestroy () {
+            this.$backdrop && this.$backdrop.remove();
+            this.$backdrop = null;
         },
         _close () {
             var el = this.$el;
@@ -158,7 +170,7 @@ export default {
 
             // 是否有动画
             if (doAnimate) {
-                $el.one('bsTransitionEnd', () => { this._closeModal(); });
+                $el.one(transitionEnd, () => { this._closeModal(); });
             } else {
                 this._closeModal();
             }
@@ -172,17 +184,17 @@ export default {
             this.$remove();
 
             // 动画结束后执行 hidden.v.modal 事件
-            this.backdrop(() => {
+            this._backdrop(() => {
                 $body.removeClass('modal-open');
                 this.$emit('hidden-modal', $.Event('hidden.v.modal'));
             });
         },
         // elment 打开
-        open () {
+        _open () {
             var el = this.$el;
             var $el = $(el);
             var doAnimate = this.doAnimate;
-            this.backdrop(() => {
+            this._backdrop(() => {
                 this.$appendTo('body');
                 // 打开样式
                 $el
@@ -200,8 +212,7 @@ export default {
     watch: {
         show (val, oldValue) {
             if (val) {
-                // 需要打开
-                this.open();
+                this._open();
             } else {
                 this._close();
             }
