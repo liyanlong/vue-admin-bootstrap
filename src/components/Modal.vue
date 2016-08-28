@@ -14,7 +14,7 @@
                 </slot>
             </div>
             <div class="modal-footer">
-                <slot name="foot">
+                <slot name="footer">
                     <button type="button" class="btn btn-default" @click="hide">Close</button>
                     <button type="button" class="btn btn-primary">Save changes</button>
                 </slot>

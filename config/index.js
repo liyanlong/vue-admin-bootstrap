@@ -29,5 +29,13 @@ module.exports = {
     // In our experience, they generally work as expected,
     // just be aware of this issue when enabling this option.
     cssSourceMap: false,
+    },
+  release: {
+      assetsRoot: path.resolve(__dirname, '../dist'),
+      assetsSubDirectory: 'js',
+  },
+  docs: {      
+      assetsRoot: path.resolve(__dirname, '../dist'),
+      assetsSubDirectory: 'docs',
   }
 }

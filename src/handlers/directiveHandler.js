@@ -5,7 +5,11 @@ export default {
     init () {
         var directives = [Tooltip, Dropdown];
         directives.forEach(directive => {
-            directive(Vue);
+            if (directive.install) {
+                Vue.use(directive);
+            } else {
+                directive(Vue);
+            }
         });
     }
 }

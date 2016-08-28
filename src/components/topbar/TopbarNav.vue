@@ -5,7 +5,7 @@
               <p class="topbar-nav-item-title">{{navItem.title}}</p>
               <ul class="topbar-nav-item-list">
                   <li v-for="item in navItem.navList">
-                      <a :href="item.href" >
+                      <a :href="item.href">
                           <i class="fa" :class="item.icon"></i>
                           <span>{{item.content}}</span>
                       </a>
@@ -18,16 +18,14 @@
 </template>
 
 <script>
-import data from 'src/data/topbar/topbarnav.json'
 export default {
-    data: function () {
-        return data;
+    props: {
+        navList: {
+            type: Array,
+            default: []
+        }
     },
-    computed: {},
-    ready: function () {},
-    attached: function () {},
     methods: {
-    },
-    components: {}
+    }
 }
 </script>

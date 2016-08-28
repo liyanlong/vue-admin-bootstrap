@@ -1,11 +1,11 @@
 <template lang="html">
-    <div v-if="$parent._navbar||$parent._topbar" :class="classes" :disabled="disabled" v-dropdown:show="show">
-        <a v-if="text" class="dropdown-toggle"
+    <div v-if="$parent._navbar||$parent._topbar" :class="classes"  v-dropdown.sync="show">
+        <a v-if="text" v-el:dropdown-toggle href="#" class="dropdown-toggle"
             :class="{
                 'topbar-btn': $parent._topbar,
                 'topbar-nav-btn': type === 'topbar-nav'
             }"
-            @keyup.esc="show = false"
+            @keydown.esc="hide"
             :disabled="disabled">
         {{ text }}
         <span class="caret"></span>
@@ -18,9 +18,9 @@
         <slot></slot>
       </ul>
     </div>
-    <div v-else class="btn-group" :class="classes" :disabled="disabled" v-dropdown:show="show">
-      <button v-if="text" type="button" class="btn btn-{{type||'default'}} dropdown-toggle"
-            @keyup.esc="show = false"
+    <div v-else class="btn-group" :class="classes" :disabled="disabled" v-dropdown.sync="show">
+      <button v-if="text"  v-el:dropdown-toggle type="button" class="btn btn-{{type||'default'}} dropdown-toggle"
+            @keydown.esc="hide"
             :disabled="disabled">
         {{ text }}
         <span class="caret"></span>
@@ -70,7 +70,6 @@ export default {
         }
     },
     data: function () {
-        console.log(this.type);
         return {
 
         };
@@ -79,6 +78,7 @@ export default {
         classes () {
             return [{
                 'topbar-nav': this.type === 'topbar-nav',
+                'disabled': this.disabled,
                 'dropup': ~this.placement.indexOf('top')
             },
             this.class,
@@ -92,13 +92,13 @@ export default {
 
     },
     created () {
-
     },
     attached: function () {},
-    methods: {},
+    methods: {
+        hide () {
+            this.show = false;
+        }
+    },
     components: {}
 }
 </script>
-
-<style lang="css">
-</style>

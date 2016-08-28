@@ -7,6 +7,7 @@
   "scripts": {
     "dev": "node build/dev-server.js",
     "build": "node build/build.js",
+    "release": "node build/release.js",
     "test": "",
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs"
   },
@@ -50,6 +51,7 @@
     "json-loader": "^0.5.4",
     "less-loader": "^2.2.3",
     "ora": "^0.2.0",
+    "prismjs": "^1.5.1",
     "shelljs": "^0.6.0",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
