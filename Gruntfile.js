@@ -67,5 +67,5 @@ module.exports = function (grunt) {
     grunt.registerTask('clean', ['clean:dist']);
 
     // clean  dist
-    grunt.registerTask('default', ['clean', 'dist-css']);
+    grunt.registerTask('default', ['clean:dist', 'dist-css']);
 };
