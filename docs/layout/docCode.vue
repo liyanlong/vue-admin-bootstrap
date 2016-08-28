@@ -53,7 +53,7 @@ export default {
                 return nr + s.substr(min)
             })
         }
-        // 重置 页面脚本
+        // 注入页面脚本
         this.$els.container.innerHTML = content.replace(/^\s+|\s+$/g, '')
     }
 }

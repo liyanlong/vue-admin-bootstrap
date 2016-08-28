@@ -8,7 +8,14 @@
             自定义标题
         </div>
         <p>
-            这里是内容
+            <dropdown class="" text="帮助" type="default" disabled>
+                <li class="topbar-info-btn">
+                    <a href="#">列表1</a>
+                </li>
+                <li class="topbar-info-btn">
+                    <a href="#">列表1</a>
+                </li>
+            </dropdown>
         </p>
         <div slot="footer">
             这里是尾部
@@ -110,6 +117,7 @@
 
 <script>
 import modal from 'components/Modal'
+import dropdown from 'components/Dropdown'
 import docSection from '../layout/docSection'
 import docCode from '../layout/docCode'
 import docOptions from '../layout/docOptions'
@@ -131,7 +139,8 @@ export default {
         modal,
         docSection,
         docCode,
-        docOptions
+        docOptions,
+        dropdown
     }
 }
 </script>
