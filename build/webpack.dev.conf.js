@@ -26,8 +26,18 @@ module.exports = merge(baseWebpackConfig, {
     new webpack.NoErrorsPlugin(),
     // https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
+         title: 'Hello World app',
       filename: 'index.html',
       template: 'index.html',
+      //chunks这个参数告诉插件要引用entry里面的哪几个入口
+      chunks: ['app'],
+      inject: true
+    }),
+    new HtmlWebpackPlugin({
+         title: 'Hello World docs',
+      filename: 'docs.html',
+       chunks: ['docs'],
+      template: 'docs/index.html',
       inject: true
     })
   ]
