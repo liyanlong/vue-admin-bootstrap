@@ -1,11 +1,12 @@
 <template lang="html">
-    <div v-if="$parent._navbar||$parent._topbar" :class="classes"  v-dropdown.sync="show">
+    <div v-if="$parent._navbar||$parent._topbar" :class="classes">
         <a v-if="text" v-el:dropdown-toggle href="#" class="dropdown-toggle"
             :class="{
                 'topbar-btn': $parent._topbar,
                 'topbar-nav-btn': type === 'topbar-nav'
             }"
             @keydown.esc="hide"
+            @click="toggle"
             :disabled="disabled">
         {{ text }}
         <span class="caret"></span>
@@ -18,9 +19,10 @@
         <slot></slot>
       </ul>
     </div>
-    <div v-else class="btn-group" :class="classes" :disabled="disabled" v-dropdown.sync="show">
+    <div v-else class="btn-group" :class="classes" :disabled="disabled">
       <button v-if="text"  v-el:dropdown-toggle type="button" class="btn btn-{{type||'default'}} dropdown-toggle"
             @keydown.esc="hide"
+            @click="toggle"
             :disabled="disabled">
         {{ text }}
         <span class="caret"></span>
@@ -37,7 +39,31 @@
 
 <script>
 // topbar-nav topbar-info
+import $ from 'jquery'
 import coerceBoolean from 'src/utils/coerceBoolean.js'
+const dropdownList = [];
+// 关闭其它下拉菜单
+function clearMenus (e) {
+    console.log('clearMenus');
+    if (e && e.which === 3) {
+        return;
+    }
+    // 所有下拉列表
+    $(dropdownList).each(function (index, vm) {
+        var el = vm.$el;
+        if (!vm.show) {
+            return;
+        }
+        if (e && e.type === 'click' && /input|textarea/i.test(e.target.tagName) && $.contains(el, e.target)) {
+            return;
+        }
+        vm.show = false;
+    });
+};
+
+// 文档注册关闭菜单事件
+$(document).on('click.v.dropdown.data-api', clearMenus);
+
 export default {
     props: {
         show: {
@@ -79,7 +105,8 @@ export default {
             return [{
                 'topbar-nav': this.type === 'topbar-nav',
                 'disabled': this.disabled,
-                'dropup': ~this.placement.indexOf('top')
+                'dropup': ~this.placement.indexOf('top'),
+                'open': this.show
             },
             this.class,
             'dropdown']
@@ -89,16 +116,45 @@ export default {
         }
     },
     ready () {
+        dropdownList.push(this);
+    },
+    attached () {},
+    beforeDestroy () {
+        var index = -1;
 
-    },
-    created () {
-    },
-    attached: function () {},
-    methods: {
-        hide () {
-            this.show = false;
+        // 从下拉列表队列中移除
+        $.each(dropdownList, (dropdownVM, offset) => {
+            if (dropdownVM === this) {
+                index = offset;
+            }
+        });
+        if (index >= 0) {
+            dropdownList.splice(index, 1);
         }
     },
-    components: {}
+    methods: {
+        toggle (e) {
+            if (this.disabled) {
+                // 允许事件冒泡 这样可以触发 document 的 click.v.dropdown.data-api 等事件,
+                // 关闭其它下拉框
+                return;
+            }
+            clearMenus();
+            this.show = !this.show;
+            e.preventDefault();
+            e.stopPropagation();
+        },
+        hide (e) {
+            this.show = false;
+            e.preventDefault();
+            e.stopPropagation();
+            if (this.disabled) {
+                return;
+            }
+        }
+    },
+    components: {},
+    watch: {
+    }
 }
 </script>
