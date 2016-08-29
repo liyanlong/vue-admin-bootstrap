@@ -134,13 +134,12 @@ export default {
     },
     methods: {
         toggle (e) {
-            var isActive = this.show;
+            let isActive = this.show;
             if (this.disabled) {
                 // 允许事件冒泡 这样可以触发 document 的 click.v.dropdown.data-api 等事件,
                 // 关闭其它下拉框
                 return;
             }
-            let isActive = this.show;
             clearMenus();
             if (!isActive) {
                 this.show = true;
