@@ -1,7 +1,5 @@
 <template>
-  <span v-el:trigger>
-    <slot></slot>
-  </span>
+  <slot></slot>
   <div v-el:popover :class="['popover', effect, placement, {
         'in': inShow
       }]" :style="{

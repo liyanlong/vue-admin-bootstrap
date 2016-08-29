@@ -44,7 +44,7 @@
                     </ul>
                 </div> -->
                 <div class="topbar-left topbar-info-item dropdown" v-dropdown>
-                    <a href="#" class="topbar-btn">
+                    <a href="#" class="topbar-btn dropdown-toggle">
                         295697141@qq.com
                         <span class="caret"></span>
                     </a>
