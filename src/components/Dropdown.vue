@@ -140,6 +140,7 @@ export default {
                 // 关闭其它下拉框
                 return;
             }
+            let isActive = this.show;
             clearMenus();
             if (!isActive) {
                 this.show = true;

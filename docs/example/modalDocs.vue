@@ -4,11 +4,11 @@
     <modal :show.sync="smallShow" small></modal>
     <modal :show.sync="largeShow" large></modal>
     <modal :show.sync="slotShow">
-        <div slot="title">
+        <div slot="modal-title">
             自定义标题
         </div>
-        <p>
-            <dropdown class="" text="帮助" type="default" disabled>
+        <div slot="modal-body">
+            <dropdown class="" text="帮助" type="default" >
                 <li class="topbar-info-btn">
                     <a href="#">列表1</a>
                 </li>
@@ -16,8 +16,8 @@
                     <a href="#">列表1</a>
                 </li>
             </dropdown>
-        </p>
-        <div slot="footer">
+        </div>
+        <div slot="modal-footer">
             这里是尾部
         </div>
     </modal>
