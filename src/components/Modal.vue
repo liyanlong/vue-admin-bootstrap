@@ -5,16 +5,19 @@
             <div class="modal-header">
                 <button type="button" class="close"  aria-label="Close"  @click="hide"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">
-                    <slot name="title">title</slot>
+                    <slot name="modal-title">
+                        标题
+                    </slot>
                 </h4>
             </div>
             <div class="modal-body">
-                <slot>
+                <slot name="modal-body">
                     <p>One fine body&hellip;</p>
                 </slot>
             </div>
+
             <div class="modal-footer">
-                <slot name="footer">
+                <slot name="modal-footer">
                     <button type="button" class="btn btn-default" @click="hide">Close</button>
                     <button type="button" class="btn btn-primary">Save changes</button>
                 </slot>
@@ -60,6 +63,10 @@ export default {
             type: Boolean,
             coerce: coerceBoolean,
             default: false
+        },
+        title: {
+            type: String,
+            default: ''
         }
     },
     data () {

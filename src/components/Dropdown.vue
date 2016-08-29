@@ -112,7 +112,7 @@ export default {
             'dropdown']
         },
         slots () {
-            return this._slotContents
+            return this._slotContents;
         }
     },
     ready () {
@@ -139,8 +139,11 @@ export default {
                 // 关闭其它下拉框
                 return;
             }
+            let isActive = this.show;
             clearMenus();
-            this.show = !this.show;
+            if (!isActive) {
+                this.show = true;
+            }
             e.preventDefault();
             e.stopPropagation();
         },
