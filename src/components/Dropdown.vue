@@ -32,7 +32,7 @@
       <ul v-else class="dropdown-menu" :class="{
             'pull-right': ~placement.indexOf('right')
           }">
-          <slot></slot>
+          <slot>这里唯恐</slot>
       </ul>
   </div>
 </template>
@@ -44,7 +44,6 @@ import coerceBoolean from 'src/utils/coerceBoolean.js'
 const dropdownList = [];
 // 关闭其它下拉菜单
 function clearMenus (e) {
-    console.log('clearMenus');
     if (e && e.which === 3) {
         return;
     }
@@ -112,10 +111,11 @@ export default {
             'dropdown']
         },
         slots () {
-            return this._slotContents
+            return this._slotContents || {};
         }
     },
     ready () {
+        console.log(this, 'dropdown');
         dropdownList.push(this);
     },
     attached () {},
@@ -134,13 +134,16 @@ export default {
     },
     methods: {
         toggle (e) {
+            var isActive = this.show;
             if (this.disabled) {
                 // 允许事件冒泡 这样可以触发 document 的 click.v.dropdown.data-api 等事件,
                 // 关闭其它下拉框
                 return;
             }
             clearMenus();
-            this.show = !this.show;
+            if (!isActive) {
+                this.show = true;
+            }
             e.preventDefault();
             e.stopPropagation();
         },

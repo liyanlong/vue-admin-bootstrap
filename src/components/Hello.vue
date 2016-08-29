@@ -7,11 +7,11 @@
   </modal>
   <div class="container">
       <h1>Hello World</h1>
-      <dropdown class="topbar-right topbar-info-item" text="帮助" placement="top">
-          <li class="topbar-info-btn">
+      <dropdown class="" text="帮助" placement="top">
+          <li>
               <a href="#ASDS">列表1</a>
           </li>
-          <li class="topbar-info-btn">
+          <li>
               <a href="#AA">列表1</a>
           </li>
       </dropdown>
