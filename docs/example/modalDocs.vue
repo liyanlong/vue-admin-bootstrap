@@ -9,7 +9,7 @@
         </div>
         <div slot="modal-body">
             <dropdown class="" text="帮助" type="default" >
-                <li class="topbar-info-btn">
+                <li class="topb·ar-info-btn">
                     <a href="#">列表1</a>
                 </li>
                 <li class="topbar-info-btn">
@@ -21,41 +21,57 @@
             这里是尾部
         </div>
     </modal>
+    <modal :show.sync="animateShow" animate=""></modal>
+    <modal :show.sync="backdropShow" backdrop="false"></modal>
     <modal :show.sync="backdropStaticShow" backdrop-static="false"></modal>
-    <div class="btn-group" role="group" aria-label="...">
+
+    <div class="btn-group" role="group">
         <button type="button" class="btn btn-default" @click="normalShow = true">普通弹窗</button>
         <button type="button" class="btn btn-default" @click="smallShow = true">小弹窗</button>
         <button type="button" class="btn btn-default" @click="largeShow = true">大窗口</button>
         <button type="button" class="btn btn-default" @click="slotShow = true">自定义窗口</button>
+        <button type="button" class="btn btn-default" @click="backdropShow = true">无遮罩层</button>
+        <button type="button" class="btn btn-default" @click="animateShow = true">无动画层</button>
         <button type="button" class="btn btn-default" @click="backdropStaticShow = true">固定backdrop</button>
-        <button type="button" class="btn btn-default" @click="slotShow = true" disabled>禁止弹窗</button>
+        <button type="button" class="btn btn-default" @click="normalShow = true" disabled>禁止弹窗</button>
     </div>
     <doc-code language="markup" title="Component Style">
-      <modal :show.sync="normalShow"></modal>
-      <modal :show.sync="smallShow" small></modal>
-      <modal :show.sync="largeShow" large></modal>
-      <modal :show.sync="slotShow">
-          <div slot="title">
-              自定义标题
-          </div>
-          <p>
-              这里是内容
-          </p>
-          <div slot="footer">
-              这里是尾部
-          </div>
-      </modal>
-      <modal :show.sync="backdropStaticShow" backdrop-static="false"></modal>
+        <modal :show.sync="normalShow"></modal>
+        <modal :show.sync="smallShow" small></modal>
+        <modal :show.sync="largeShow" large></modal>
+        <modal :show.sync="slotShow">
+            <div slot="modal-title">
+                自定义标题
+            </div>
+            <div slot="modal-body">
+                <dropdown class="" text="帮助" type="default" >
+                    <li class="topb·ar-info-btn">
+                        <a href="#">列表1</a>
+                    </li>
+                    <li class="topbar-info-btn">
+                        <a href="#">列表1</a>
+                    </li>
+                </dropdown>
+            </div>
+            <div slot="modal-footer">
+                这里是尾部
+            </div>
+        </modal>
+        <modal :show.sync="animateShow" animate=""></modal>
+        <modal :show.sync="backdropShow" backdrop="false"></modal>
+        <modal :show.sync="backdropStaticShow" backdrop-static="false"></modal>
     </doc-code>
     <doc-code language="markup" title="Button Style">
-          <div class="btn-group" role="group" aria-label="...">
-              <button type="button" class="btn btn-default" @click="normalShow = true">普通弹窗</button>
-              <button type="button" class="btn btn-default" @click="smallShow = true">小弹窗</button>
-              <button type="button" class="btn btn-default" @click="largeShow = true">大窗口</button>
-              <button type="button" class="btn btn-default" @click="slotShow = true">自定义窗口</button>
-              <button type="button" class="btn btn-default" @click="backdropStaticShow = true">固定backdrop</button>
-              <button type="button" class="btn btn-default" @click="slotShow = true" disabled>禁止弹窗</button>
-          </div>
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-default" @click="normalShow = true">普通弹窗</button>
+            <button type="button" class="btn btn-default" @click="smallShow = true">小弹窗</button>
+            <button type="button" class="btn btn-default" @click="largeShow = true">大窗口</button>
+            <button type="button" class="btn btn-default" @click="slotShow = true">自定义窗口</button>
+            <button type="button" class="btn btn-default" @click="backdropShow = true">无遮罩层</button>
+            <button type="button" class="btn btn-default" @click="animateShow = true">无动画层</button>
+            <button type="button" class="btn btn-default" @click="backdropStaticShow = true">固定backdrop</button>
+            <button type="button" class="btn btn-default" @click="normalShow = true" disabled>禁止弹窗</button>
+        </div>
     </doc-code>
     <doc-code language="javascript" title="Javascript Code">
         var app = new Vue({
@@ -65,7 +81,9 @@
                 smallShow: false,
                 largeShow: false,
                 slotShow: false,
-                backdropStaticShow: false
+                backdropShow: false,
+                backdropStaticShow: false,
+                animateShow: false
             },
             components: {
                 modal: VueAdminBootStrap.components.modal
@@ -75,43 +93,43 @@
     <doc-options>
       <div>
         <p>show</p>
-        <p><code>Boolean</code></p>
+        <p><code>sync</code><code>Boolean</code></p>
         <p></p>
-        <p>Whether show the component.</p>
+        <p>是否打开模态框</p>
       </div>
       <div>
-        <p>class</p>
+        <p>backdrop</p>
+        <p><code>Boolean</code></p>
+        <p><code>true</code></p>
+        <p>是否有遮罩层</p>
+      </div>
+      <div>
+        <p>backdrop-static</p>
+        <p><code>Boolean</code></p>
+        <p><code>true</code></p>
+        <p>点击遮罩层是否可以关闭</p>
+      </div>
+      <div>
+        <p>animate</p>
         <p><code>String</code></p>
-        <p><code>null</code></p>
-        <p>classes to change the style.</p>
+        <p><code>fade</code>, <code>''</code> 无动画</p>
+        <p>设置弹窗动画</p>
       </div>
       <div>
-        <p>disabled</p>
+        <p>large</p>
         <p><code>Boolean</code></p>
         <p><code>false</code></p>
-        <p></p>
+        <p>是否为大的模态框</p>
       </div>
       <div>
-        <p>text</p>
-        <p><code>String</code></p>
-        <p></p>
-        <p>Dropdown button text.</p>
-      </div>
-      <div>
-        <p>type</p>
-        <p><code>String</code>, one of <code>default</code>
-        <code>primary</code>
-        <code>danger</code>
-        <code>info</code>
-        <code>warning</code>
-        <code>success</code></p>
-        <p><code>default</code></p>
-        <p></p>
+        <p>small</p>
+        <p><code>Boolean</code></p>
+        <p><code>false</code></p>
+        <p>是否为小的模态框</p>
       </div>
     </doc-options>
     <h2>Usage</h2>
-    <p>Just like the examples. Can use it as the <a target="_blank" href="http://getbootstrap.com/javascript/#modal">original Bootstrap way</a>.</p>
-
+    <p>使用的时候如果要自定义modal内容,可以设置slot.<code>modal-title</code>, <code>modal-body</code>, <code>modal-footer</code></p>
 </doc-section>
 </template>
 
@@ -128,7 +146,9 @@ export default {
             smallShow: false,
             largeShow: false,
             slotShow: false,
-            backdropStaticShow: false
+            backdropShow: false,
+            backdropStaticShow: false,
+            animateShow: false
         }
     },
     computed: {},

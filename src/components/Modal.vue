@@ -1,5 +1,5 @@
 <template lang="html">
-<div class="modal" :class="{'fade': animate}" >
+<div class="modal" :class="animate"  v-el:modal>
     <div class="modal-dialog" :class="{'modal-lg': large, 'modal-sm': small}" >
         <div class="modal-content">
             <div class="modal-header">
@@ -25,6 +25,7 @@
         </div>
     </div>
 </div>
+<div class="modal-backdrop" :class="animate"  v-el:backdrop></div>
 </template>
 
 <script>
@@ -63,14 +64,11 @@ export default {
             type: Boolean,
             coerce: coerceBoolean,
             default: false
-        },
-        title: {
-            type: String,
-            default: ''
         }
     },
     data () {
-        return {};
+        return {
+        };
     },
     computed: {
         modalSize () {
@@ -83,17 +81,23 @@ export default {
             return transitionEnd && this.animate !== '';
         }
     },
-    attached () {
-        console.log('attached');
+    ready () {
+        // 设置点击元素 是否关闭弹层
+        if (this.backdropStatic) {
+            $(this.$els.modal).on('click', (e) => {
+                // modal元素
+                if (e.target === e.currentTarget) {
+                    // 关闭
+                    // 不能执行 close 方法
+                    this.hide();
+                }
+            });
+        }
+        $(this.$els.backdrop).remove();
+        $(this.$els.modal).remove();
     },
-    detached () {
-        console.log('detach');
-    },
-    created () {
-        this.$backdrop = null;
-    },
-    destroyed () {
-        this._backdropDestroy();
+    beforeDestroy () {
+        $(this.$els.modal).off();
     },
     methods: {
         hide () {
@@ -102,85 +106,68 @@ export default {
         _backdrop (callback) {
             var doAnimate = this.doAnimate;
             var $body = $(document.body);
-            console.log(callback.toString(), this.show, this.backdrop);
+            var backdropEl = this.$els.backdrop;
+            var $backdrop = $(backdropEl);
+
             // 打开背景层
             if (this.show && this.backdrop) {
                 // 去掉 body 的 scroll-ball
                 $body.addClass('modal-open');
 
-                // 新建 背景层
-                this.$backdrop = $(document.createElement('div'))
-                    .addClass('modal-backdrop ' + this.animate)
-                    .appendTo('body');
-                // 设置点击元素 是否关闭弹层
-                if (this.backdropStatic) {
-                    $(this.$el).on('click.v.close.modal', (e) => {
-                        // modal元素
-                        if (e.target === e.currentTarget) {
-                            // 关闭
-                            // 不能执行 close 方法
-                            this.hide();
-                        }
-                    });
-                }
+                // 背景层打开
+                $(backdropEl)
+                .appendTo('body')
+                .show();
+
                 // 是否需要有动画css,如果有则强制重绘
                 if (doAnimate) {
                     // force reflow
-                    this.$backdrop[0].offsetWidth;
+                    backdropEl.offsetWidth;
                 }
                 // 设置css动画
-                this.$backdrop.addClass('in');
+                $backdrop.addClass('in');
 
                 // 没有回调函数, 不执行回到函数
                 if (!callback || typeof callback !== 'function') {
                     return;
                 }
                 // 打开后执行回调函数
-                doAnimate ? this.$backdrop.one(transitionEnd, callback)
+                doAnimate ? $backdrop.one(transitionEnd, callback)
                         : callback();
                 return;
             }
 
             // 关闭背景层
             if (!this.show && this.backdrop) {
-                this.$backdrop.removeClass('in');
+                $backdrop.removeClass('in');
                 let callbackRemove = () => {
                     this._backdropDestroy();
                     if (callback && typeof callback === 'function') {
                         callback();
                     }
                 };
-                doAnimate ? this.$backdrop.one(transitionEnd, callbackRemove) : callbackRemove();
+                doAnimate ? $backdrop.one(transitionEnd, callbackRemove) : callbackRemove();
                 return;
             }
 
             // 直接执行回调函数
-            if (!callback || typeof callback !== 'function') {
+            if (callback || typeof callback !== 'function') {
                 callback();
             }
         },
         _backdropDestroy () {
-            this.$backdrop && this.$backdrop.remove();
-            this.$backdrop = null;
+            $(this.$els.backdrop).remove();
         },
         _close () {
-            var el = this.$el;
-            var $el = $(el);
+            var modal = this.$els.modal;
+            var $modal = $(modal);
             var doAnimate = this.doAnimate;
-            var e;
-            this.$emit('hide-modal', e = $.Event('hide.v.modal'));
-            // modal没有打开 或者阻止了 事件
-            if (e.isDefaultPrevented()) {
-                return;
-            }
-            // 取消事件
-            $el
-              .removeClass('in')
-              .off('click.v.close.modal');
+            $modal
+              .removeClass('in');
 
             // 是否有动画
             if (doAnimate) {
-                $el.one(transitionEnd, () => { this._closeModal(); });
+                $modal.one(transitionEnd, () => { this._closeModal(); });
             } else {
                 this._closeModal();
             }
@@ -188,33 +175,32 @@ export default {
         _closeModal () {
             var $body = $(document.body);
             // 隐藏 modal
-            $(this.$el).hide();
-
-            // 移除modal
-            this.$remove();
+            $(this.$els.modal)
+            .hide()
+            .remove();
 
             // 动画结束后执行 hidden.v.modal 事件
             this._backdrop(() => {
                 $body.removeClass('modal-open');
-                this.$emit('hidden-modal', $.Event('hidden.v.modal'));
             });
         },
         // elment 打开
         _open () {
-            var el = this.$el;
-            var $el = $(el);
+            var modal = this.$els.modal;
+            var $modal = $(modal);
             var doAnimate = this.doAnimate;
             this._backdrop(() => {
-                this.$appendTo('body');
+                // this.$appendTo('body');
                 // 打开样式
-                $el
+                $modal
+                .appendTo('body')
                 .show()
                 .scrollTop(0);
                 if (doAnimate) {
                     // force reflow
-                    el.offsetWidth;
+                    modal.offsetWidth;
                 }
-                $el.addClass('in');
+                $modal.addClass('in');
             });
         }
     },
