@@ -94,11 +94,16 @@ export default {
         }
     },
     ready () {
-        const trigger = this.$els.trigger
+        // 只传入文本绑定 父元素事件
+        const el = this.$el
+        this.$els.trigger = el.nodeType === 3 ? el.parentNode : el
+
         let events = this.trigger === 'contextmenu' ? 'contextmenu'
       : this.trigger === 'hover' ? ['mouseleave', 'mouseenter']
       : this.trigger === 'focus' ? ['blur', 'focus'] : ['click']
-        $(trigger).on(events.join(' '), () => this.toggle())
+        $(this.$els.trigger).on(events.join(' '), (e) => {
+            this.toggle();
+        })
     },
     beforeDestroy () {
         $(this.$els.trigger).off()
