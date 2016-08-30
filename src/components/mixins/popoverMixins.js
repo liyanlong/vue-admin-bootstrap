@@ -2,8 +2,8 @@ import $ from 'jquery'
 import coerceBoolean from 'src/utils/coerceBoolean.js'
 function caculatePosition (trigger, popover, placement) {
     let position = {}
-    // 过滤位置
-    placement = placement && ~'top,left,right,bottom'.split(',').indexOf(placement) ? placement : 'right';
+    // 要求设置为
+    placement = placement && ~['top', 'left', 'right', 'bottom'].indexOf(placement) ? placement : 'right'
     switch (placement) {
     case 'top' :
         position.left = trigger.offsetLeft - popover.offsetWidth / 2 + trigger.offsetWidth / 2
@@ -14,7 +14,8 @@ function caculatePosition (trigger, popover, placement) {
         position.top = trigger.offsetTop + trigger.offsetHeight / 2 - popover.offsetHeight / 2
         break
     case 'right':
-        position.left = trigger.offsetLeft + popover.offsetWidth
+        // 检查trigger 是否为 为 popover的 父元素
+        position.left = trigger.offsetLeft + (popover.parentNode === trigger ? trigger.offsetWidth : popover.offsetWidth)
         position.top = trigger.offsetTop + trigger.offsetHeight / 2 - popover.offsetHeight / 2
         break
     case 'bottom':
@@ -75,6 +76,8 @@ export default {
                 top: 0,
                 left: 0
             },
+
+            // 是否关闭
             show: false,
 
             //  animate class 'in'
@@ -87,6 +90,7 @@ export default {
     methods: {
         toggle (val) {
             var show = val instanceof Boolean ? val : !this.show;
+
             if (show) {
                 this.displayShow = true;
             }
@@ -102,7 +106,9 @@ export default {
       : this.trigger === 'hover' ? ['mouseleave', 'mouseenter']
       : this.trigger === 'focus' ? ['blur', 'focus'] : ['click']
         $(this.$els.trigger).on(events.join(' '), (e) => {
-            this.toggle();
+            if ($(e.target).closest(this.$els.trigger).length) {
+                this.toggle();
+            }
         })
     },
     beforeDestroy () {
@@ -111,8 +117,8 @@ export default {
     watch: {
         show (val) {
             if (val) {
-                this.position = caculatePosition(this.$els.trigger, this.$els.popover, this.placement);
                 this.inShow = true;
+                this.position = caculatePosition(this.$els.trigger, this.$els.popover, this.placement);
             } else {
                 $(this.$els.popover).one('transitionend', () => {
                     this.displayShow = false;

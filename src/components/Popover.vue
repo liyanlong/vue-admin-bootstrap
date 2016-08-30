@@ -8,7 +8,7 @@
             top: position.top + 'px'
         }">
     <div class="arrow"></div>
-    <h3 class="popover-title">
+    <h3 class="popover-title" v-if="title">
       <slot name="popover-title">{{title}}</slot>
     </h3>
     <div class="popover-content">
