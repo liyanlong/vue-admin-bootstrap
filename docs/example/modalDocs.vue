@@ -128,9 +128,11 @@
         <p>是否为小的模态框</p>
       </div>
     </doc-options>
-    <h2>Usage</h2>
-    <p>使用的时候如果要自定义modal内容,可以设置slot.<code>modal-title</code>, <code>modal-body</code>, <code>modal-footer</code></p>
-</doc-section>
+    <doc-callout type="info">
+        <h4>Usage</h4>
+        <p>使用的时候如果要自定义modal内容,可以设置slot.<code>modal-title</code>, <code>modal-body</code>, <code>modal-footer</code></p>
+    </doc-callout>
+    </doc-section>
 </template>
 
 <script>
@@ -139,6 +141,7 @@ import dropdown from 'components/Dropdown'
 import docSection from '../layout/docSection'
 import docCode from '../layout/docCode'
 import docOptions from '../layout/docOptions'
+import docCallout from '../layout/docCallout'
 export default {
     data: function () {
         return {
@@ -156,10 +159,11 @@ export default {
     attached: function () {},
     methods: {},
     components: {
-        modal,
         docSection,
         docCode,
         docOptions,
+        docCallout,
+        modal,
         dropdown
     }
 }
