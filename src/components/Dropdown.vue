@@ -1,9 +1,9 @@
 <template lang="html">
-    <div v-if="$parent._navbar||$parent._topbar" :class="classes">
+    <div v-if="$parent._navbar||$parent._topbar||$parent._topbarNav" :class="classes">
         <a v-if="text" v-el:dropdown-toggle href="#" class="dropdown-toggle"
             :class="{
-                'topbar-btn': $parent._topbar,
-                'topbar-nav-btn': type === 'topbar-nav'
+                'topbar-btn': $parent._topbar||$parent._topbarNav,
+                'topbar-nav-btn': $parent._topbarNav
             }"
             @keydown.esc="hide"
             @click="toggle"
@@ -14,13 +14,14 @@
       <slot v-else name="button"></slot>
       <slot v-if="slots['dropdown-menu']" name="dropdown-menu"></slot>
       <ul v-else class="dropdown-menu" :class="{
-            'topbar-clearfix': $parent._topbar
+            'topbar-clearfix': $parent._topbar||$parent._topbarNav
           }">
         <slot></slot>
       </ul>
     </div>
     <div v-else class="btn-group" :class="classes" :disabled="disabled">
-      <button v-if="text"  v-el:dropdown-toggle type="button" class="btn btn-{{type||'default'}} dropdown-toggle"
+      <button v-if="text"  v-el:dropdown-toggle type="button"
+            :class="['btn', btnType, 'dropdown-toggle']"
             @keydown.esc="hide"
             @click="toggle"
             :disabled="disabled">
@@ -102,7 +103,7 @@ export default {
     computed: {
         classes () {
             return [{
-                'topbar-nav': this.type === 'topbar-nav',
+                'topbar-nav': this.$parent._topbarNav,
                 'disabled': this.disabled,
                 'dropup': ~this.placement.indexOf('top'),
                 'open': this.show
@@ -112,10 +113,12 @@ export default {
         },
         slots () {
             return this._slotContents || {};
+        },
+        btnType () {
+            return 'btn-' + (this.type || 'default');
         }
     },
     ready () {
-        console.log(this, 'dropdown');
         dropdownList.push(this);
     },
     attached () {},
@@ -138,6 +141,7 @@ export default {
             if (this.disabled) {
                 // 允许事件冒泡 这样可以触发 document 的 click.v.dropdown.data-api 等事件,
                 // 关闭其它下拉框
+                e.preventDefault();
                 return;
             }
             clearMenus();

@@ -1,33 +1,47 @@
 import $ from 'jquery'
 import coerceBoolean from 'src/utils/coerceBoolean.js'
+import getPosition from 'src/utils/getPosition.js'
 function caculatePosition (trigger, popover, placement) {
-    let position = {}
+    // let position = {}
     // 要求设置为
     placement = placement && ~['top', 'left', 'right', 'bottom'].indexOf(placement) ? placement : 'right'
-    switch (placement) {
-    case 'top' :
-        position.left = trigger.offsetLeft - popover.offsetWidth / 2 + trigger.offsetWidth / 2
-        position.top = trigger.offsetTop - popover.offsetHeight
-        break
-    case 'left':
-        position.left = trigger.offsetLeft - popover.offsetWidth
-        position.top = trigger.offsetTop + trigger.offsetHeight / 2 - popover.offsetHeight / 2
-        break
-    case 'right':
-        // 检查trigger 是否为 为 popover的 父元素
-        position.left = trigger.offsetLeft + (popover.parentNode === trigger ? trigger.offsetWidth : popover.offsetWidth)
-        position.top = trigger.offsetTop + trigger.offsetHeight / 2 - popover.offsetHeight / 2
-        break
-    case 'bottom':
-        position.left = trigger.offsetLeft - popover.offsetWidth / 2 + trigger.offsetWidth / 2
-        position.top = trigger.offsetTop + trigger.offsetHeight
-        break
-    default:
-        console.warn('Wrong placement prop')
-    }
-    return position
+    // switch (placement) {
+    // case 'top' :
+    //     position.left = trigger.offsetLeft - popover.offsetWidth / 2 + trigger.offsetWidth / 2
+    //     position.top = trigger.offsetTop - popover.offsetHeight
+    //     break
+    // case 'left':
+    //     position.left = trigger.offsetLeft - popover.offsetWidth
+    //     position.top = trigger.offsetTop + trigger.offsetHeight / 2 - popover.offsetHeight / 2
+    //     break
+    // case 'right':
+    //     // 检查trigger 是否为 为 popover的 父元素
+    //     position.left = trigger.offsetLeft + (popover.parentNode === trigger ? trigger.offsetWidth : popover.offsetWidth)
+    //     position.top = trigger.offsetTop + trigger.offsetHeight / 2 - popover.offsetHeight / 2
+    //     break
+    // case 'bottom':
+    //     position.left = trigger.offsetLeft - popover.offsetWidth / 2 + trigger.offsetWidth / 2
+    //     position.top = trigger.offsetTop + trigger.offsetHeight
+    //     break
+    // default:
+    //     console.warn('Wrong placement prop')
+    // }
+    return getCalculatedOffset(getPosition(trigger), popover, placement)
 }
 
+function getCalculatedOffset (pos, popover, placement) {
+    var actualWidth = popover.offsetWidth
+    var actualHeight = popover.offsetHeight
+    switch (placement) {
+    case 'bottom':
+        return { top: pos.top + pos.height, left: pos.left + pos.width / 2 - actualWidth / 2 }
+    case 'top':
+        return { top: pos.top - actualHeight, left: pos.left + pos.width / 2 - actualWidth / 2 }
+    case 'left':
+        return { top: pos.top + pos.height / 2 - actualHeight / 2, left: pos.left - actualWidth }
+    }
+    return { top: pos.top + pos.height / 2 - actualHeight / 2, left: pos.left + pos.width };
+}
 export default {
     props: {
         // 触发类型
@@ -68,6 +82,19 @@ export default {
             type: Boolean,
             coerce: coerceBoolean,
             default: true
+        },
+
+        // 附加的元素
+        selector: {
+            type: String,
+            default: null
+        },
+
+        //
+        disabled: {
+            type: Boolean,
+            coerce: coerceBoolean,
+            default: false
         }
     },
     data () {
@@ -101,15 +128,17 @@ export default {
         // 只传入文本绑定 父元素事件
         const el = this.$el
         this.$els.trigger = el.nodeType === 3 ? el.parentNode : el
-
         let events = this.trigger === 'contextmenu' ? 'contextmenu'
       : this.trigger === 'hover' ? ['mouseleave', 'mouseenter']
-      : this.trigger === 'focus' ? ['blur', 'focus'] : ['click']
+      : this.trigger === 'focus' ? ['blur', 'focus'] : ['click'];
         $(this.$els.trigger).on(events.join(' '), (e) => {
-            if ($(e.target).closest(this.$els.trigger).length) {
+            if (this.disabled || !this.content) {
+                return false;
+            } else if ($(e.target).closest(this.$els.trigger).length) {
                 this.toggle();
             }
-        })
+            return false;
+        });
     },
     beforeDestroy () {
         $(this.$els.trigger).off()
@@ -118,6 +147,9 @@ export default {
         show (val) {
             if (val) {
                 this.inShow = true;
+                if (this.selector) {
+                    $(this.selector).append(this.$els.popover)
+                }
                 this.position = caculatePosition(this.$els.trigger, this.$els.popover, this.placement);
             } else {
                 $(this.$els.popover).one('transitionend', () => {

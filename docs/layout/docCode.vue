@@ -4,8 +4,8 @@
     <h3 v-if="title" class="bs-code-title">
         {{title}}
     </h3>
-    <pre v-if="language=='markup'"><code class="language-markup"><script v-el:container type="language-mark-up"></script></code></pre>
-    <pre v-else><code class="language-{{language}}"><script v-el:container type="language-{{language}}"></script></code></pre>
+    <pre v-if="language=='markup'"><code class="language-markup">{{compiledContent}}</code></pre>
+    <pre v-else><code class="language-{{language}}">{{compiledContent}}</code></pre>
   </template>
 </template>
 
@@ -20,11 +20,26 @@ export default {
         title: {
             type: String,
             default: ''
+        },
+        content: {
+            type: String,
+            default: ''
+        }
+    },
+    data () {
+        return {
+            compiledContent: ''
         }
     },
     // 未插入 编译完成
     compiled () {
-        let content = ''
+        let content = this.content;
+
+        // 如果没有 slot
+        if (!this._slotContents || !this._slotContents.default) {
+            this.compiledContent = content.replace(/^\s+|\s+$/g, '');
+            return;
+        }
 
         // fragment
         $.each(this._slotContents.default.childNodes, (index, el) => {
@@ -54,7 +69,7 @@ export default {
             })
         }
         // 注入页面脚本
-        this.$els.container.innerHTML = content.replace(/^\s+|\s+$/g, '')
+        this.compiledContent = content.replace(/^\s+|\s+$/g, '');
     }
 }
 </script>

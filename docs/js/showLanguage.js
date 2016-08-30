@@ -22,7 +22,6 @@
         }
         var language = Languages[env.language] || (env.language.substring(0, 1).toUpperCase() +
          env.language.substring(1));
-
         pre.setAttribute('data-language', language);
     });
 })(window, window.Prism);

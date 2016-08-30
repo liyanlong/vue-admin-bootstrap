@@ -3,8 +3,9 @@
     <docs-navbar></docs-navbar>
     <div class="bs-docs-header">
       <div class="container">
-        <h1>VueAdminBootStrap</h1>
+        <h1>VueAdminStrap</h1>
         <p>基于Bootstrap , jQuery 库为基础, 以<a target="_blank" href="http://vuejs.org/" >Vue.js</a> 开发组件</p>
+        <p>without bootstrap.js</p>
         <br>
         <p><a class="btn btn-outline-inverse btn-lg" href="https://github.com/liylanlong/vue-admin-bootstrap">Code on GitHub</a></p>
       </div>
@@ -12,6 +13,7 @@
     <container>
             <div v-el:sections class="col-md-9">
                 <modal-docs></modal-docs>
+                <topbar-docs></topbar-docs>
             </div>
             <div class="col-md-3">
                 <affix-sidebar></affix-sidebar>
@@ -30,15 +32,17 @@ import container from './layout/container'
 import docsNavbar from './layout/docsNavbar'
 import affixSidebar from './layout/affixSidebar'
 
-// doc
+// docs
 import modalDocs from './example/modalDocs'
+import topbarDocs from './example/topbarDocs'
 
 export default {
     components: {
         container,
         docsNavbar,
         affixSidebar,
-        modalDocs
+        modalDocs,
+        topbarDocs
     }
 }
 </script>

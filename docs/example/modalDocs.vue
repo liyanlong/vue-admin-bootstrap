@@ -136,12 +136,13 @@
 </template>
 
 <script>
-import modal from 'components/Modal'
-import dropdown from 'components/Dropdown'
 import docSection from '../layout/docSection'
 import docCode from '../layout/docCode'
 import docOptions from '../layout/docOptions'
 import docCallout from '../layout/docCallout'
+
+import modal from 'components/Modal'
+import dropdown from 'components/Dropdown'
 export default {
     data: function () {
         return {

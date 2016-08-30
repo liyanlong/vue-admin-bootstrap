@@ -1,18 +1,17 @@
-import $ from 'jquery'
-import Vue from 'Vue'
-import modal from 'components/Modal'
-import dropdown from 'components/Dropdown'
+import Modal from 'components/Modal'
+import Dropdown from 'components/Dropdown'
+import Popover from 'components/Popover'
+import Tooltip from 'components/Tooltip'
+
 import directiveDropdown from 'directives/dropdown.js'
 
-Vue.use(directiveDropdown);
-
-window.Vue = Vue
-window.$ = $
-
+// Vue.use(directiveDropdown);
 const VueAdminBootStrap = {
     components: {
-        modal,
-        dropdown
+        Modal,
+        Dropdown,
+        Popover,
+        Tooltip
     },
     directives: {
         dropdown: directiveDropdown

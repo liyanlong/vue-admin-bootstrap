@@ -4,47 +4,46 @@
         <div class="sidebar-content">
             <div class="sidebar-inner">
                 <!-- 折叠按钮 -->
-                <div class="sidebar-fold" @click="toggleSidebar">
-                    <i  class="fa" :class="foldIcon" aria-hidden="true"></i>
+                <div class="sidebar-fold" @click="type = (type === 'full' ? 'mini' : 'full')">
+                    <i  class="fa" :class="{
+                        'fa-ellipsis-h': type === 'full',
+                        'fa-ellipsis-v': type === 'mini'
+                        }" aria-hidden="true"></i>
                 </div>
                 <!-- 折叠按钮 -->
-                <!--工具列表-->
 
+                <!--工具列表-->
                 <template v-for="(index,navConfig) in navTree">
-                    <div class="sidebar-nav" :class="{ 'main-nav': index == 0 , 'sidebar-nav-fold' : navConfig.product && navConfig.product.folded}">
+                    <div class="sidebar-nav" :class="{
+                        'main-nav': index == 0 ,
+                        'sidebar-nav-fold' : navConfig.product && navConfig.product.folded
+                        }">
                         <div class="sidebar-title" v-if="navConfig.product">
-                            <div class="sidebar-title-inner"
-                            @click="navConfig.product.folded = !navConfig.product.folded"
-                            v-tooltip="{
-                                'placement': 'right',
-                                'title': sidebarTitle(navConfig.product.tooltip)
-                            }">
-                                <span class="sidebar-title-icon">
-                                  <i class="fa fa-caret-down"></i>
-                                </span>
-                                <span class="sidebar-title-text">{{navConfig.product.name}}</span>
-                                <span class="sidebar-manage"
-                                @click.stop
-                                v-tooltip="{
-                                    'placement': 'right',
-                                    'title': navConfig.product.tooltip.title
-                                }">
-                                  <i class="fa fa-cog" aria-hidden="true"></i>
-                                </span>
-                            </div>
+                            <tooltip :content="navConfig.product.title" trigger="hover" selector="body" class="admin-sidebar-tooltip" :disabled="type =='full'">
+                                <div class="sidebar-title-inner"
+                                    @click="navConfig.product.folded = !navConfig.product.folded">
+                                    <span class="sidebar-title-icon">
+                                      <i class="fa fa-caret-down"></i>
+                                    </span>
+                                    <span class="sidebar-title-text">{{navConfig.product.name}}</span>
+                                    <span class="sidebar-manage">
+                                        <tooltip  :content="navConfig.product.title" trigger="hover" selector="body" class="admin-sidebar-tooltip">
+                                            <i class="fa fa-cog" aria-hidden="true"></i>
+                                        </tooltip>
+                                    </span>
+                                </div>
+                            </tooltip>
                         </div>
                         <ul class="sidebar-trans">
                             <li v-for="item in navConfig.serviceList" class="nav-item" :class="{'active' : item.active}">
-                              <a :href="item.href"
-                              v-tooltip="{
-                                  'placement': 'right',
-                                  'title': sidebarTitle(item.tooltip)
-                              }">
-                                <div class="nav-icon">
-                                  <i class="fa" :class="item.icon"></i>
-                                </div>
-                                <span class="nav-title">{{item.name}}</span>
-                              </a>
+                                <tooltip :content="item.title" trigger="hover" selector="body" class="admin-sidebar-tooltip" :disabled="type =='full'">
+                                    <a :href="item.href">
+                                      <div class="nav-icon">
+                                        <i class="fa" :class="item.icon"></i>
+                                      </div>
+                                      <span class="nav-title">{{item.name}}</span>
+                                    </a>
+                                </tooltip>
                             </li>
                         </ul>
                     </div>
@@ -57,47 +56,33 @@
 
 </template>
 <script>
-import {type, navTree} from './sidebar/data.js';
+import Tooltip from 'components/Tooltip'
+import data from 'data/sidebar.json'
+
 export default {
+    props: {
+        type: {
+            twoWay: true,
+            type: String,
+            default: 'full'
+        }
+    },
     data: function () {
         return {
-            type: type,
-            navTree: navTree
+            navTree: data.navTree
         };
-    },
-    computed: {
-        // 工具栏按钮
-        foldIcon: function () {
-            var iconEnum = {
-                'full': 'fa-ellipsis-h',
-                'mini': 'fa-ellipsis-v'
-            };
-            return iconEnum[this.type];
-        }
     },
     created: function () {},
     attached: function () {},
-    ready: function () {
-        this.$dispatch('toggle-sidebar', this.type);
-    },
     methods: {
-        // 折叠工具栏
-        toggleSidebar () {
-            var status = {
-                'full': 'mini',
-                'mini': 'full'
-            };
-            var oldType = this.type;
-            var newType = status[this.type];
-            this.type = newType;
-            this.$dispatch('toggle-sidebar', newType, oldType);
-        },
         // 返回 sidebar 中 tooltip 的 title
         sidebarTitle (tooltip) {
             return this.type === 'full' ? '' : (tooltip.title || '');
         }
     },
     events: {},
-    components: {}
+    components: {
+        Tooltip
+    }
 }
 </script>

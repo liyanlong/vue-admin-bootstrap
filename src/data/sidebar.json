@@ -1,0 +1,36 @@
+{
+    "type": "full",
+    "navTree": [{
+        "product": {
+            "folded": true,
+            "name": "标题",
+            "title": "描述"
+        },
+        "serviceList": [{
+            "name": "日历",
+            "title": "描述日历",
+            "href": "#canlendar",
+            "icon": "fa-calendar",
+            "active": true
+        }, {
+            "name": "云",
+            "title": "描述云",
+            "href": "#cloud",
+            "icon": "fa-cloud",
+            "active": false
+        }]
+    }, {
+        "product": {
+            "folded": false,
+            "name": "标题2",
+            "title": "描述2"
+        },
+        "serviceList": [{
+            "name": "数据库",
+            "title": "数据库",
+            "href": "#",
+            "icon": "fa-database",
+            "active": false
+        }]
+    }]
+}

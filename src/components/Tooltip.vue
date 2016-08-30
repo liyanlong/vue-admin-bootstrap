@@ -1,6 +1,6 @@
 <template lang="html">
     <slot></slot>
-    <div v-el:popover v-if="content" :class="['tooltip',effect, placement,  {
+    <div v-el:popover v-if="show" :class="[class, effect,  placement,  {
           'in': inShow
         }]"  :style="{
               display: displayShow ? 'block' : 'none',
@@ -21,6 +21,10 @@ export default {
         trigger: {
             type: String,
             default: 'click'
+        },
+        'class': {
+            type: String,
+            default: 'tooltip'
         }
     }
 };
