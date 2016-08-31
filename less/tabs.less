@@ -1,0 +1,67 @@
+.nav {
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+    & > li {
+        position: relative;
+        display: block;
+    }
+    &:before,&:after{
+        display: table;
+        content: " ";
+    }
+}
+.nav-tabs.nav-justified>li>a {
+    border-radius: 0px 0px 0px 0px;
+}
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+    color: #555555;
+    cursor: default;
+    background-color: #ffffff;
+    border: 1px solid #dddddd;
+    border-bottom-color: transparent;
+}
+.nav-tabs{
+    border-color: @tabs-border-color;
+    border-bottom: 1px solid @tabs-border-color;
+
+    & > li{
+        float: left;
+        margin-bottom: -1px;
+        margin-left: -1px;
+        border-top: 1px solid @tabs-border-color;
+        border-left: 1px solid @tabs-border-color;
+        border-right: 1px solid @tabs-border-color;
+        z-index: 1;
+
+        & > a:extend(.nav-tabs.nav-justified>li>a) {
+
+            color: @tabs-color;
+            border-left: 0px;
+            border-right: 0px;
+            margin-right: 0px;
+            padding: 10px 16px;
+            background: @tabs-background-color;
+            border-bottom: 0px;
+        }
+
+        & > a:hover{
+            background-color: @tabs-active-border-bottom-color;
+            color: @tabs-active-border-top-color;
+        }
+
+        &.active{
+            border-top: 0px;
+            border-left: 1px solid @tabs-border-color;
+            border-right: 1px solid @tabs-border-color;
+            z-index: 3;
+            & > a, & > a:hover, & > a:focus{
+                border-top: 2px solid @tabs-active-border-top-color;
+                border-left: 0px;
+                border-right: 0px;
+                border-bottom: 1px solid @tabs-active-border-bottom-color;
+                color: @tabs-active-color;
+            }
+        }
+    }
+}

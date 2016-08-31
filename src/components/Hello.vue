@@ -41,6 +41,18 @@
               移动此处打开tooltip
           </tooltip>
       </button>
+
+      <br>
+      <br>
+      <ul class="nav nav-tabs">
+        <li><a href="/core/domain/list">全部域名</a></li>
+        <li class="active"><a href="/core/domain/needpaydomainlist">急需续费域名</a></li>
+        <li><a href="/core/domain/redeemdomainlist">急需赎回域名</a></li>
+        <li><a href="/core/domain/noauditdomainlist">未实名认证域名</a></li>
+        <li><a href="/core/domain/getin">转入域名</a></li>
+
+        <li><a href="/core/domain/pregalist">预登记域名</a></li>
+    </ul>
   </div>
 </template>
 
