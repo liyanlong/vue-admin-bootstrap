@@ -18,7 +18,7 @@
       <br>
       <br>
       <button class="btn btn-default">
-          <popover title="特别差"  placement="left" trigger="click">
+          <popover title="特别差"  placement="right" trigger="click">
               popover 弹窗
               <form slot="popover-content">
                     <input type="text" name="name" value="" />

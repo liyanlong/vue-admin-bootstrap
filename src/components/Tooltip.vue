@@ -9,7 +9,7 @@
           }" role="tooltip">
       <div class="tooltip-arrow"></div>
       <div class="tooltip-inner">
-        <slot name="tooltip-content">{{{content}}}</slot>
+        <slot>{{{content}}}</slot>
       </div>
     </div>
 </template>

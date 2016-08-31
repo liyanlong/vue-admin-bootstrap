@@ -1,6 +1,6 @@
 {
     "type": "full",
-    "navTree": [{
+    "navList": [{
         "product": {
             "folded": true,
             "name": "标题",

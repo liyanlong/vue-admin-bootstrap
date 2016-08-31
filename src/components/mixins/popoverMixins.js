@@ -83,14 +83,6 @@ export default {
             coerce: coerceBoolean,
             default: true
         },
-
-        // 附加的元素
-        selector: {
-            type: String,
-            default: null
-        },
-
-        //
         disabled: {
             type: Boolean,
             coerce: coerceBoolean,
@@ -111,13 +103,15 @@ export default {
             inShow: false,
 
             // display block | none
-            displayShow: false
+            displayShow: false,
+
+            // 挂载目标元素
+            selector: 'body'
         }
     },
     methods: {
         toggle (val) {
             var show = val instanceof Boolean ? val : !this.show;
-
             if (show) {
                 this.displayShow = true;
             }
@@ -132,9 +126,10 @@ export default {
       : this.trigger === 'hover' ? ['mouseleave', 'mouseenter']
       : this.trigger === 'focus' ? ['blur', 'focus'] : ['click'];
         $(this.$els.trigger).on(events.join(' '), (e) => {
-            if (this.disabled || !this.content) {
+            if (this.disabled || (!this.content && !this._slotContents)) {
                 return false;
-            } else if ($(e.target).closest(this.$els.trigger).length) {
+            }
+            if ($(e.target).closest(this.$els.trigger).length) {
                 this.toggle();
             }
             return false;
@@ -147,9 +142,7 @@ export default {
         show (val) {
             if (val) {
                 this.inShow = true;
-                if (this.selector) {
-                    $(this.selector).append(this.$els.popover)
-                }
+                $(this.$els.popover).appendTo(this.selector)
                 this.position = caculatePosition(this.$els.trigger, this.$els.popover, this.placement);
             } else {
                 $(this.$els.popover).one('transitionend', () => {

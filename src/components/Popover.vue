@@ -1,6 +1,6 @@
 <template>
   <slot></slot>
-  <div v-el:popover :class="['popover', effect, placement, {
+  <div v-el:popover  v-if="show" :class="['popover', effect, placement, {
         'in': inShow
       }]" :style="{
             display: displayShow ? 'block' : 'none',
@@ -12,7 +12,7 @@
       <slot name="popover-title">{{title}}</slot>
     </h3>
     <div class="popover-content">
-      <slot name="popover-content">{{{content}}}</slot>
+      <slot>{{{content}}}</slot>
     </div>
   </div>
 </template>

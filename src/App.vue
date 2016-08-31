@@ -1,8 +1,7 @@
 <template>
-<div class="viewFramwork" id="app">
-    <div class="viewFramework-topbar">
-        <topbar home-name="文档名称" home-link="#/home" logo-icon="fa fa-desktop">
-            <topbar-nav slot="topbar-nav" :nav-list="navList" text="导航"></topbar-nav>
+    <view-framework :sidebar-type="sidebarType">
+        <topbar slot="view-framework-topbar" home-name="文档名称" home-link="#/home" logo-icon="fa fa-desktop">
+            <topbar-nav slot="topbar-nav" :nav-list="topbarNavList" text="导航"></topbar-nav>
             <div slot="topbar-right">
                 <dropdown class="topbar-left topbar-info-item" text="帮助" type="topbar-info">
                     <li class="topbar-info-btn">
@@ -17,30 +16,18 @@
                 </div>
             </div>
         </topbar>
-    </div>
-    <div class="" :class="['viewFrameWork-body',{
-            'viewFrameWork-sidebar-full' : sidebarType === 'full',
-            'viewFrameWork-sidebar-mini' : sidebarType === 'mini'
-        }]">
-        <sidebar :type.sync="sidebarType"></sidebar>
-        <div class="viewFrameWork-product">
-            <div class="viewFramework-product-body">
-                <slot name="view-framework-body">
-                    <div class="container">
-                        <h1>Hello World</h1>
-                    </div>
-                </slot>
-            </div>
+        <sidebar slot="view-framework-sidebar" :type.sync="sidebarType" :nav-list="sidebarNavList"></sidebar>
+        <div slot="view-framework-product">
+            <hello></hello>
         </div>
-    </div>
-</div>
-
+    </view-framework>
 </template>
 <script>
+import ViewFramework from 'components/layout/ViewFrameWork'
 import Topbar from './components/layout/Topbar'
 import TopbarNav from './components/layout/TopbarNav'
 import Dropdown from './components/Dropdown'
-import Sidebar from './components/Sidebar'
+import Sidebar from 'components/layout/Sidebar'
 import Hello from './components/Hello'
 
 import topbarData from 'data/topbar.json'
@@ -48,6 +35,7 @@ import sidebarData from 'data/sidebar.json'
 
 export default {
     components: {
+        ViewFramework,
         Topbar,
         TopbarNav,
         Dropdown,
@@ -57,7 +45,8 @@ export default {
     data () {
         return {
             sidebarType: sidebarData.type,
-            navList: topbarData.navList
+            topbarNavList: topbarData.navList,
+            sidebarNavList: sidebarData.navList
         };
     },
     methods: {
