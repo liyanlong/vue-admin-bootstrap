@@ -9,7 +9,10 @@
           }" role="tooltip">
       <div class="tooltip-arrow"></div>
       <div class="tooltip-inner">
-        <slot>{{{content}}}</slot>
+          <template v-if="content">
+              {{{content}}}
+          </template>
+          <slot v-else name="content">{{{content}}}</slot>
       </div>
     </div>
 </template>

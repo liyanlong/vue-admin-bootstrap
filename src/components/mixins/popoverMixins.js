@@ -126,7 +126,7 @@ export default {
       : this.trigger === 'hover' ? ['mouseleave', 'mouseenter']
       : this.trigger === 'focus' ? ['blur', 'focus'] : ['click'];
         $(this.$els.trigger).on(events.join(' '), (e) => {
-            if (this.disabled || (!this.content && !this._slotContents)) {
+            if (this.disabled || (!this.content && !this._slotContents['content'])) {
                 return false;
             }
             if ($(e.target).closest(this.$els.trigger).length) {
