@@ -1,11 +1,11 @@
-require('./assets/docs.css')
-require('./assets/prism.css')
+require('assets/docs.css')
+require('assets/prism.css')
 require('prismjs');
-require('./js/showLanguage')
+require('./docs/js/showLanguage')
 import Vue from 'Vue'
 
 Vue.config.debug = true
-import bodyDocs from './bodyDocs'
+import bodyDocs from './docs/bodyDocs'
 new Vue({
     el: 'body',
     components: {

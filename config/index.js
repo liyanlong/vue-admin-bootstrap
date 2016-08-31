@@ -34,8 +34,14 @@ module.exports = {
       assetsRoot: path.resolve(__dirname, '../dist'),
       assetsSubDirectory: 'js',
   },
-  docs: {      
-      assetsRoot: path.resolve(__dirname, '../dist'),
-      assetsSubDirectory: 'docs',
+  docs: {
+      env: require('./prod.env'),
+      index: path.resolve(__dirname, '../docs/index.html'),
+      assetsRoot: path.resolve(__dirname, '../docs'),
+      assetsSubDirectory: 'static',
+      assetsPublicPath: '/vue-admin-bootstrap/',
+      productionSourceMap: true,
+      productionGzip: false,
+      productionGzipExtensions: ['js', 'css']
   }
 }

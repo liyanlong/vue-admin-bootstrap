@@ -3,15 +3,6 @@ var config = require('../config');
 var utils = require('./utils');
 var projectRoot = path.resolve(__dirname, '../');
 module.exports = {
-    entry: {
-        app: './src/main.js',
-        docs: './docs/index.js'
-    },
-    output: {
-        path: config.build.assetsRoot,
-        publicPath: process.env.NODE_ENV === 'production' ? config.build.assetsPublicPath : config.dev.assetsPublicPath,
-        filename: '[name].js'
-    },
     resolve: {
         extensions: ['', '.js', '.vue'],
         fallback: [path.join(__dirname, '../node_modules')],
