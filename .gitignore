@@ -6,6 +6,7 @@ selenium-debug.log
 test/unit/coverage
 test/e2e/reports
 .idea
+.tags
 
 # Folders to ignore
 bower_components/

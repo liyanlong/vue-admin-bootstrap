@@ -42,3 +42,20 @@
     }
 
 }
+
+// nav-tabs  dropdown
+.nav-tabs > .tab-dropdown :extend(.nav-tabs > li){
+
+    & > a :extend(.nav-tabs > li > a){
+        color: #666;
+        border-left: 0px;
+        border-right: 0px;
+        margin-right: 0px;
+        padding: 10px 16px;
+        background: #FBFAF8;
+        border-bottom: 0px;
+    }
+    .dropdown-menu {
+        left: -1px;
+    }
+}

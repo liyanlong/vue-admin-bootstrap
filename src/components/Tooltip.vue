@@ -1,6 +1,8 @@
 <template lang="html">
-    <slot></slot>
-    <div v-el:popover v-if="show" :class="[class, effect,  placement,  {
+    <span v-el:trigger :class="class" :tabindex="trigger == 'focus' ? 0: ''">
+        <slot></slot>
+    </span>
+    <div v-el:popover v-if="show" :class="[tooltipClass, effect,  placement,  {
           'in': inShow
         }]"  :style="{
               display: displayShow ? 'block' : 'none',
@@ -9,10 +11,7 @@
           }" role="tooltip">
       <div class="tooltip-arrow"></div>
       <div class="tooltip-inner">
-          <template v-if="content">
-              {{{content}}}
-          </template>
-          <slot v-else name="content">{{{content}}}</slot>
+          <slot name="content">{{{content}}}</slot>
       </div>
     </div>
 </template>
@@ -25,9 +24,14 @@ export default {
             type: String,
             default: 'click'
         },
-        'class': {
+        'tooltipClass': {
             type: String,
             default: 'tooltip'
+        }
+    },
+    computed: {
+        slots () {
+            return this._slotContents;
         }
     }
 };

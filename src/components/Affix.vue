@@ -1,6 +1,10 @@
 <template>
   <div class="hidden-print hidden-xs hidden-sm">
-    <nav class="bs-docs-sidebar" :class="{affix:affixed}" :style="{marginTop:top}">
+    <nav  v-el:affix class="bs-docs-sidebar" :class="{
+        'affix-top': !affixed && !affixedBottom,
+        'affix':affixed && !affixedBottom,
+        'affix-bottom': !affxied && affixedBottom
+        }" :style="{top:top}">
       <slot></slot>
     </nav>
   </div>
@@ -8,9 +12,36 @@
 <script>
 import coerceNumber from 'src/utils/coerceNumber.js'
 import $ from 'jquery'
+function getElementPosition (el) {
+    let rect = el.getBoundingClientRect()
+    let scroll = {}
+    let element = {};
+    for (let type of ['Top', 'Left']) {
+        let t = type.toLowerCase()
+        let ret = window['page' + (type === 'Top' ? 'Y' : 'X') + 'Offset']
+        const method = 'scroll' + type
+        if (typeof ret !== 'number') {
+            // ie6,7,8 standard mode
+            ret = document.documentElement[method]
+            if (typeof ret !== 'number') {
+                // quirks mode
+                ret = document.body[method]
+            }
+        }
+        scroll[t] = ret
+        element[t] = scroll[t] + rect[t];
+    }
+    return element;
+}
 export default {
     props: {
-        offset: {
+        //
+        offsetTop: {
+            type: Number,
+            coerce: coerceNumber,
+            default: 0
+        },
+        offsetBottom: {
             type: Number,
             coerce: coerceNumber,
             default: 0
@@ -18,16 +49,21 @@ export default {
     },
     data () {
         return {
-            affixed: false
+            affixed: false,
+            affixedBottom: false
         }
     },
     computed: {
         top () {
-            return this.offset > 0 ? this.offset + 'px' : null
+            if (this.affixed && !this.affixedBottom) {
+                return this.offsetTop > 0 ? this.offsetTop + 'px' : null
+            }
+            if (this.affixedBottom) {
+                return window.pageYOffset - getElementPosition(this.$els.affix).top + 'px';
+            }
         }
     },
     methods: {
-    // from https://github.com/ant-design/ant-design/blob/master/components/affix/index.jsx#L20
         checkScroll () {
             // if is hidden don't calculate anything
             if (!(this.$el.offsetWidth || this.$el.offsetHeight || this.$el.getClientRects().length)) { return }
@@ -35,28 +71,30 @@ export default {
             let scroll = {}
             let element = {}
             const rect = this.$el.getBoundingClientRect()
-            const body = document.body
+            const maxScrollTop = Math.max($(document).height(), $(document.body).height())
             for (let type of ['Top', 'Left']) {
                 let t = type.toLowerCase()
                 let ret = window['page' + (type === 'Top' ? 'Y' : 'X') + 'Offset']
                 const method = 'scroll' + type
                 if (typeof ret !== 'number') {
-                // ie6,7,8 standard mode
+                    // ie6,7,8 standard mode
                     ret = document.documentElement[method]
                     if (typeof ret !== 'number') {
-                    // quirks mode
+                        // quirks mode
                         ret = document.body[method]
                     }
                 }
                 scroll[t] = ret
-                element[t] = scroll[t] + rect[t] - (this.$el['client' + type] || body['client' + type] || 0)
+                element[t] = scroll[t] + rect[t];
             }
-            let fix = scroll.top > element.top - this.offset
+            let fix = scroll.top > element.top - this.offsetTop
+            let fixBottom = scroll.top + this.$els.affix.offsetHeight + this.offsetBottom > maxScrollTop
+            if (this.affixedBottom !== fixBottom) { this.affixedBottom = fixBottom; }
             if (this.affixed !== fix) { this.affixed = fix }
         }
     },
     ready () {
-        this.checkScroll()
+        // this.checkScroll()
         $(window).on('scroll resize', () => this.checkScroll())
     },
     beforeDestroy () {

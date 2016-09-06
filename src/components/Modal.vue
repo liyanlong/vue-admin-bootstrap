@@ -124,7 +124,7 @@ export default {
                     // force reflow
                     backdropEl.offsetWidth;
                 }
-                // 设置css动画
+                // 设置css动画，显示
                 $backdrop.addClass('in');
 
                 // 没有回调函数, 不执行回到函数

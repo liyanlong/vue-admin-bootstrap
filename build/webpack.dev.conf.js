@@ -7,7 +7,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin')
 
 baseWebpackConfig.entry = {
     app: './src/main.js',
-    docs: './src/docs.js',
+    docs: './docs/index.js'
 };
 
 // add hot-reload related code to entry chunks
@@ -48,7 +48,7 @@ module.exports = merge(baseWebpackConfig, {
              title: 'Hello World docs',
              filename: 'docs.html',
              chunks: ['docs'],
-             template: 'docs/index.html',
+             template: 'docs.html',
              inject: true
         })
     ]

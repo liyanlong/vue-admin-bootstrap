@@ -60,8 +60,8 @@ import docCode from '../layout/docCode'
 import docOptions from '../layout/docOptions'
 import docCallout from '../layout/docCallout'
 
-import Topbar from 'components/layout/Topbar'
-import TopbarNav from 'components/layout/TopbarNav'
+import Topbar from 'components/layouts/Topbar'
+import TopbarNav from 'components/layouts/TopbarNav'
 import Dropdown from 'components/Dropdown'
 
 import data from 'data/topbar.json'

@@ -1,5 +1,5 @@
 <template>
-  <affix offset="50">
+  <affix offset-top="50" offset-bottom="0">
     <ul class="nav bs-docs-sidenav" id="sidenav">
       <li v-for="s in sections" :class="{active:active==s.id}"><a href="#{{ s.id }}">{{ s.name }}</a></li>
     </ul>
@@ -35,14 +35,16 @@ export default {
     },
     methods: {
         scrollSpy () {
+            // 文档的右侧滚动条
             const scrollPosition = document.documentElement.scrollTop || document.body.scrollTop
+            let lastId = null;
             for (let s of this.sections) {
-                // 420 = firstSection.getBoundingClientRect().top (when body.scrollTop = 0)
-                // = nav.height + header.height + firstSection.margin-top - 6 (for offset)
-                if (s.el.offsetTop + 420 <= scrollPosition) {
-                    this.active = s.id
+                if ($(s.el).offset().top <= scrollPosition) {
+                    // 最后一个满足的 为actbve
+                    lastId = s.id;
                 }
             }
+            this.active = lastId;
         }
     }
 }

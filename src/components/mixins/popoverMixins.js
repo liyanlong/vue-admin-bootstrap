@@ -2,30 +2,7 @@ import $ from 'jquery'
 import coerceBoolean from 'src/utils/coerceBoolean.js'
 import getPosition from 'src/utils/getPosition.js'
 function caculatePosition (trigger, popover, placement) {
-    // let position = {}
-    // 要求设置为
     placement = placement && ~['top', 'left', 'right', 'bottom'].indexOf(placement) ? placement : 'right'
-    // switch (placement) {
-    // case 'top' :
-    //     position.left = trigger.offsetLeft - popover.offsetWidth / 2 + trigger.offsetWidth / 2
-    //     position.top = trigger.offsetTop - popover.offsetHeight
-    //     break
-    // case 'left':
-    //     position.left = trigger.offsetLeft - popover.offsetWidth
-    //     position.top = trigger.offsetTop + trigger.offsetHeight / 2 - popover.offsetHeight / 2
-    //     break
-    // case 'right':
-    //     // 检查trigger 是否为 为 popover的 父元素
-    //     position.left = trigger.offsetLeft + (popover.parentNode === trigger ? trigger.offsetWidth : popover.offsetWidth)
-    //     position.top = trigger.offsetTop + trigger.offsetHeight / 2 - popover.offsetHeight / 2
-    //     break
-    // case 'bottom':
-    //     position.left = trigger.offsetLeft - popover.offsetWidth / 2 + trigger.offsetWidth / 2
-    //     position.top = trigger.offsetTop + trigger.offsetHeight
-    //     break
-    // default:
-    //     console.warn('Wrong placement prop')
-    // }
     return getCalculatedOffset(getPosition(trigger), popover, placement)
 }
 
@@ -49,7 +26,10 @@ export default {
         trigger: {
             type: String
         },
-
+        'class': {
+            type: String,
+            defualt: ''
+        },
         // 效果
         effect: {
             type: String,
@@ -64,13 +44,6 @@ export default {
         // 内容
         content: {
             type: String
-        },
-
-        // 是否有标题
-        header: {
-            type: Boolean,
-            coerce: coerceBoolean,
-            default: true
         },
 
         // 弹出位置
@@ -119,9 +92,9 @@ export default {
         }
     },
     ready () {
-        // 只传入文本绑定 父元素事件
-        const el = this.$el
-        this.$els.trigger = el.nodeType === 3 ? el.parentNode : el
+        // 设置触发的元素
+        const el = this.$els.trigger;
+        this.$els.trigger = el.parentNode.nodeName === 'BUTTON' ? el.parentNode : el
         let events = this.trigger === 'contextmenu' ? 'contextmenu'
       : this.trigger === 'hover' ? ['mouseleave', 'mouseenter']
       : this.trigger === 'focus' ? ['blur', 'focus'] : ['click'];
@@ -129,6 +102,7 @@ export default {
             if (this.disabled || (!this.content && !this._slotContents['content'])) {
                 return false;
             }
+
             if ($(e.target).closest(this.$els.trigger).length) {
                 this.toggle();
             }

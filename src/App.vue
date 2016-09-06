@@ -23,11 +23,11 @@
     </view-framework>
 </template>
 <script>
-import ViewFramework from 'components/layout/ViewFrameWork'
-import Topbar from './components/layout/Topbar'
-import TopbarNav from './components/layout/TopbarNav'
+import ViewFramework from 'components/layouts/ViewFrameWork'
+import Topbar from './components/layouts/Topbar'
+import TopbarNav from './components/layouts/TopbarNav'
 import Dropdown from './components/Dropdown'
-import Sidebar from 'components/layout/Sidebar'
+import Sidebar from 'components/layouts/Sidebar'
 import Hello from './components/Hello'
 
 import topbarData from 'data/topbar.json'

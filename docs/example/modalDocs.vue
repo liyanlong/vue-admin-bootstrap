@@ -86,7 +86,7 @@
                 animateShow: false
             },
             components: {
-                modal: VueAdminBootStrap.components.modal
+                modal: VueAdminBootStrap.components.Modal
             }
         });
     </doc-code>

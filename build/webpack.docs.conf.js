@@ -12,7 +12,7 @@ var env = process.env.NODE_ENV === 'testing' ?
 
 var webpackConfig = merge(baseWebpackConfig, {
     entry: {
-        docs: './src/docs.js'
+        docs: './docs/index.js'
     },
     module: {
         loaders: utils.styleLoaders({

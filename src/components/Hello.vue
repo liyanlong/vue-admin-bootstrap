@@ -20,7 +20,7 @@
       <button class="btn btn-default">
           <popover title="特别差"  placement="right" trigger="click">
               popover 弹窗
-              <form slot="popover-content">
+              <form slot="content">
                     <input type="text" name="name" value="" />
                     <br>
                     <input type="text" name="name" value="" />

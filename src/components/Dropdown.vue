@@ -1,6 +1,6 @@
 <template lang="html">
     <div v-if="$parent._navbar||$parent._topbar||$parent._topbarNav" :class="classes">
-        <a v-if="text" v-el:dropdown-toggle href="#" class="dropdown-toggle"
+        <a v-el:dropdown-toggle href="#" class="dropdown-toggle"
             :class="{
                 'topbar-btn': $parent._topbar||$parent._topbarNav,
                 'topbar-nav-btn': $parent._topbarNav
@@ -11,7 +11,6 @@
         {{ text }}
         <span class="caret"></span>
         </a>
-      <slot v-else name="button"></slot>
       <slot v-if="slots['dropdown-menu']" name="dropdown-menu"></slot>
       <ul v-else class="dropdown-menu" :class="{
             'topbar-clearfix': $parent._topbar||$parent._topbarNav
@@ -19,23 +18,36 @@
         <slot></slot>
       </ul>
     </div>
-    <div v-else class="btn-group" :class="classes" :disabled="disabled">
-      <button v-if="text"  v-el:dropdown-toggle type="button"
-            :class="['btn', btnType, 'dropdown-toggle']"
+    <template v-else>
+        <li v-if="$parent._tabset" :class="classes">
+            <a v-el:dropdown-toggle class="dropdown-toggle" href="#"
             @keydown.esc="hide"
             @click="toggle"
-            :disabled="disabled">
-        {{ text }}
-        <span class="caret"></span>
-      </button>
-      <slot v-else name="button"></slot>
-      <slot v-if="slots['dropdown-menu']" name="dropdown-menu"></slot>
-      <ul v-else class="dropdown-menu" :class="{
-            'pull-right': ~placement.indexOf('right')
-          }">
-          <slot>这里唯恐</slot>
-      </ul>
-  </div>
+            :disabled="disabled">{{text}}</a>
+             <slot v-if="slots['dropdown-menu']" name="dropdown-menu"></slot>
+             <ul v-else class="dropdown-menu" :class="{
+                   'pull-right': ~placement.indexOf('right')
+                 }">
+               <slot></slot>
+             </ul>
+        </li>
+        <div v-else class="btn-group" :class="classes" :disabled="disabled">
+          <button v-el:dropdown-toggle type="button"
+                :class="['btn', btnType, 'dropdown-toggle']"
+                @keydown.esc="hide"
+                @click="toggle"
+                :disabled="disabled">
+            {{ text }}
+            <span class="caret"></span>
+          </button>
+          <slot v-if="slots['dropdown-menu']" name="dropdown-menu"></slot>
+          <ul v-else class="dropdown-menu" :class="{
+                'pull-right': ~placement.indexOf('right')
+              }">
+              <slot></slot>
+          </ul>
+        </div>
+    </template>
 </template>
 
 <script>
@@ -96,20 +108,20 @@ export default {
         }
     },
     data: function () {
-        return {
-
-        };
+        return {};
     },
     computed: {
         classes () {
-            return [{
+            var ret = [{
                 'topbar-nav': this.$parent._topbarNav,
                 'disabled': this.disabled,
                 'dropup': ~this.placement.indexOf('top'),
                 'open': this.show
-            },
-            this.class,
-            'dropdown']
+            }, 'dropdown'];
+            if (!this.class) {
+                return ret;
+            }
+            return ret.concat(this.class);
         },
         slots () {
             return this._slotContents || {};
@@ -159,9 +171,6 @@ export default {
                 return;
             }
         }
-    },
-    components: {},
-    watch: {
     }
 }
 </script>

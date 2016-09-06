@@ -3,10 +3,10 @@ import Dropdown from 'components/Dropdown'
 import Popover from 'components/Popover'
 import Tooltip from 'components/Tooltip'
 
-import ViewFramework from 'components/layout/ViewFramework'
-import Sidebar from 'components/layout/Sidebar'
-import Topbar from 'components/layout/Topbar'
-import TopbarNav from 'components/layout/TopbarNav'
+import ViewFramework from 'components/layouts/ViewFramework'
+import Sidebar from 'components/layouts/Sidebar'
+import Topbar from 'components/layouts/Topbar'
+import TopbarNav from 'components/layouts/TopbarNav'
 import popoverMixins from 'components/mixins/popoverMixins.js'
 
 import directiveDropdown from 'directives/dropdown.js'
@@ -19,7 +19,7 @@ const VueAdminBootStrap = {
         Popover,
         Tooltip
     },
-    layout: {
+    layouts: {
         Sidebar,
         Topbar,
         TopbarNav,
