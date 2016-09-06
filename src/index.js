@@ -2,6 +2,9 @@ import Modal from 'components/Modal'
 import Dropdown from 'components/Dropdown'
 import Popover from 'components/Popover'
 import Tooltip from 'components/Tooltip'
+import TabSet from 'components/TabSet'
+import TabGroup from 'components/TabGroup'
+import Tab from 'components/Tab'
 
 import ViewFramework from 'components/layouts/ViewFramework'
 import Sidebar from 'components/layouts/Sidebar'
@@ -17,7 +20,10 @@ const VueAdminBootStrap = {
         Modal,
         Dropdown,
         Popover,
-        Tooltip
+        Tooltip,
+        TabSet,
+        TabGroup,
+        Tab
     },
     layouts: {
         Sidebar,

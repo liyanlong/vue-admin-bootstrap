@@ -18,6 +18,7 @@
                 <tooltip-docs></tooltip-docs>
                 <tabs-docs></tabs-docs>
                 <topbar-docs></topbar-docs>
+                <sidebar-docs></sidebar-docs>
             </div>
             <div class="col-md-3">
                 <affix-sidebar></affix-sidebar>
@@ -44,6 +45,7 @@ import popoverDocs from './example/popoverDocs'
 import tooltipDocs from './example/tooltipDocs'
 import tabsDocs from './example/tabsDocs'
 import topbarDocs from './example/topbarDocs'
+import sidebarDocs from './example/sidebarDocs'
 
 export default {
     components: {
@@ -55,7 +57,8 @@ export default {
         dropdownDocs,
         tooltipDocs,
         tabsDocs,
-        topbarDocs
+        topbarDocs,
+        sidebarDocs
     }
 }
 </script>
