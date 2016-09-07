@@ -1,6 +1,6 @@
 # vue-admin-bootstrap
 
-> A Vue.js project
+> 基于 Vue jQuery Bootstrap的组件框架
 
 ## Build Setup
 
@@ -8,11 +8,17 @@
 # install dependencies
 npm install
 
-# serve with hot reload at localhost:8080
+# 开发环境
 npm run dev
 
-# build for production with minification
+# 生成简单的app
 npm run build
+
+# 生成文档
+npm run build-docs
+
+# 生成合并文件
+npm run release
 
 # run unit tests
 npm run unit
@@ -24,4 +30,6 @@ npm run e2e
 npm test
 ```
 
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+## Documentation
+
+详细的介绍, 请看[docs](https://liyanlong.github.io/vue-admin-bootstrap)
