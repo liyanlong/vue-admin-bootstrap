@@ -1,11 +1,11 @@
 <template>
   <ul class="nav" :class="class" role="tablist">
     <template v-for="t in headers">
-      <li v-if="!t._tabgroup" :class="{active:t.active, disabled:t.disabled}" @click.prevent="select(t)">
-        <a href="#"><slot name="header">{{{t.header}}}</slot></a>
+      <li v-if="!t._tabgroup" :class="{active:t.active, disabled:t.disabled}">
+        <a :href="t.href || 'javascript:void(0)'"  @click="select(t)"><slot name="header">{{{t.header}}}</slot></a>
       </li>
       <dropdown v-else :text="t.header" :class="[{'active': t.active}, 'tab-dropdown']" :disabled="t.disabled">
-        <li v-for="tab in t.tabs" :class="{disabled:tab.disabled}"><a href="#" @click.prevent="select(tab)">{{tab.header}}</a></li>
+        <li v-for="tab in t.tabs" :class="{disabled:tab.disabled}"><a :href="t.href || 'javascript:void(0)'" @click.prevent="select(tab)">{{tab.header}}</a></li>
       </dropdown>
     </template>
   </ul>

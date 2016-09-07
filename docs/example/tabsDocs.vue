@@ -1,6 +1,25 @@
 <template lang="html">
 <doc-section id="TabSet" name="TabSet">
     <tab-set>
+        <tab header="one" href="#aaa">
+            orem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </tab>
+        <tab header="two" href="#abc">
+            内容在这里 two
+        </tab>
+        <tab-group header="group">
+            <tab header="three">
+                内容在这里 three
+            </tab>
+        </tab-group>
+    </tab-set>
+    <br>
+    <br>
+    <tab-set class="nav-pills">
+        <h4>公共部分</h4>
         <tab header="one">
             orem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
             Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
@@ -15,6 +34,7 @@
                 内容在这里 three
             </tab>
         </tab-group>
+
     </tab-set>
     <doc-code language="markup" title="Component Style">
         <tab-set>

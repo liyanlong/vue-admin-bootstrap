@@ -1,0 +1,23 @@
+.nav-pills>li{
+    &>a{
+
+        padding: 6px 12px;
+        border-radius: 0px;
+        background-color: @pills-background-color;
+        color: @pills-color;
+        line-height: 20px;
+        height: 32px;
+        margin-left: 2px;
+        &:focus {
+            &:extend(.nav-pills>li>a);
+        }
+    }
+    &.active>a{
+        border: 1px solid @pills-active-border-color;
+        background-color: @pills-active-background-color;
+        color: #FFFFFF;
+        &:hover,&:focus {
+            &:extend(.nav-pills>li.active>a);
+        }
+    }
+}

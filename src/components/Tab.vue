@@ -20,6 +20,10 @@ export default {
         animate: {
             type: String,
             default: 'fade'
+        },
+        href: {
+            type: String,
+            default: null
         }
     },
     computed: {
