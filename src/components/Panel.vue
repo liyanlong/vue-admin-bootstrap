@@ -1,25 +1,50 @@
 <template lang="html">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">Panel title</h3>
+    <div class="panel" :class="classes">
+      <div class="panel-heading" v-if="header">
+          <h3 v-if="title" class="panel-title">{{title}}</h3>
+          <template v-else>{{header}}</template>
       </div>
+      <template v-else>
+          <slot name="panel-heading"></slot>
+      </template>
       <div class="panel-body">
-        Panel content
+          <slot></slot>
       </div>
-       <div class="panel-footer">Panel footer</div>
+       <div class="panel-footer" v-if="footer">{{footer}}</div>
+       <template v-else>
+           <slot name="panel-footer"></slot>
+       </template>
     </div>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-    };
-  },
-  computed: {},
-  ready() {},
-  attached() {},
-  methods: {},
-  components: {}
+    props: {
+        type: {
+            type: String,
+            default: 'default'
+        },
+        header: {
+            type: String,
+            default: 'panel head'
+
+        },
+        title: {
+            type: String,
+            default: null
+        }
+    },
+    computed: {
+        classes () {
+            return ['panel-' + this.type];
+        }
+    },
+    data () {
+        return {
+        };
+    },
+    created () {
+        console.log(this.$parent._panelGroup);
+    }
 };
 </script>

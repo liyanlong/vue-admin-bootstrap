@@ -17,6 +17,7 @@
                 <popover-docs></popover-docs>
                 <tooltip-docs></tooltip-docs>
                 <tabs-docs></tabs-docs>
+                <panel-docs></panel-docs>
                 <topbar-docs></topbar-docs>
                 <sidebar-docs></sidebar-docs>
             </div>
@@ -44,6 +45,7 @@ import dropdownDocs from './example/dropdownDocs'
 import popoverDocs from './example/popoverDocs'
 import tooltipDocs from './example/tooltipDocs'
 import tabsDocs from './example/tabsDocs'
+import panelDocs from './example/panelDocs'
 import topbarDocs from './example/topbarDocs'
 import sidebarDocs from './example/sidebarDocs'
 
@@ -57,6 +59,7 @@ export default {
         dropdownDocs,
         tooltipDocs,
         tabsDocs,
+        panelDocs,
         topbarDocs,
         sidebarDocs
     }
