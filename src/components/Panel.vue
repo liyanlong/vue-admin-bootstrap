@@ -1,20 +1,33 @@
 <template lang="html">
     <div class="panel" :class="classes">
-      <div class="panel-heading" v-if="header">
-          <h3 v-if="title" class="panel-title">{{title}}</h3>
-          <template v-else>{{header}}</template>
+      <div class="panel-heading">
+          <h3 class="panel-title">
+              <a v-if="$parent._panelGroup" href="javascript:void(0)" @click="select(this)">{{title}}</a>
+              <template v-else>{{title}}</template>
+          </h3>
+      </div>
+      <div v-if="$parent._panelGroup" class="panel-collapse" :class="{
+          'collapse': !transitioning,
+          'collapsing': transitioning,
+          'in': complete
+          }" v-el:panel-container>
+          <div class="panel-body" v-el:panel-body>
+              <slot></slot>
+          </div>
       </div>
       <template v-else>
-          <slot name="panel-heading"></slot>
+          <div class="panel-body" v-el:panel-body>
+              <slot></slot>
+          </div>
       </template>
-      <div class="panel-body">
-          <slot></slot>
+
+      <div v-if="slots['panel-footer']" class="panel-footer">
+          <slot name="panel-footer"></slot>
       </div>
-       <div class="panel-footer" v-if="footer">{{footer}}</div>
-       <template v-else>
-           <slot name="panel-footer"></slot>
-       </template>
-    </div>
+      <div v-if="footer" class="panel-footer">
+          {{footer}}
+      </div>
+   </div>
 </template>
 
 <script>
@@ -24,12 +37,11 @@ export default {
             type: String,
             default: 'default'
         },
-        header: {
-            type: String,
-            default: 'panel head'
-
-        },
         title: {
+            type: String,
+            default: null
+        },
+        id: {
             type: String,
             default: null
         }
@@ -37,14 +49,37 @@ export default {
     computed: {
         classes () {
             return ['panel-' + this.type];
+        },
+        complete () {
+            return this._group.show === this && !this.transitioning;
+        },
+        slots () {
+            return this._slotContents || {};
         }
     },
     data () {
         return {
+            transitioning: false
         };
     },
     created () {
-        console.log(this.$parent._panelGroup);
+        this._ingroup = this.$parent && this.$parent._panelGroup
+        let group = this.$parent && this.$parent._panelGroup ? this.$parent : null
+        if (group) {
+            this._group = this.$parent;
+            this._group.panels.push(this);
+        }
+    },
+    ready () {
+    },
+    methods: {
+        select (panel) {
+            // 正在进行变化中
+            if (this._group.transitioning) {
+                return;
+            }
+            this._group.show = this._group.show === panel ? null : panel;
+        }
     }
 };
 </script>
