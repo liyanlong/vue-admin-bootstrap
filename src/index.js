@@ -5,6 +5,8 @@ import Tooltip from 'components/Tooltip'
 import TabSet from 'components/TabSet'
 import TabGroup from 'components/TabGroup'
 import Tab from 'components/Tab'
+import PanelGroup from 'components/PanelGroup'
+import Panel from 'components/Panel'
 
 import ViewFramework from 'components/layouts/ViewFramework'
 import Sidebar from 'components/layouts/Sidebar'
@@ -23,7 +25,9 @@ const VueAdminBootStrap = {
         Tooltip,
         TabSet,
         TabGroup,
-        Tab
+        Tab,
+        PanelGroup,
+        Panel
     },
     layouts: {
         Sidebar,

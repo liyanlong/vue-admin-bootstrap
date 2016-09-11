@@ -93,8 +93,8 @@
     <doc-options>
       <div>
         <p>show</p>
-        <p><code>sync</code><code>Boolean</code></p>
-        <p></p>
+        <p><code>Boolean</code></p>
+        <p><code>false</code></p>
         <p>是否打开模态框</p>
       </div>
       <div>
@@ -112,8 +112,8 @@
       <div>
         <p>animate</p>
         <p><code>String</code></p>
-        <p><code>fade</code>, <code>''</code> 无动画</p>
-        <p>设置弹窗动画</p>
+        <p><code>fade</code></p>
+        <p>设置弹窗动画, <code>''</code> 无动画</p>
       </div>
       <div>
         <p>large</p>
@@ -132,7 +132,7 @@
         <h4>Usage</h4>
         <p>使用的时候如果要自定义modal内容,可以设置slot.<code>modal-title</code>, <code>modal-body</code>, <code>modal-footer</code></p>
     </doc-callout>
-    </doc-section>
+</doc-section>
 </template>
 
 <script>

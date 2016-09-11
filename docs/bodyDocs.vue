@@ -20,6 +20,8 @@
                 <panel-docs></panel-docs>
                 <topbar-docs></topbar-docs>
                 <sidebar-docs></sidebar-docs>
+                <checkbox-docs></checkbox-docs>
+
             </div>
             <div class="col-md-3">
                 <affix-sidebar></affix-sidebar>
@@ -49,6 +51,8 @@ import panelDocs from './example/panelDocs'
 import topbarDocs from './example/topbarDocs'
 import sidebarDocs from './example/sidebarDocs'
 
+import checkboxDocs from './example/checkboxDocs'
+
 export default {
     components: {
         container,
@@ -61,7 +65,8 @@ export default {
         tabsDocs,
         panelDocs,
         topbarDocs,
-        sidebarDocs
+        sidebarDocs,
+        checkboxDocs
     }
 }
 </script>

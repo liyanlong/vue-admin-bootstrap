@@ -39,6 +39,8 @@ export default {
             const scrollPosition = document.documentElement.scrollTop || document.body.scrollTop
             let lastId = null;
             for (let s of this.sections) {
+                // scrollTop 意思为滚动条已经滚动的高度
+                // 获取最后一个 文档的绝对位置高度 与 scrollTop接近的元素
                 if ($(s.el).offset().top <= scrollPosition) {
                     // 最后一个满足的 为actbve
                     lastId = s.id;
