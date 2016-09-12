@@ -37,8 +37,7 @@ export default {
             default: null
         },
         checked: {
-            twoWay: true,
-            default: null
+            twoWay: true
         },
         disabled: {
             type: Boolean,
@@ -60,7 +59,7 @@ export default {
         },
         type: {
             type: String,
-            default: ''
+            default: null
         }
     },
     computed: {
@@ -71,7 +70,7 @@ export default {
             return (this.type || (this.$parent && this.$parent.type)) || 'default'
         },
         active () {
-            return this.checked === this.value;
+            return this.group ? ~this.$parent.value.indexOf(this.value) : this.checked === this.value;
         },
         buttonStyle () {
             return this.button || this.group && this.$parent.buttons;
@@ -119,9 +118,6 @@ export default {
                 }
             }
             return false
-        },
-        push (val) {
-            this.$parent.value.push(val);
         }
     },
     watch: {

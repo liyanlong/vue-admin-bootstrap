@@ -8,11 +8,15 @@ import Tab from 'components/Tab'
 import PanelGroup from 'components/PanelGroup'
 import Panel from 'components/Panel'
 
+import ButtonGroup from 'components/forms/ButtonGroup'
+import Checkbox from 'components/forms/Checkbox'
+
 import ViewFramework from 'components/layouts/ViewFramework'
 import Sidebar from 'components/layouts/Sidebar'
 import Topbar from 'components/layouts/Topbar'
 import TopbarNav from 'components/layouts/TopbarNav'
 import popoverMixins from 'components/mixins/popoverMixins.js'
+import formMixins from 'components/mixins/formMixins.js'
 
 import directiveDropdown from 'directives/dropdown.js'
 
@@ -35,11 +39,16 @@ const VueAdminBootStrap = {
         TopbarNav,
         ViewFramework
     },
+    forms: {
+        ButtonGroup,
+        Checkbox
+    },
     directives: {
         dropdown: directiveDropdown
     },
     mixins: {
-        popover: popoverMixins
+        popover: popoverMixins,
+        form: formMixins
     }
 }
 module.exports = VueAdminBootStrap

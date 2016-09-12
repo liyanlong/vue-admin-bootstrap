@@ -5,12 +5,13 @@
 </template>
 
 <script>
+import $ from 'jquery'
 import coerceBoolean from '../../utils/coerceBoolean.js'
 export default {
     props: {
         value: {
             twoWay: true,
-            default: []
+            default: null
         },
         buttons: {
             type: Boolean,
@@ -24,19 +25,24 @@ export default {
     },
     data () {
         return {
-            checked: []
+            checked: null
         };
     },
     created () {
         this._btnGroup = true
+    },
+    ready () {
         this.$set('checked', this.value);
     },
-    methods: {
-    },
     watch: {
-        checked: {
-            handler (val) {
-                this.$set('value', val);
+        checked (val) {
+            this.$set('value', val);
+        },
+        value () {
+            if (this._radioGroup) {
+                $.each(this.$children, (index, el) => {
+                    el.eval && el.eval();
+                });
             }
         }
     }
