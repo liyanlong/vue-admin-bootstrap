@@ -3,13 +3,8 @@
         <div class="viewFramework-topbar">
             <slot name="view-framework-topbar"></slot>
         </div>
-        <div :class="['viewFrameWork-body', {
-                'viewFrameWork-sidebar-full' : sidebarType === 'full',
-                'viewFrameWork-sidebar-mini' : sidebarType === 'mini'
-            }]">
-            <div class="viewFrameWork-sidebar">
-                <slot name="view-framework-sidebar"></slot>                
-            </div>
+        <div v-el:body class="viewFrameWork-body" :class="bodyStyle">
+            <slot name="view-framework-sidebar"></slot>
             <div class="viewFrameWork-product">
                 <div class="viewFramework-product-body">
                     <slot name="view-framework-product"></slot>
@@ -20,11 +15,13 @@
 </template>
 <script>
 export default {
-    props: {
-        sidebarType: {
-            type: String,
-            default: null
+    data () {
+        return {
+            bodyStyle: ''
         }
+    },
+    created () {
+        this._viewFrameWrok = true;
     }
 }
 </script>

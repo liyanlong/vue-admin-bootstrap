@@ -1,22 +1,8 @@
 <template lang="html">
     <doc-section id="Sidebar" name="Sidebar">
-        <div  :class="{
-                'viewFrameWork-sidebar-full': sidebarType === 'full',
-                'viewFrameWork-sidebar-mini': sidebarType === 'mini'
-            }">
-            <div class="viewFrameWork-sidebar sidebar">
-                <sidebar :type.sync="sidebarType" :nav-list="sidebarNavList"></sidebar>
-            </div>
-        </div>
+        <sidebar :type.sync="sidebarType" :nav-list="sidebarNavList"></sidebar>
         <doc-code language="markup" title="Component Style">
-            <div  :class="{
-                    'viewFrameWork-sidebar-full': sidebarType === 'full',
-                    'viewFrameWork-sidebar-mini': sidebarType === 'mini'
-                }">
-                <div class="viewFrameWork-sidebar sidebar">
-                    <sidebar :type.sync="sidebarType" :nav-list="sidebarNavList"></sidebar>
-                </div>
-            </div>
+            <sidebar :type.sync="sidebarType" :nav-list="sidebarNavList"></sidebar>
         </doc-code>
         <doc-code language="javascript" title="Javascript Code">
             var app = new Vue({
@@ -62,16 +48,3 @@ export default {
     }
 };
 </script>
-
-<style type="less">
-.sidebar {
-    background-color: #293038;
-    width: 0px;
-    display: inline-block;
-    position: relative;
-    top: 0px;
-    bottom: 0px;
-    z-index: 102;
-    overflow-x: hidden;
-}
-</style>

@@ -6,22 +6,22 @@
          v-show="!readonly"
          :checked="active"
          :value="value"
-         :name="name"
+         :name="inputName"
          :readonly="readonly"
          :disabled="disabled"
        />
        <slot></slot>
     </div>
-    <div v-else :class="['checkbox',typeColor,{active:active,disabled:disabled,readonly:readonly}]"  @click.prevent="toggle">
+    <div v-else :class="['checkbox',typeColor,{active:active,disabled:disabled,readonly:readonly,inline:inline}]"  @click.prevent="toggle">
         <label clas="open">
             <input v-el:input type="checkbox" autocomplete="off"
-            :name="name"
+            :name="inputName"
             :disabled="disaled"
             :readonly="readonly"
             :value="value"
             :checked="active" />
             <span class="icon dropdown-toggle" :class="[btnType,{bg:typeColor==='default'}]"></span>
-            <span v-if="active && typeColor==='default'" class="icon"></span>
+            <span v-if="active && typeColor === 'default'" class="icon"></span>
             <slot></slot>
         </label>
     </div>
@@ -29,39 +29,9 @@
 </template>
 
 <script>
-import coerceBoolean from 'src/utils/coerceBoolean.js'
+import buttonMixins from 'components/mixins/buttonMixins.js'
 export default {
-    props: {
-        name: {
-            type: String,
-            default: null
-        },
-        checked: {
-            twoWay: true
-        },
-        disabled: {
-            type: Boolean,
-            coerce: coerceBoolean,
-            default: false
-        },
-        readonly: {
-            type: Boolean,
-            coerce: coerceBoolean,
-            default: false
-        },
-        button: {
-            type: Boolean,
-            coerce: coerceBoolean,
-            default: false
-        },
-        value: {
-            default: true
-        },
-        type: {
-            type: String,
-            default: null
-        }
-    },
+    mixins: [buttonMixins],
     computed: {
         btnType () {
             return 'btn-' + this.typeColor;
@@ -77,6 +47,9 @@ export default {
         },
         group () {
             return this.$parent && this.$parent._checkboxGroup;
+        },
+        inputName () {
+            return this.name || this.group && this.$parent.name;
         }
     },
     created () {
@@ -139,62 +112,3 @@ export default {
     }
 }
 </script>
-
-<style lang="less">
-.checkbox { position: relative; }
-.checkbox > label {
-    line-height: initial;
-}
-.checkbox > label > input {
-  box-sizing: border-box;
-  position: absolute;
-  z-index: -1;
-  padding: 0;
-  opacity: 0;
-  margin: 0;
-}
-.checkbox > label > .icon {
-  position: absolute;
-  top: .2rem;
-  left: 0;
-  display: block;
-  width: 1.4rem;
-  height: 1.4rem;
-  line-height:1rem;
-  text-align: center;
-  user-select: none;
-  border-radius: .35rem;
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: 50% 50%;
-}
-.checkbox:not(.active) > label > .icon {
-  background-color: #ddd;
-  border: 1px solid #bbb;
-}
-.checkbox > label > input:focus ~ .icon {
-  outline: 0;
-  border: 1px solid #66afe9;
-  box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
-}
-.checkbox.active > label > .icon {
-  background-size: 1rem 1rem;
-  background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNyIgaGVpZ2h0PSI3Ij48cGF0aCBmaWxsPSIjZmZmIiBkPSJtNS43MywwLjUybC0zLjEyNDIyLDMuMzQxNjFsLTEuMzM4OTUsLTEuNDMyMTJsLTEuMjQ5NjksMS4zMzY2NWwyLjU4ODYzLDIuNzY4NzZsNC4zNzM5LC00LjY3ODI2bC0xLjI0OTY5LC0xLjMzNjY1bDAsMGwwLjAwMDAyLDAuMDAwMDF6Ii8+PC9zdmc+);
-}
-.checkbox.active .btn-default { filter: brightness(75%); }
-.checkbox.disabled > label > .icon,
-.checkbox.readonly > label > .icon,
-.btn.readonly {
-  filter: alpha(opacity=65);
-  box-shadow: none;
-  opacity: .65;
-}
-label.btn > input[type=checkbox] {
-  position: absolute;
-  clip: rect(0,0,0,0);
-  pointer-events: none;
-}
-.inline > .checkbox{
-    display: inline-block;
-}
-</style>

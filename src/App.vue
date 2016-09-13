@@ -1,5 +1,5 @@
 <template>
-    <view-framework :sidebar-type="sidebarType">
+    <view-framework>
         <topbar slot="view-framework-topbar" home-name="文档名称" home-link="#/home" logo-icon="fa fa-desktop">
             <topbar-nav slot="topbar-nav" :nav-list="topbarNavList" text="导航"></topbar-nav>
             <div slot="topbar-right">

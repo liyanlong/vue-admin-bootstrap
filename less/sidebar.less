@@ -1,83 +1,85 @@
-.viewFrameWork{
-    &-sidebar-full{
-        .sidebar-box(@sidebar-full-width);
-        .viewFrameWork-product{
-          left: @sidebar-full-left-content;
-        }
+.viewFrameWork-sidebar{
+    background-color: @sidebar-bg-color;
+    width: @sidebar-full-width;
+    display: inline-block;
+    position: relative;
+    overflow-x: hidden;
+
+    // 服务列表动画
+    .sidebar-trans{
+        transition: all 0.12s ease,0.12s ease;
+    }
+    .sidebar-variant(@sidebar-bg-color,@sidebar-title-color,@sidebar-title-bg-color);
+}
+
+// 内容 主体
+.viewFrameWork-product{
+  width: auto;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  bottom: 0px;
+  right: 0px;
+  overflow: hidden;
+  background: #FFF;
+}
+
+.viewFrameWork-body.viewFrameWork-sidebar-full{
+    .sidebar-box(@sidebar-full-width);
+    .viewFrameWork-product{
+      left: @sidebar-full-left-content;
+    }
+}
+
+.viewFrameWork-body.viewFrameWork-sidebar-mini{
+    .sidebar-box(@sidebar-mini-width);
+
+    .viewFrameWork-product{
+      left:  @sidebar-mini-left-content;
     }
 
-    &-sidebar-mini{
-        .sidebar-box(@sidebar-mini-width);
-
-        .viewFrameWork-product{
-          left:  @sidebar-mini-left-content;
+    // 覆盖 全局sidebar
+    .viewFrameWork-sidebar{
+        .sidebar-content{
+            width: (@sidebar-mini-width + 20px);
         }
-
-        // 覆盖 全局sidebar
-        .viewFrameWork-sidebar{
-            .sidebar-content{
-                width: (@sidebar-mini-width + 20px);
-            }
-             .sidebar-nav{
-                 width: @sidebar-mini-width;
-                 .nav-title{
-                     &:extend(.hide);
-                 }
-             }
-             .sidebar-title-text,.sidebar-manage{
+         .sidebar-nav{
+             width: @sidebar-mini-width;
+             .nav-title{
                  &:extend(.hide);
              }
-             .sidebar-fold{
-                 width: @sidebar-mini-width;
-             }
-        }
+         }
+         .sidebar-title-text,.sidebar-manage{
+             &:extend(.hide);
+         }
+         .sidebar-fold{
+             width: @sidebar-mini-width;
+         }
     }
+}
 
-    &-sidebar{
-        background-color : @sidebar-bg-color;
-        width: 0px;
-        display: none;
-        position: fixed;
-        top: @topbar-height;
-        bottom: 0px;
-        z-index: @zindex-framework-sidebar;
-        overflow-x: hidden;
+.viewFrameWork-body .viewFrameWork-sidebar{
+    background-color : @sidebar-bg-color;
+    width: 0px;
+    display: none;
+    position: fixed;
+    top: @topbar-height;
+    bottom: 0px;
+    z-index: @zindex-framework-sidebar;
+    overflow-x: hidden;
 
-        // 折叠按钮
-        .sidebar-fold{
-            height: 30px;
-            width: @sidebar-full-width;
-            background:lighten(@sidebar-bg-color, 12%);
-            color: #aeb9c2;
-            text-align: center;
-            line-height: 30px !important;
-            font-size: 12px;
-            user-select: none;
-            cursor: pointer;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-        }
-
-        // 服务列表动画
-        .sidebar-trans{
-            transition: all 0.12s ease,0.12s ease;
-            // -o-transition: all 0.12s ease,0.12s ease;
-            // -ms-transition: all 0.12s ease,0.12s ease;
-            // -moz-transition: all 0.12s ease,0.12s ease;
-            // -webkit-transition: all 0.12s ease,0.12s ease;
-        }
-        .sidebar-variant(@sidebar-bg-color,@sidebar-title-color,@sidebar-title-bg-color);
+    // 折叠按钮
+    .sidebar-fold{
+        height: 30px;
+        width: @sidebar-full-width;
+        background:lighten(@sidebar-bg-color, 12%);
+        color: #aeb9c2;
+        text-align: center;
+        line-height: 30px !important;
+        font-size: 12px;
+        user-select: none;
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
     }
-
-    &-product{
-      width: auto;
-      position: absolute;
-      top: 0px;
-      left: 0px;
-      bottom: 0px;
-      right: 0px;
-      overflow: hidden;
-      background: #FFF;
-    }
-
 }

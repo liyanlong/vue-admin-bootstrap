@@ -22,6 +22,7 @@
                 <sidebar-docs></sidebar-docs>
                 <checkbox-docs></checkbox-docs>
                 <radio-docs></radio-docs>
+                <button-group-docs></button-group-docs>
 
             </div>
             <div class="col-md-3">
@@ -54,6 +55,7 @@ import sidebarDocs from './example/sidebarDocs'
 
 import checkboxDocs from './example/checkboxDocs'
 import radioDocs from './example/radioDocs'
+import buttonGroupDocs from './example/buttonGroupDocs'
 
 export default {
     components: {
@@ -69,7 +71,8 @@ export default {
         topbarDocs,
         sidebarDocs,
         checkboxDocs,
-        radioDocs
+        radioDocs,
+        buttonGroupDocs
     }
 }
 </script>

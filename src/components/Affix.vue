@@ -1,9 +1,7 @@
 <template>
   <div class="hidden-print hidden-xs hidden-sm">
     <nav  v-el:affix class="bs-docs-sidebar" :class="{
-        'affix-top': !affixed && !affixedBottom,
-        'affix':affixed && !affixedBottom,
-        'affix-bottom': !affxied && affixedBottom
+        'affix':affixed
         }" :style="{top:top}">
       <slot></slot>
     </nav>
@@ -71,7 +69,6 @@ export default {
             let scroll = {}
             let element = {}
             const rect = this.$el.getBoundingClientRect()
-            const maxScrollTop = Math.max($(document).height(), $(document.body).height())
             for (let type of ['Top', 'Left']) {
                 let t = type.toLowerCase()
                 let ret = window['page' + (type === 'Top' ? 'Y' : 'X') + 'Offset']
@@ -88,8 +85,6 @@ export default {
                 element[t] = scroll[t] + rect[t];
             }
             let fix = scroll.top > element.top - this.offsetTop
-            let fixBottom = scroll.top + this.$els.affix.offsetHeight + this.offsetBottom > maxScrollTop
-            if (this.affixedBottom !== fixBottom) { this.affixedBottom = fixBottom; }
             if (this.affixed !== fix) { this.affixed = fix }
         }
     },

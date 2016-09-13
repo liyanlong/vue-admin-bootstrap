@@ -1,5 +1,5 @@
 <template>
-  <div :class="{'btn-group':buttons}" :data-toggle="buttons&&'buttons'">
+  <div :class="{'btn-group':buttons, 'inline': inline}" :data-toggle="buttons&&'buttons'">
     <slot></slot>
   </div>
 </template>
@@ -10,7 +10,6 @@ import coerceBoolean from '../../utils/coerceBoolean.js'
 export default {
     props: {
         value: {
-            twoWay: true,
             default: null
         },
         buttons: {
@@ -21,10 +20,20 @@ export default {
         type: {
             type: String,
             default: 'default'
+        },
+        name: {
+            type: String,
+            default: null
+        },
+        inline: {
+            type: Boolean,
+            coerce: coerceBoolean,
+            default: false
         }
     },
     data () {
         return {
+            // value 备份
             checked: null
         };
     },
@@ -39,6 +48,7 @@ export default {
             this.$set('value', val);
         },
         value () {
+            // 单选组件 受到组内其它同名单选按钮制约
             if (this._radioGroup) {
                 $.each(this.$children, (index, el) => {
                     el.eval && el.eval();

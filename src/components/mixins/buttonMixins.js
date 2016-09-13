@@ -23,6 +23,11 @@ export default {
             coerce: coerceBoolean,
             default: false
         },
+        inline: {
+            type: Boolean,
+            coerce: coerceBoolean,
+            default: false
+        },
         value: {
             default: true
         },

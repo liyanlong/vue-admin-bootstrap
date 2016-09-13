@@ -6,23 +6,64 @@
         <checkbox  :checked.sync="checkbox.yumq" readonly type="warning" name="sports" value="yumq">羽毛球(readonly)</checkbox>
         <checkbox  :checked.sync="checkbox.ppq" type="primary" name="sports" value="ppq">乒乓球</checkbox>
         <checkbox  :checked.sync="all" value="true">全选</checkbox>
+
         <h4>内联多选按钮</h4>
-        <div class="inline">
-            <checkbox  :checked.sync="checkbox.lanq" name="sports" value="lanq">篮球</checkbox>
-            <checkbox  :checked.sync="checkbox.zuq" disabled type="info" name="sports" value="zuq">足球(disabled)</checkbox>
-            <checkbox  :checked.sync="checkbox.yumq" readonly type="warning" name="sports" value="yumq">羽毛球(readonly)</checkbox>
-            <checkbox  :checked.sync="checkbox.ppq" type="primary" name="sports" value="ppq">乒乓球</checkbox>
-        </div>
+        <checkbox inline :checked.sync="checkbox.lanq" name="sports" value="lanq">篮球</checkbox>
+        <checkbox inline :checked.sync="checkbox.zuq" disabled type="info" name="sports" value="zuq">足球(disabled)</checkbox>
+        <checkbox inline :checked.sync="checkbox.yumq" readonly type="warning" name="sports" value="yumq">羽毛球(readonly)</checkbox>
+        <checkbox inline :checked.sync="checkbox.ppq" type="primary" name="sports" value="ppq">乒乓球</checkbox>
         <doc-code language="json"  title="checkbox数据" :content.sync="content"></doc-code>
 
-        <h4>分组多选按钮</h4>
-        <button-group :value.sync="value" type="info">
-            <checkbox name="sports" value="lanq">篮球</checkbox>
-            <checkbox disabled name="sports" value="zuq">足球(disabled)</checkbox>
-            <checkbox readonly name="sports" value="yumq">羽毛球(readonly)</checkbox>
-            <checkbox name="sports" value="ppq">乒乓球</checkbox>
-        </button-group>
-        <doc-code language="json"  title="checkbox数据" :content.sync="value | json"></doc-code>
+        <doc-options>
+            <div>
+              <p>name</p>
+              <p><code>String</code></p>
+              <p><code>null</code></p>
+              <p>表单控件名称</p>
+            </div>
+            <div>
+              <p>checked</p>
+              <p><code>String</code> <code>twoWay</code></p>
+              <p><code>null</code></p>
+              <p>选中后<code>checked</code>与<code>value</code>一致</p>
+            </div>
+            <div>
+              <p>disabled</p>
+              <p><code>Boolean</code></p>
+              <p><code>false</code></p>
+              <p>是否禁用表单控件</p>
+            </div>
+            <div>
+              <p>readonly</p>
+              <p><code>Boolean</code></p>
+              <p><code>false</code></p>
+              <p>是否只读</p>
+            </div>
+            <div>
+              <p>button</p>
+              <p><code>Boolean</code></p>
+              <p><code>false</code></p>
+              <p>按钮类型是否为button</p>
+            </div>
+            <div>
+              <p>inline</p>
+              <p><code>Boolean</code></p>
+              <p><code>false</code></p>
+              <p>是否为内联元素</p>
+            </div>
+            <div>
+              <p>value</p>
+              <p><code>String | Boolean</code></p>
+              <p><code>true</code></p>
+              <p>表单控件默认值</p>
+            </div>
+            <div>
+              <p>type</p>
+              <p><code>String</code></p>
+              <p><code>null</code></p>
+              <p>默认的类型</p>
+            </div>
+        </doc-options>
     </doc-section>
 </template>
 <script>

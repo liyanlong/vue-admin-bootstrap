@@ -10,17 +10,18 @@ import Panel from 'components/Panel'
 
 import ButtonGroup from 'components/forms/ButtonGroup'
 import Checkbox from 'components/forms/Checkbox'
+import Radio from 'components/forms/Radio'
 
 import ViewFramework from 'components/layouts/ViewFramework'
 import Sidebar from 'components/layouts/Sidebar'
 import Topbar from 'components/layouts/Topbar'
 import TopbarNav from 'components/layouts/TopbarNav'
+
 import popoverMixins from 'components/mixins/popoverMixins.js'
-import formMixins from 'components/mixins/formMixins.js'
+import buttonMixins from 'components/mixins/buttonMixins.js'
 
 import directiveDropdown from 'directives/dropdown.js'
 
-// Vue.use(directiveDropdown);
 const VueAdminBootStrap = {
     components: {
         Modal,
@@ -41,14 +42,15 @@ const VueAdminBootStrap = {
     },
     forms: {
         ButtonGroup,
-        Checkbox
+        Checkbox,
+        Radio
     },
     directives: {
         dropdown: directiveDropdown
     },
     mixins: {
         popover: popoverMixins,
-        form: formMixins
+        button: buttonMixins
     }
 }
 module.exports = VueAdminBootStrap
