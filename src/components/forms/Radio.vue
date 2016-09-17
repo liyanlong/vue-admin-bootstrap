@@ -11,8 +11,8 @@
     />
     <slot></slot>
   </label>
-  <div v-else :class="['radio',typeColor,{active:active,disabled:disabled,readonly:readonly,inline:inline}]" @click.prevent="toggle">
-    <label class="open">
+  <div v-else :class="['radio',typeColor,{active:active,disabled:disabled,readonly:readonly,inline:inline}]">
+    <label class="open" @click.prevent="toggle">
       <input type="radio" autocomplete="off"
         v-el:input
         :checked="active"

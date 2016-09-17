@@ -23,6 +23,8 @@
                 <checkbox-docs></checkbox-docs>
                 <radio-docs></radio-docs>
                 <button-group-docs></button-group-docs>
+                <input-docs></input-docs>
+                <form-group-docs></form-group-docs>
 
             </div>
             <div class="col-md-3">
@@ -56,6 +58,8 @@ import sidebarDocs from './example/sidebarDocs'
 import checkboxDocs from './example/checkboxDocs'
 import radioDocs from './example/radioDocs'
 import buttonGroupDocs from './example/buttonGroupDocs'
+import inputDocs from './example/inputDocs'
+import formGroupDocs from './example/formGroupDocs'
 
 export default {
     components: {
@@ -72,7 +76,9 @@ export default {
         sidebarDocs,
         checkboxDocs,
         radioDocs,
-        buttonGroupDocs
+        buttonGroupDocs,
+        inputDocs,
+        formGroupDocs
     }
 }
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <div  v-el:panel role="tabpanel" class="tab-pane active" :class="[animate]" v-if="show">
+  <div  v-el:panel role="tabpanel" class="tab-pane active" :class="[animate]" v-show="show">
     <slot></slot>
   </div>
 

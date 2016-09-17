@@ -20,8 +20,7 @@ import TopbarNav from 'components/layouts/TopbarNav'
 import popoverMixins from 'components/mixins/popoverMixins.js'
 import buttonMixins from 'components/mixins/buttonMixins.js'
 
-import directiveDropdown from 'directives/dropdown.js'
-
+import translation from 'src/utils/translation.js'
 const VueAdminBootStrap = {
     components: {
         Modal,
@@ -45,12 +44,12 @@ const VueAdminBootStrap = {
         Checkbox,
         Radio
     },
-    directives: {
-        dropdown: directiveDropdown
-    },
     mixins: {
         popover: popoverMixins,
         button: buttonMixins
+    },
+    utils: {
+        translation
     }
 }
 module.exports = VueAdminBootStrap

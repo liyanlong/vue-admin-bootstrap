@@ -12,8 +12,8 @@
        />
        <slot></slot>
     </div>
-    <div v-else :class="['checkbox',typeColor,{active:active,disabled:disabled,readonly:readonly,inline:inline}]"  @click.prevent="toggle">
-        <label clas="open">
+    <div v-else :class="['checkbox',typeColor,{active:active,disabled:disabled,readonly:readonly,inline:inline}]">
+        <label clas="open" @click.prevent="toggle">
             <input v-el:input type="checkbox" autocomplete="off"
             :name="inputName"
             :disabled="disaled"

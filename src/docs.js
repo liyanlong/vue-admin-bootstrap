@@ -1,5 +1,6 @@
 require('assets/docs.css')
 require('assets/prism.css')
+require('assets/prism-copy.css')
 require('prismjs');
 require('./docs/js/showLanguage')
 import Vue from 'Vue'
