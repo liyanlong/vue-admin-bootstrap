@@ -17,7 +17,7 @@ var languageDefault = {
         minLength: '最小长度',
         maxLength: '最大长度',
         months: [],
-        notSelected: '没选中一个',
+        notSelected: '没选中',
         required: '必要',
         search: '查询'
     }

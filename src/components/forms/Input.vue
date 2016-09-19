@@ -1,22 +1,41 @@
 <template>
  <div class="form-group" @click="focus()"
  :class="{'has-feedback': icon, 'validate': !noValidate, 'has-error':hasError, 'has-success': hasSuccess}">
-     <slot name="input-label"><label v-if="label" class="control-label">{{label}}</label></slot>
-     <textarea v-if="type=='textarea'" class="form-control"
-     v-el:input
-     v-model="value"
-     :cols="cols"
-     :rows="rows"
-     :name="name"
-     :readonly="readonly"
-     :required="required"
-     :disabled="disabled"
-     :maxlength="maxlength || null"
-     :placeholder="placeholder"
-     :style="{'resize': resize ? 'auto': 'none'}"></textarea>
-     <template v-else>
-         <div v-if="slots['input-before'] || slots['input-after']" class="input-group">
-             <slot name="input-before"></slot>
+     <slot name="input-label"><label v-if="label" class="control-label" :class="{
+            'col-sm-2': _parent && _parent.horizontal
+         }">{{label}}</label></slot>
+     <div v-if="_parent && _parent.horizontal" class="col-sm-10">
+         <textarea v-if="type=='textarea'" class="form-control"
+         v-el:input
+         v-model="value"
+         :cols="cols"
+         :rows="rows"
+         :name="name"
+         :readonly="readonly"
+         :required="required"
+         :disabled="disabled"
+         :maxlength="maxlength || null"
+         :placeholder="placeholder"
+         :style="{'resize': resize ? 'auto': 'none'}"></textarea>
+         <template v-else>
+             <div v-if="slots['input-before'] || slots['input-after']" class="input-group">
+                 <slot name="input-before"></slot>
+                 <input v-else class="form-control"
+                    v-el:input
+                    v-model="value"
+                    :name="name"
+                    :type="type"
+                    :title="title"
+                    :readonly="readonly"
+                    :required="required"
+                    :disabled="disabled"
+                    :maxlength="maxlength || null"
+                    :placeholder="placeholder"
+                    :pattern="textPattern"
+                    @keyup.enter="enterSubmit&&submit()"
+                 />
+               <slot name="input-after"></slot>
+             </div>
              <input v-else class="form-control"
                 v-el:input
                 v-model="value"
@@ -31,26 +50,63 @@
                 :pattern="textPattern"
                 @keyup.enter="enterSubmit&&submit()"
              />
-           <slot name="input-after"></slot>
-         </div>
-         <input v-else class="form-control"
-            v-el:input
-            v-model="value"
-            :name="name"
-            :type="type"
-            :title="title"
-            :readonly="readonly"
-            :required="required"
-            :disabled="disabled"
-            :maxlength="maxlength || null"
-            :placeholder="placeholder"
-            :pattern="textPattern"
-            @keyup.enter="enterSubmit&&submit()"
-         />
-         <span v-if="clearButton && value" class="close" @click="value = ''">&times;</span>
-         <span v-if="icon&&valid!==null" class="glyphicon form-control-feedback" :class="validIcon" aria-hidden="true"></span>
-         <div v-if="showHelp" class="help-block">{{help}}</div>
-         <div v-if="showError" class="help-block with-errors">{{errorText}}</div>
+             <span v-if="clearButton && value" class="close" @click="value = ''">&times;</span>
+             <span v-if="icon&&valid!==null" class="glyphicon form-control-feedback" :class="validIcon" aria-hidden="true"></span>
+             <div v-if="showHelp" class="help-block">{{help}}</div>
+             <div v-if="showError" class="help-block with-errors">{{errorText}}</div>
+         </template>
+     </div>
+     <template v-else>
+         <textarea v-if="type=='textarea'" class="form-control"
+         v-el:input
+         v-model="value"
+         :cols="cols"
+         :rows="rows"
+         :name="name"
+         :readonly="readonly"
+         :required="required"
+         :disabled="disabled"
+         :maxlength="maxlength || null"
+         :placeholder="placeholder"
+         :style="{'resize': resize ? 'auto': 'none'}"></textarea>
+         <template v-else>
+             <div v-if="slots['input-before'] || slots['input-after']" class="input-group">
+                 <slot name="input-before"></slot>
+                 <input v-else class="form-control"
+                    v-el:input
+                    v-model="value"
+                    :name="name"
+                    :type="type"
+                    :title="title"
+                    :readonly="readonly"
+                    :required="required"
+                    :disabled="disabled"
+                    :maxlength="maxlength || null"
+                    :placeholder="placeholder"
+                    :pattern="textPattern"
+                    @keyup.enter="enterSubmit&&submit()"
+                 />
+               <slot name="input-after"></slot>
+             </div>
+             <input v-else class="form-control"
+                v-el:input
+                v-model="value"
+                :name="name"
+                :type="type"
+                :title="title"
+                :readonly="readonly"
+                :required="required"
+                :disabled="disabled"
+                :maxlength="maxlength || null"
+                :placeholder="placeholder"
+                :pattern="textPattern"
+                @keyup.enter="enterSubmit&&submit()"
+             />
+             <span v-if="clearButton && value" class="close" @click="value = ''">&times;</span>
+             <span v-if="icon&&valid!==null" class="glyphicon form-control-feedback" :class="validIcon" aria-hidden="true"></span>
+             <div v-if="showHelp" class="help-block">{{help}}</div>
+             <div v-if="showError" class="help-block with-errors">{{errorText}}</div>
+         </template>
      </template>
   </div>
 </template>
@@ -59,7 +115,7 @@
 import $ from 'jquery'
 import coerceBoolean from 'src/utils/coerceBoolean'
 import coerceNumber from 'src/utils/coerceNumber'
-import translation from 'src/utils/translation'
+import translations from 'src/utils/translations'
 export default {
     props: {
         label: {
@@ -189,7 +245,7 @@ export default {
     },
     computed: {
         text () {
-            return translation(this.lang)
+            return translations(this.lang)
         },
         validIcon () {
             return this.valid === null ? '' : 'glyphicon-' + (this.valid ? 'ok' : 'remove');
@@ -339,6 +395,7 @@ export default {
             if (!this.noValidate) {
                 parent.children.push(this);
             }
+
             this._parent = parent;
         }
     },

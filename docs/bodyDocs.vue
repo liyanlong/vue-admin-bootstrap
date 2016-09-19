@@ -24,6 +24,7 @@
                 <radio-docs></radio-docs>
                 <button-group-docs></button-group-docs>
                 <input-docs></input-docs>
+                <select-docs></select-docs>
                 <form-group-docs></form-group-docs>
 
             </div>
@@ -59,6 +60,7 @@ import checkboxDocs from './example/checkboxDocs'
 import radioDocs from './example/radioDocs'
 import buttonGroupDocs from './example/buttonGroupDocs'
 import inputDocs from './example/inputDocs'
+import selectDocs from './example/selectDocs'
 import formGroupDocs from './example/formGroupDocs'
 
 export default {
@@ -78,6 +80,7 @@ export default {
         radioDocs,
         buttonGroupDocs,
         inputDocs,
+        selectDocs,
         formGroupDocs
     }
 }

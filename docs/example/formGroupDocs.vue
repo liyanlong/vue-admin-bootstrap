@@ -4,13 +4,13 @@
             <form-group :valid.sync="valid">
                 <tab-set>
                     <tab :header="headerA" >
-                        <form-group :valid.sync="validA">
+                        <form-group :valid.sync="validA" horizontal>
                             <bs-input label="username" name="username" pattern="[\w]{6,}" error="用户名为有效字符,用户名长度至少大于6"></bs-input>
                             <bs-input label="password" name="password" type="password" pattern="[\w]{6,20}" error="密码长度要求为6~20"></bs-input>
                         </form-group>
                     </tab>
                     <tab :header="headerB" :disabled="!validA">
-                        <form-group :valid.sync="validB">
+                        <form-group :valid.sync="validB" inline>
                             <bs-input label="telephone" name="phone" pattern="^[131|135|170][\d]{10}" error="请输入合法的手机号码"></bs-input>
                         </form-group>
                     </tab>

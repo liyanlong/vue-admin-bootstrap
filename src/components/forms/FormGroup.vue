@@ -1,13 +1,29 @@
 <template>
-    <slot></slot>
+    <div :class="{
+            'form-horizontal': horizontal,
+            'form-inline': inline
+        }">
+        <slot></slot>
+    </div>
 </template>
 
 <script>
+import coerceBoolean from 'src/utils/coerceBoolean'
 export default {
     props: {
         valid: {
             twoWay: true,
             default: null
+        },
+        horizontal: {
+            type: Boolean,
+            coerce: coerceBoolean,
+            default: false
+        },
+        inline: {
+            type: Boolean,
+            coerce: coerceBoolean,
+            default: false
         }
     },
     data () {
