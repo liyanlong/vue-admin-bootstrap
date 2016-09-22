@@ -7,7 +7,8 @@
             }"
             @keydown.esc="hide"
             @click="toggle"
-            :disabled="disabled">
+            :disabled="disabled"
+            :readonly="readonly">
         {{ text }}
         <span class="caret"></span>
         </a>
@@ -23,7 +24,8 @@
             <a v-el:dropdown-toggle class="dropdown-toggle" href="#"
             @keydown.esc="hide"
             @click="toggle"
-            :disabled="disabled">{{text}}</a>
+            :disabled="disabled"
+            :readonly="readonly">{{text}}</a>
              <slot v-if="slots['dropdown-menu']" name="dropdown-menu"></slot>
              <ul v-else class="dropdown-menu" :class="{
                    'pull-right': ~placement.indexOf('right')
@@ -31,21 +33,24 @@
                <slot></slot>
              </ul>
         </li>
-        <div v-else class="btn-group" :class="classes" :disabled="disabled">
-          <button v-el:dropdown-toggle type="button"
-                :class="['btn', btnType, 'dropdown-toggle']"
-                @keydown.esc="hide"
-                @click="toggle"
-                :disabled="disabled">
-            {{ text }}
-            <span class="caret"></span>
-          </button>
-          <slot v-if="slots['dropdown-menu']" name="dropdown-menu"></slot>
-          <ul v-else class="dropdown-menu" :class="{
-                'pull-right': ~placement.indexOf('right')
-              }">
-              <slot></slot>
-          </ul>
+        <div v-else :class="[classes,'btn-group', { 'btn-group-justified' :$parent._select && $parent.justified}]">
+              <button type="button"
+                    v-el:dropdown-toggle
+                    :class="[
+                        $parent._select ? 'form-control': 'btn ' + btnType, 'dropdown-toggle']"
+                    @keydown.esc="hide"
+                    @click="toggle"
+                    :disabled="disabled"
+                    :readonly="readonly">
+                {{ text }}
+                <span class="caret"></span>
+              </button>
+              <slot v-if="slots['dropdown-menu']" name="dropdown-menu"></slot>
+              <ul v-else class="dropdown-menu" :class="{
+                    'pull-right': ~placement.indexOf('right')
+                  }">
+                  <slot></slot>
+              </ul>
         </div>
     </template>
 </template>
@@ -90,6 +95,11 @@ export default {
             coerce: coerceBoolean,
             default: false
         },
+        readonly: {
+            type: Boolean,
+            coerce: coerceBoolean,
+            default: false
+        },
         text: {
             type: String,
             default: null
@@ -112,16 +122,18 @@ export default {
     },
     computed: {
         classes () {
-            var ret = [{
+            var ret = {
                 'topbar-nav': this.$parent._topbarNav,
                 'disabled': this.disabled,
                 'dropup': ~this.placement.indexOf('top'),
-                'open': this.show
-            }, 'dropdown'];
+                'open': this.show,
+                'dropdown': true
+            };
             if (!this.class) {
                 return ret;
             }
-            return ret.concat(this.class);
+            ret[this.class] = true;
+            return ret;
         },
         slots () {
             return this._slotContents || {};
@@ -131,6 +143,7 @@ export default {
         }
     },
     ready () {
+        // 所有下拉列表集合
         dropdownList.push(this);
     },
     attached () {},

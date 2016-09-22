@@ -1,8 +1,27 @@
 <template lang="html">
     <doc-section id="Select" name="Select">
-        <bs-select :options="options" :value.sync="values" placeholder="请选择动物"></bs-select>
+        <div class="row">
+            <div class="col-md-4">
+                <button class="btn">
+                    select animal : {{single | json}}
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <h4>基本的select 组件</h4>
+                <bs-select :options="options" :value.sync="single" name="animal" placeholder="请选择动物"></bs-select>
+            </div>
+            <div class="col-md-4">
+                <h4>带有表单的select组件</h4>
+                <form action="/docs.html#Select" disabled>
+                    <bs-select :options="options" :value.sync="single" name="animal" placeholder="请选择动物"></bs-select>
+                    <button type="submit"  class="btn btn-default">提交</button>
+                </form>
+            </div>
+        </div>
         <doc-code language="markup" title="Component Style">
-            <bs-select ></bs-select>
+            <bs-select :options="options" :value.sync="formSelect" name="animal" placeholder="请选择动物"></bs-select>
         </doc-code>
 
         <doc-code language="javascript" title="Javascript Code">
@@ -39,7 +58,8 @@ export default {
     },
     data () {
         return {
-            values: null,
+            single: null,
+            formSelect: null,
             options: [
                 {value: 1, label: 'Cat'},
                 {value: 2, label: 'Cow'},

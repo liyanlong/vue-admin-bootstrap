@@ -1,12 +1,8 @@
 <template>
-<div  v-el:select :class="{'btn-group btn-group-justified': justified, 'btn-select': !justified}">
+<div :class="{'btn-group btn-group-justified': justified, 'btn-select': !justified}">
     <slot name="select-before"></slot>
-    <div :class="{
-        'open': show,
-        'dropdown': !justified
-        }">
         <select
-            v-el:select
+            v-el:sel
             v-model="value"
             v-show="show"
             :name="name"
@@ -18,32 +14,28 @@
            <option v-if="required" value=""></option>
            <option v-for="option in options" :value="option.value||option">{{ option.label||option }}</option>
        </select>
-       <button type="button" class="form-control dropdown-toggle"
-            :disabled="disabled || !hasParent"
-            :readonly="readonly"
-            @click="toggle()"
-            @keyup.esc="show = false">
-            <span class="btn-content">{{loading ? text.loading : showPlaceholder || selectedItems}}</span>
-            <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu">
-            <template v-if="options.length">
-              <li v-if="required&&!clearButton"><a @mousedown.prevent="clear() && blur()">{{ placeholder || text.notSelected }}</a></li>
-              <li v-for="option in options | filterBy searchValue" :id="option.value||option">
-                <a @mousedown.prevent="select(option.value||option)">
-                  <span v-html="option.label||option"></span>
-                </a>
-              </li>
-            </template>
-            <slot></slot>
-        </ul>
-    </div>
+       <dropdown :text="loading ? text.loading : showPlaceholder || selectedItems" :readonly="readonly" :disabled="disabled || !hasParent">
+           <ul slot="dropdown-menu"  class="dropdown-menu">
+               <template v-if="options.length">
+                 <li v-if="required&&!clearButton"><a @mousedown.prevent="clear() && blur()">{{ placeholder || text.notSelected }}</a></li>
+                 <li v-for="option in options | filterBy searchValue" :id="option.value||option">
+                   <a @mousedown.prevent="select(option.value||option)">
+                       <span>{{{option.label||option}}}</span>
+                      <span class="glyphicon glyphicon-ok check-mark" v-if="isSelected(option.value || option)"></span>
+                   </a>
+                 </li>
+               </template>
+               <slot></slot>
+           </ul>
+       </dropdown>
     <slot name="select-after"></slot>
 </div>
 </template>
 <script>
 import translations from 'src/utils/translations'
 import coerceBoolean from 'src/utils/coerceBoolean'
+import Dropdown from 'components/Dropdown'
+import $ from 'jquery'
 export default {
     props: {
         name: {
@@ -86,6 +78,11 @@ export default {
         },
         lang: {
             default: 'zh'
+        },
+        closeOnSelect: {
+            type: Boolean,
+            coerce: coerceBoolean,
+            default: false
         }
     },
     computed: {
@@ -125,12 +122,16 @@ export default {
     data () {
         return {
             show: false,
-            loading: false
+            loading: false,
+            valid: null
         }
     },
     methods: {
         toggle () {
             this.show = !this.show;
+        },
+        isSelected (v) {
+            return this.values.indexOf(v) > -1;
         },
         select (v) {
             if (this.value instanceof Array) {
@@ -139,6 +140,7 @@ export default {
                 } else {
                     this.value.push(v)
                 }
+                // 当为多选的时候不选择关闭
                 if (this.closeOnSelect) {
                     this.toggle()
                 }
@@ -146,9 +148,37 @@ export default {
                 this.value = v
                 this.toggle()
             }
+        },
+        validate () {
+            return !this.required ? true : this.value instanceof Array ? this.value.length > 0 : this.value !== null
         }
+    },
+    watch: {
+        valid (val, old) {
+            if (val === old) { return }
+            // 父组件 form-group 检测validator
+            this._parent && this._parent.validate()
+        }
+    },
+    components: {
+        Dropdown
+    },
+    created () {
+        this._select = true;
+        // 加入form-group
+    },
+    ready () {
+        if (this.$els.sel.form) {
+            $(this.$els.sel.form).on('submit.v.select', (e) => {
+                let valid = this.validate();
+                this.valid = valid;
+                return valid;
+            });
+        }
+    },
+    beforeDestroy () {
+        $(this.$els.sel.form).off('.v.select');
     }
-
 }
 </script>
 
