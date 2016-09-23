@@ -49,6 +49,7 @@
                 :placeholder="placeholder"
                 :pattern="textPattern"
                 @keyup.enter="enterSubmit&&submit()"
+                autocomplete="off"
              />
              <span v-if="clearButton && value" class="close" @click="value = ''">&times;</span>
              <span v-if="icon&&valid!==null" class="glyphicon form-control-feedback" :class="validIcon" aria-hidden="true"></span>
@@ -219,7 +220,7 @@ export default {
         },
         lang: {
             type: String,
-            default: 'zh'
+            default: navigator.language
         },
         cols: {
             type: Number,
@@ -303,6 +304,7 @@ export default {
             if (this.$parent._formGroup) {
                 return this.$parent.validate()
             }
+
             // 表单提交
             if (this.$els.input.form) {
                 const invalids = $(this.$els.input.form).find('.form-group.validate:not(.has-success)')
@@ -439,7 +441,7 @@ export default {
                         this.$parent.children.push(this)
                     }
                 }
-                // 重新检查组件
+                // 重新检查validate
                 this.eval();
             }
         }

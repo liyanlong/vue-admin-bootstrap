@@ -96,6 +96,7 @@ export default {
         }
     },
     watch: {
+        // 将选中 radio 进行选中
         checked (val) {
             if (typeof this.value !== 'boolean' && this.group) {
                 if (val) {

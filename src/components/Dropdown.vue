@@ -33,17 +33,18 @@
                <slot></slot>
              </ul>
         </li>
-        <div v-else :class="[classes,'btn-group', { 'btn-group-justified' :$parent._select && $parent.justified}]">
+        <div v-else :class="[classes, {'btn-group': !$parent._select}]">
               <button type="button"
                     v-el:dropdown-toggle
-                    :class="[
-                        $parent._select ? 'form-control': 'btn ' + btnType, 'dropdown-toggle']"
+                    :class="[$parent._select ? 'form-control': 'btn ' + btnType, 'dropdown-toggle']"
                     @keydown.esc="hide"
                     @click="toggle"
                     :disabled="disabled"
                     :readonly="readonly">
-                {{ text }}
-                <span class="caret"></span>
+                <slot name="dropdown-text">
+                    {{ text }}
+                    <span class="caret"></span>
+                </slot>
               </button>
               <slot v-if="slots['dropdown-menu']" name="dropdown-menu"></slot>
               <ul v-else class="dropdown-menu" :class="{
@@ -65,6 +66,7 @@ function clearMenus (e) {
     if (e && e.which === 3) {
         return;
     }
+
     // 所有下拉列表
     $(dropdownList).each(function (index, vm) {
         var el = vm.$el;
@@ -125,14 +127,19 @@ export default {
             var ret = {
                 'topbar-nav': this.$parent._topbarNav,
                 'disabled': this.disabled,
-                'dropup': ~this.placement.indexOf('top'),
+                'dropup': this.placement.indexOf('top') !== -1,
                 'open': this.show,
                 'dropdown': true
             };
-            if (!this.class) {
-                return ret;
+            if (this.class instanceof Array) {
+                ret = [ret].concat(this.class);
+            } else if (typeof this.class === 'string' && this.class !== '') {
+                ret[this.class] = true;
+            } else if (typeof this.class === 'object') {
+                for (let name in this.class) {
+                    ret[name] = this.class[name];
+                }
             }
-            ret[this.class] = true;
             return ret;
         },
         slots () {

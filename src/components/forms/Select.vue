@@ -1,5 +1,5 @@
 <template>
-<div :class="{'btn-group btn-group-justified': justified, 'btn-select': !justified}">
+<div :class="{'btn-group btn-group-justified': justified, 'btn-select': !justified, 'form-group': _parent && _parent._formGroup}">
     <slot name="select-before"></slot>
         <select
             v-el:sel
@@ -12,16 +12,21 @@
             :readonly="readonly"
             :disabled="disabled">
            <option v-if="required" value=""></option>
-           <option v-for="option in options" :value="option.value||option">{{ option.label||option }}</option>
+           <option v-for="option in options" :value="option.value||option">{{ option.label || option }}</option>
        </select>
-       <dropdown :text="loading ? text.loading : showPlaceholder || selectedItems" :readonly="readonly" :disabled="disabled || !hasParent">
+       <dropdown :readonly="readonly" :disabled="disabled || !hasParent" :show.sync="show">
+           <template slot="dropdown-text">
+               <span class="btn-content">{{ loading ? text.loading : showPlaceholder || selectedItems }}</span>
+               <span class="caret"></span>
+               <span v-if="clearButton && values.length" class="close" @click.stop="clear()">&times;</span>
+           </template>
            <ul slot="dropdown-menu"  class="dropdown-menu">
                <template v-if="options.length">
-                 <li v-if="required&&!clearButton"><a @mousedown.prevent="clear() && blur()">{{ placeholder || text.notSelected }}</a></li>
+                 <li v-if="required && !clearButton" @mousedown.prevent="clear() && blur()"><a>{{ placeholder || text.notSelected }}</a></li>
                  <li v-for="option in options | filterBy searchValue" :id="option.value||option">
-                   <a @mousedown.prevent="select(option.value||option)">
+                   <a @mousedown.prevent="select(option.value||option)" @click.stop="true">
                        <span>{{{option.label||option}}}</span>
-                      <span class="glyphicon glyphicon-ok check-mark" v-if="isSelected(option.value || option)"></span>
+                       <span class="glyphicon glyphicon-ok check-mark" v-if="isSelected(option.value || option)"></span>
                    </a>
                  </li>
                </template>
@@ -34,8 +39,8 @@
 <script>
 import translations from 'src/utils/translations'
 import coerceBoolean from 'src/utils/coerceBoolean'
+import coerceNumber from 'src/utils/coerceNumber'
 import Dropdown from 'components/Dropdown'
-import $ from 'jquery'
 export default {
     props: {
         name: {
@@ -48,6 +53,11 @@ export default {
         options: {
             type: Array,
             default () { return [] }
+        },
+        required: {
+            type: Boolean,
+            coerce: coerceBoolean,
+            default: false
         },
         disabled: {
             type: Boolean,
@@ -73,13 +83,23 @@ export default {
             coerce: coerceBoolean,
             default: false
         },
+        limit: {
+            type: Number,
+            coerce: coerceNumber,
+            default: 1
+        },
         parent: {
             default: true
         },
         lang: {
-            default: 'zh'
+            default: navigator.language
         },
         closeOnSelect: {
+            type: Boolean,
+            coerce: coerceBoolean,
+            default: false
+        },
+        clearButton: {
             type: Boolean,
             coerce: coerceBoolean,
             default: false
@@ -92,6 +112,9 @@ export default {
             for (var item of this.values) {
                 if (~['number', 'string'].indexOf(typeof item)) {
                     let option = null;
+
+                    // 如果列表中存在与item值一样的选项
+                    // 加入选中集合中
                     if (this.options.some(o => {
                         if (o instanceof Object ? o.value === item : o === item) {
                             option = o;
@@ -130,17 +153,44 @@ export default {
         toggle () {
             this.show = !this.show;
         },
+        clear () {
+            if (this.disabled || this.readonly) {
+                return;
+            }
+            this.value = this.value instanceof Array ? [] : null;
+            // this.toggle()
+        },
+        blur () {
+            this.show = false
+        },
         isSelected (v) {
             return this.values.indexOf(v) > -1;
         },
+
+        // 设置 value 的值
+        // 根据单选 和 多选的情况 进行过滤
+        checkValue () {
+            if (this.multiple && !(this.value instanceof Array)) {
+                this.value = (this.value === null || this.value === undefined) ? [] : [this.value]
+            }
+            if (!this.multiple && this.value instanceof Array) {
+                this.value = this.value.length ? this.value.pop() : null
+            }
+            if (this.values.length > this.limit) {
+                this.value = this.value.slice(0, this.limit)
+            }
+        },
         select (v) {
+            // 多选的情况
             if (this.value instanceof Array) {
                 if (~this.value.indexOf(v)) {
                     this.value.$remove(v)
                 } else {
-                    this.value.push(v)
+                    // 未超过选择限制
+                    if (this.values.length < this.limit) {
+                        this.value.push(v)
+                    }
                 }
-                // 当为多选的时候不选择关闭
                 if (this.closeOnSelect) {
                     this.toggle()
                 }
@@ -158,6 +208,14 @@ export default {
             if (val === old) { return }
             // 父组件 form-group 检测validator
             this._parent && this._parent.validate()
+        },
+        value (val) {
+            // 多选的情况, 超过了数字
+            if (this.value instanceof Array && val.length > this.limit) {
+
+            }
+            this.checkValue()
+            this.valid = this.validate()
         }
     },
     components: {
@@ -165,25 +223,53 @@ export default {
     },
     created () {
         this._select = true;
-        // 加入form-group
-    },
-    ready () {
-        if (this.$els.sel.form) {
-            $(this.$els.sel.form).on('submit.v.select', (e) => {
-                let valid = this.validate();
-                this.valid = valid;
-                return valid;
-            });
+
+        // 未定义 value 或者 非父节点
+        if (this.value === undefined || !this.parent) {
+            this.value = null
+        }
+
+        // 单选情况
+        if (!this.multiple && this.value instanceof Array) {
+            this.value = this.value.shift()
+        }
+        if (this.limit < 1) {
+            this.limit = 1
+        }
+
+        // TODO: 加入form-group
+        let parent = this.$parent;
+        while (parent && !parent._formGroup) {
+            parent = parent.$parent;
+        }
+        if (parent && parent._formGroup) {
+            parent.children.push(this);
+            this._parent = parent;
         }
     },
+    ready () {
+    },
     beforeDestroy () {
-        $(this.$els.sel.form).off('.v.select');
+        // 存在 form-group
+        if (this._parent) {
+            this._parent.children.$remove(this)
+        }
     }
 }
 </script>
 
 <style lang="less">
-.btn-select { display: inline-block; }
+.btn-select {
+    display: inline-block;
+    .caret{
+        float: right;
+        margin-top: 9px;
+        margin-left: 5px;
+    }
+    .close{
+
+    }
+}
 .btn-select>.btn-group>.dropdown-menu>li { position:relative; }
 .btn-select>.btn-group>.dropdown-menu>li>a { cursor:pointer; }
 .bs-searchbox {
@@ -224,11 +310,7 @@ button>.close { margin-left: 5px;}
   bottom: 5px;
 }
 .btn-group.btn-group-justified .dropdown-menu { width: 100%; }
-span.caret {
-  float: right;
-  margin-top: 9px;
-  margin-left: 5px;
-}
+
 .secret {
   border: 0;
   clip: rect(0 0 0 0);

@@ -1,37 +1,40 @@
 <template lang="html">
     <doc-section id="Input" name="Input">
         <div class="row">
-            <div class="col-md-6 col-lg-6">
-                <bs-input
-                :label="label"
-                :value.sync="value"
-                :pattern="pattern"
-                :clear-button="clearButton"
-                :help="help"
-                :placeholder="placeholder"
-                :readonly="readonly"
-                :disabled="disabled"
-                :required="required"
-                :error="error"
-                :minlength="minLength"
-                :maxlength="maxLength"
-                :icon="icon"
-                :enter-submit="enterSubmit"
-                ></bs-input>
-            </div>
-            <div class="col-md-6 col-lg-6">
-                <bs-input
-                label="Match Username"
-                :pattern="pattern"
-                :clear-button="clearButton"
-                :help="help"
-                :required="required"
-                error="与原 Username匹配"
-                :icon="icon"
-                :match="value"
-                :no-validate="noValidate"
-                ></bs-input>
-            </div>
+            <form action="#Input">
+                <div class="col-md-6 col-lg-6">
+                    <bs-input
+                    name="username"
+                    :label="label"
+                    :value.sync="value"
+                    :pattern="pattern"
+                    :clear-button="clearButton"
+                    :help="help"
+                    :placeholder="placeholder"
+                    :readonly="readonly"
+                    :disabled="disabled"
+                    :required="required"
+                    :error="error"
+                    :minlength="minLength"
+                    :maxlength="maxLength"
+                    :icon="icon"
+                    :enter-submit="enterSubmit"
+                    ></bs-input>
+                </div>
+                <div class="col-md-6 col-lg-6">
+                        <bs-input
+                        label="Match Username"
+                        :pattern="pattern"
+                        :clear-button="clearButton"
+                        :help="help"
+                        :required="required"
+                        error="与原 Username匹配"
+                        :icon="icon"
+                        :match="value"
+                        :no-validate="noValidate"
+                        ></bs-input>
+                </div>
+            </form>
         </div>
         <div class="row">
             <div class="col-md-12 col-lg-12">

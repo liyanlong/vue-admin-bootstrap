@@ -45,7 +45,6 @@ export default {
         },
         validate () {
             let valid = true
-            // 任何一个为 true 则不进行下一步
             this.children.some(el => {
                 let v = el.validate ? el.validate() : el.valid !== undefined ? el.valid : el.required && !~['', null, undefined].indexOf(el.value)
 
@@ -53,7 +52,7 @@ export default {
                 if (!v) {
                     valid = false
                 }
-                // 如果valid 为 false 退出其它检查
+                // 如果valid 为 false, !valid 为true 退出其它检查
                 return !valid
             })
             this.valid = valid
