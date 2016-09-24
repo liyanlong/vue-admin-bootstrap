@@ -8,7 +8,6 @@
     "dev": "node build/dev-server.js",
     "build": "node build/build.js",
     "build-docs": "node build/build-docs.js",
-    "release": "node build/release.js",
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs"
   },
   "homepage": "http://liyanlong.github.io/vue-admin-bootstrap/",
@@ -24,8 +23,7 @@
     "babel-runtime": "^6.0.0",
     "jquery": "^3.1.0",
     "bootstrap": "^3.3.7",
-    "vue": "^1.0.26",
-    "vue-router": "^0.7.13"
+    "vue": "^1.0.26"
   },
   "devDependencies": {
     "babel-core": "^6.0.0",

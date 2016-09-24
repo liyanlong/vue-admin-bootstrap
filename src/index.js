@@ -10,7 +10,11 @@ import Panel from 'components/Panel'
 
 import ButtonGroup from 'components/forms/ButtonGroup'
 import Checkbox from 'components/forms/Checkbox'
+import FormGroup from 'components/forms/FormGroup'
+import Input from 'components/forms/Input'
+import Option from 'components/forms/Option'
 import Radio from 'components/forms/Radio'
+import Select from 'components/forms/Select'
 
 import ViewFramework from 'components/layouts/ViewFramework'
 import Sidebar from 'components/layouts/Sidebar'
@@ -20,7 +24,7 @@ import TopbarNav from 'components/layouts/TopbarNav'
 import popoverMixins from 'components/mixins/popoverMixins.js'
 import buttonMixins from 'components/mixins/buttonMixins.js'
 
-import translation from 'src/utils/translation.js'
+import * as utils from 'src/utils/utils.js'
 const VueAdminBootStrap = {
     components: {
         Modal,
@@ -42,14 +46,16 @@ const VueAdminBootStrap = {
     forms: {
         ButtonGroup,
         Checkbox,
-        Radio
+        FormGroup,
+        Input,
+        Option,
+        Radio,
+        Select
     },
     mixins: {
         popover: popoverMixins,
         button: buttonMixins
     },
-    utils: {
-        translation
-    }
+    utils
 }
 module.exports = VueAdminBootStrap
