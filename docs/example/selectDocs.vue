@@ -45,9 +45,9 @@
                     <h4>三级联动表单组件</h4>
                     <form action="#Select">
                         <form-group :valid.sync="validB" inline>
-                            <bs-select url="/static/data/categories.json" name="categorie"  :value.sync="firstValue" clear-button required></bs-select>
-                            <bs-select :url="'/static/data/animals.json?a=' + firstValue" name="animals[]" :value.sync="secondValue" :parent="firstValue" limit="2" multiple required></bs-select>
-                            <bs-select :url="'/static/data/color.json?b=' + secondValue" name="color" :parent="secondValue" required></bs-select>
+                            <bs-select url="./static/data/categories.json" name="categorie"  :value.sync="firstValue" clear-button required></bs-select>
+                            <bs-select :url="'./static/data/animals.json?a=' + firstValue" name="animals[]" :value.sync="secondValue" :parent="firstValue" limit="2" multiple required></bs-select>
+                            <bs-select :url="'./static/data/color.json?b=' + secondValue" name="color" :parent="secondValue" required></bs-select>
                             <button type="submit"  class="btn btn-default" :disabled="!validB">提交</button>
                         </form-group>
                     </form>
