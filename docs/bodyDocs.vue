@@ -7,7 +7,7 @@
         <p>基于Bootstrap , jQuery 库为基础, 以 Vue.js 为框架 开发组件</p>
         <p>不含 bootstrap.js</p>
         <br>
-        <p><a class="btn btn-outline-inverse btn-lg" href="https://github.com/liylanlong/vue-admin-bootstrap">Code on GitHub</a></p>
+        <p><a class="btn btn-outline-inverse btn-lg" href="https://github.com/liyanlong/vue-admin-bootstrap">Code on GitHub</a></p>
       </div>
     </div>
     <container>
