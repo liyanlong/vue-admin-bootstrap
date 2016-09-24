@@ -56,7 +56,7 @@
         <div class="row">
             <div class="col-md-12">
                 <h4>自带查询过滤的下拉框</h4>
-                <bs-select url="/static/data/categories.json" search required></bs-select>
+                <bs-select url="./static/data/categories.json" search required></bs-select>
             </div>
         </div>
         <div class="row">
