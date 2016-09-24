@@ -3,6 +3,7 @@
 > 基于 Vue jQuery Bootstrap的组件框架
 > 外部依赖于jquery.js
 > 运用于 vue组件
+
 ## Build Setup
 
 ```bash

@@ -1,6 +1,6 @@
 {
   "name": "vue-admin-bootstrap",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "base on bootstrap, vue project",
   "author": "liyl <295697141@qq.com>",
   "main": "dist/js/vue-admin-bootstrap.js",
