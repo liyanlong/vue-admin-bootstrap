@@ -785,6 +785,101 @@ label.btn > input[type=radio] {
   clip: rect(0, 0, 0, 0);
   pointer-events: none;
 }
+.form-group {
+  position: relative;
+}
+.form-group label ~ .close {
+  top: 25px;
+}
+.form-group .close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 2;
+  display: block;
+  width: 34px;
+  height: 34px;
+  line-height: 34px;
+  text-align: center;
+}
+.form-group .has-feedback.has-success button.close,
+.form-group .has-feedback.has-error button.close {
+  right: 20px;
+}
+.btn-select {
+  display: inline-block;
+}
+.btn-select .caret {
+  float: right;
+  margin-top: 9px;
+  margin-left: 5px;
+}
+.btn-select .close {
+  right: 15px;
+  margin-left: 5px;
+}
+.btn-select .close ~ .caret {
+  margin-left: 20px;
+}
+.bs-searchbox {
+  position: relative;
+  margin: 4px 8px;
+}
+.bs-searchbox .close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 2;
+  display: block;
+  width: 34px;
+  height: 34px;
+  line-height: 34px;
+  text-align: center;
+}
+.notify.out {
+  position: relative;
+}
+.notify.in,
+.notify > div {
+  position: absolute;
+  width: 96%;
+  margin: 0 2%;
+  min-height: 26px;
+  padding: 3px 5px;
+  background: #f5f5f5;
+  border: 1px solid #e3e3e3;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+  pointer-events: none;
+}
+.notify > div {
+  top: 5px;
+  z-index: 1;
+}
+.notify.in {
+  opacity: .9;
+  bottom: 5px;
+}
+.btn-group.btn-group-justified .dropdown-menu {
+  width: 100%;
+}
+.secret {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+.bs-searchbox input:focus,
+.secret:focus + button {
+  outline: 0;
+  border-color: #66afe9 !important;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+}
 .viewFrameWork-body.viewFrameWork-sidebar-mini .viewFrameWork-sidebar .sidebar-nav .nav-title,
 .viewFrameWork-body.viewFrameWork-sidebar-mini .viewFrameWork-sidebar .sidebar-title-text,
 .viewFrameWork-body.viewFrameWork-sidebar-mini .viewFrameWork-sidebar .sidebar-manage {

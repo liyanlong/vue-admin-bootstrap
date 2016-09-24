@@ -1,0 +1,10 @@
+[
+    {"value": 1, "label": "Cat"},
+    {"value": 2, "label": "Cow"},
+    {"value": 3, "label": "Dog"},
+    {"value": 4, "label": "Elephant"},
+    {"value": 5, "label": "Fish"},
+    {"value": 6, "label": "Lion"},
+    {"value": 7, "label": "Tiger"},
+    {"value": 8, "label": "Turtle"}
+]

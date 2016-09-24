@@ -456,27 +456,3 @@ export default {
     }
 }
 </script>
-<style lang="less">
-.form-group {
-    position: relative;
-    label~.close {
-        top: 25px;
-    }
-    .close {
-      position: absolute;
-      top: 0;
-      right: 0;
-      z-index: 2;
-      display: block;
-      width: 34px;
-      height: 34px;
-      line-height: 34px;
-      text-align: center;
-    }
-    .has-feedback.has-success button.close,
-    .has-feedback.has-error button.close {
-      right:20px;
-    }
-}
-
-</style>

@@ -19,7 +19,7 @@ module.exports = function (grunt) {
             options: {
                 browsers: configBridge.config.autoprefixerBrowsers
             },
-      // 添加浏览器前缀
+            // 添加浏览器前缀
             core: {
                 options: {
                     map: true
@@ -28,7 +28,7 @@ module.exports = function (grunt) {
             }
         },
 
-    // Task configuration.
+        // Task configuration.
         clean: {
             dist: 'dist'
         },
@@ -38,6 +38,13 @@ module.exports = function (grunt) {
                 cwd: 'dist/css',
                 src: '**',
                 dest: 'static/css/',
+                filter: 'isFile'
+            },
+            data: {
+                expand: true,
+                cwd: 'static/data',
+                src: '**',
+                dest: 'docs/static/data/',
                 filter: 'isFile'
             }
         },
@@ -63,6 +70,8 @@ module.exports = function (grunt) {
     grunt.registerTask('dist-css', ['less-compile', 'autoprefixer:core']);
 
     grunt.registerTask('build-css', ['dist-css', 'copy:css']);
+
+    grunt.registerTask('build-docs', ['build-css', 'copy:data']);
 
     grunt.registerTask('clean', ['clean:dist']);
 

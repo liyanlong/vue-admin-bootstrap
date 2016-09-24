@@ -1,0 +1,14 @@
+[
+    {
+        "value": "sky",
+        "label": "Sky"
+    },
+    {
+        "value": "land",
+        "label": "Land"
+    },
+    {
+        "value": "sea",
+        "label": "Sea"
+    }
+]
