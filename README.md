@@ -45,3 +45,6 @@ var app = new Vue({
 });
 </script>
 ```
+
+## LINCENSE
+vue-admin-bootstrap is licensed under [The MIT License](LICENSE).
