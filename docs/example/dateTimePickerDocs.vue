@@ -2,11 +2,15 @@
     <doc-section id="DateTimePicker" name="DateTimePicker">
         <date-picker
         use-icon
-        icon="calendar"
         value="2016/10/02 12:00:00"
         format="YYYY-MM-DD HH:mm:ss"
         placement="top right"
         use-am-pm></date-picker>
+        <div class="row">
+            <div class="col-md-3">
+                <date-picker></date-picker>
+            </div>
+        </div>
     </doc-section>
 </template>
 

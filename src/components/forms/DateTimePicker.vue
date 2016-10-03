@@ -1,14 +1,16 @@
 <template lang="html">
-    <input v-if="!icon" type="text" class="form-control"
+    <input v-if="!useIcon" type="text" class="form-control"
     v-el:element
     v-model="value"
     :readonly="readonly"
-    @focus.stop="show()" />
+    :placeholder="placeholder"
+    @focus="show()" />
     <div v-else class="form-group">
        <div v-el:element class="input-group date">
            <input type="text" class="form-control"
            v-model="value"
            :readonly="readonly"
+           :placeholder="placeholder"
            @focus="show()"/>
            <span class="input-group-addon" @click.stop="toggleClick()">
                <span :class="['glyphicon ','glyphicon-' + icon]"></span>
@@ -226,11 +228,10 @@
 
 <script>
 import $ from 'jquery'
+import {dateFormats, timeFormats, indexOfKey} from 'src/utils/global'
 import parseDateTime from 'src/utils/parseDateTime'
 import stringifyDateTime from 'src/utils/stringifyDateTime'
-// import moment from 'moment'
 import coerceBoolean from 'src/utils/coerceBoolean'
-// import coerceNumber from 'src/utils/coerceNumber'
 import translations from 'src/utils/translations'
 import Input from 'components/forms/Input'
 
@@ -244,10 +245,10 @@ function closeWidget (e) {
     $(dateTimePickerList).each(function (index, vm) {
         var input = vm.input;
         if (!vm.displayView) {
-            return false;
+            return;
         }
         if (e && e.type === 'click' && input === e.target) {
-            return false;
+            return;
         }
         vm.close();
     });
@@ -273,10 +274,6 @@ const now = new Date();
 
 export default {
     props: {
-        icon: {
-            type: String,
-            default: null
-        },
         value: {
             twoWay: true,
             type: String
@@ -297,16 +294,14 @@ export default {
             coerce: coerceBoolean,
             default: true
         },
-        type: {
-            type: String,
-            default: function (val) {
-                return val && ~['time', 'date', 'dateTime'].indexOf(val) ? val : 'dateTime';
-            }
-        },
         readonly: {
             type: Boolean,
             coerce: coerceBoolean,
             default: false
+        },
+        placeholder: {
+            type: String,
+            default: null
         },
         useAmPm: {
             type: Boolean,
@@ -321,7 +316,7 @@ export default {
     },
     data () {
         return {
-            // 当前 组件的显示日期
+            // 当前组件的显示日期
             currDate: null,
             dateRange: [],
             decadeRange: [],
@@ -576,6 +571,16 @@ export default {
         bsInput: Input
     },
     computed: {
+        icon () {
+            let format = this.format;
+            if (~indexOfKey(dateFormats, format)) {
+                return 'calendar';
+            }
+            if (~indexOfKey(timeFormats, format)) {
+                return 'time';
+            }
+            return 'calendar';
+        },
         text () {
             return translations(this.lang);
         },
@@ -601,39 +606,24 @@ export default {
         // 左右对齐
         horizontal () {
             let horizontal = 'left';
-            // let $parent = $(this._parent);
-            // let $widget = $(this.$els.widget);
-            // let offset = $(this.$els.element).offset();
             $.each(['left', 'right'], (index, val) => {
                 if (~this.placement.indexOf(val)) {
                     horizontal = val;
                     return false;
                 }
-            })
-            // if (horizontal === 'auto') {
-            //     horizontal = $parent.width() < offset.left + $widget.outerWidth() / 2 &&
-            //         offset.left + $widget.outerWidth() > $(window).width() ? 'right' : 'left';
-            // }
+            });
             return horizontal;
         },
 
         // 上下对齐
         vertical () {
             let vertical = 'bottom';
-            // let $element = $(this.$els.element);
-            // let $widget = $(this.$els.widget);
-            // let offset = $element.offset();
             $.each(['top', 'bottom'], (index, val) => {
                 if (~this.placement.indexOf(val)) {
                     vertical = val;
                     return false;
                 }
-            })
-            // if (vertical === 'auto') {
-            //     vertical = offset.top + $widget.height() * 1.5 >=
-            //     $(window).height() + $(window).scrollTop() &&
-            //     $widget.height() + $element.outerHeight() < offset.top ? 'top' : 'bottom';
-            // }
+            });
             return vertical;
         },
         parseValue () {
@@ -674,6 +664,7 @@ export default {
         this.currDate = this.parseValue;
 
         dateTimePickerList.push(this);
+        console.log(dateTimePickerList)
     },
     beforeDestroy () {
         var index = -1;

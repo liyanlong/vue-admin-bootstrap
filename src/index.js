@@ -10,6 +10,7 @@ import Panel from 'components/Panel'
 
 import ButtonGroup from 'components/forms/ButtonGroup'
 import Checkbox from 'components/forms/Checkbox'
+import DateTimePicker from 'components/forms/DateTimePicker'
 import FormGroup from 'components/forms/FormGroup'
 import Input from 'components/forms/Input'
 import Option from 'components/forms/Option'
@@ -46,6 +47,7 @@ const VueAdminBootStrap = {
     forms: {
         ButtonGroup,
         Checkbox,
+        DateTimePicker,
         FormGroup,
         Input,
         Option,
