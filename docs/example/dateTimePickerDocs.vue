@@ -14,6 +14,22 @@
                 <date-picker format="YYYY/MM/DD"></date-picker>
             </div>
         </div>
+        <doc-code language="markup" title="Component Style">
+            <date-picker
+            use-icon
+            value="2016/10/02 12:00:00"
+            format="YYYY-MM-DD HH:mm:ss"
+            placement="top right"
+            use-am-pm></date-picker>
+            <div class="row">
+                <div class="col-md-3">
+                    <date-picker format="YYYY-MM" readonly></date-picker>
+                </div>
+                <div class="col-md-3">
+                    <date-picker format="YYYY/MM/DD"></date-picker>
+                </div>
+            </div>
+        </doc-code>
         <doc-options>
             <div>
               <p>value</p>
@@ -61,7 +77,7 @@
               <p>placement</p>
               <p><code>String</code></p>
               <p><code>left bottom</code></p>
-              <p>显示位置 <code>left</code><code>top</code><code>right</code><code>bottom</code></p>
+              <p>显示位置 <code>left</code> <code>top</code> <code>right</code> <code>bottom</code></p>
             </div>
             <div>
               <p>useIcon</p>
@@ -92,13 +108,6 @@ export default {
         docOptions,
         docCallout,
         datePicker: DateTimePicker
-    },
-    methods: {
-        foo (e) {
-            console.log(e);
-            e.preventDefault();
-            e.stopPropagation();
-        }
     }
 }
 </script>
