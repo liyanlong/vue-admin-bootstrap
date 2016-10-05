@@ -1,7 +1,3 @@
- /*!
- * parse string to Date Object
- */
-// import {dateFormats, timeFormats} from 'src/utils/global.js'
 import {getDateFormat, getTimeFormat} from 'src/utils/validate.js'
 function createTruncatDateTime (placeholder, defaultReturn, filter) {
     let length = placeholder && placeholder.length || 0;
@@ -24,6 +20,12 @@ const truncatDateTime = {
     minutes: createTruncatDateTime('mm', 0),
     seconds: createTruncatDateTime('ss', 0)
 }
+
+/**
+ * string convert to Object
+ * @param  {string} val 日期字符串
+ * @return {Date} 日期对象
+ */
 export default (val) => {
     let years, months, days, hours, minutes, seconds;
     let formatDateStr = getDateFormat(val);

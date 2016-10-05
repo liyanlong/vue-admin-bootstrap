@@ -2,14 +2,18 @@
     <input v-if="!useIcon" type="text" class="form-control"
     v-el:element
     v-model="value"
+    :name="name"
     :readonly="readonly"
+    :disabled="disabled"
     :placeholder="placeholder"
     @focus="show()" />
     <div v-else class="form-group">
        <div v-el:element class="input-group date">
            <input type="text" class="form-control"
            v-model="value"
+           :name="name"
            :readonly="readonly"
+           :disabled="disabled"
            :placeholder="placeholder"
            @focus="show()"/>
            <span class="input-group-addon" @click.stop="toggleClick()">
@@ -125,7 +129,7 @@
                     </div>
                 </div>
             </li>
-            <li class="picker-switch accordion-toggle">
+            <li class="picker-switch accordion-toggle" v-if="enableTimePicker">
                 <table class="table-condensed">
                     <tbody>
                         <tr>
@@ -139,7 +143,7 @@
                     </tbody>
                 </table>
             </li>
-            <li class="collapse" :class="{'in': showTimePicker}">
+            <li class="collapse" :class="{'in': showTimePicker}" v-if="enableTimePicker">
                 <div class="timepicker" >
                     <div class="timepicker-picker" v-show="displayTimePickerView">
                         <table class="table-condensed">
@@ -157,7 +161,7 @@
                                         <a tabindex="-1" title="Increment Minute">
                                             <span data-action
                                             :class="icons.up"
-                                            @click="preNextClick(1, 'minutes', true)"></span>
+                                            @click="preNextClick(1 * stepping, 'minutes', true)"></span>
                                         </a>
                                     </td>
                                     <td class="separator"></td>
@@ -171,11 +175,13 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        <span class="timepicker-hour" title="Pick Hour">{{stringifyTime('hours')}}</span>
+                                        <span class="timepicker-hour" title="Pick Hour"
+                                        @click="switchHoursView()"
+                                        >{{stringifyTime('hours')}}</span>
                                     </td>
                                     <td class="separator">:</td>
                                     <td>
-                                        <span class="timepicker-minute" title="Pick Minute">
+                                        <span class="timepicker-minute" title="Pick Minute" @click="switchMinutesView()">
                                             {{stringifyTime('minutes')}}
                                         </span>
                                     </td>
@@ -196,7 +202,7 @@
                                     <td class="separator"></td>
                                     <td>
                                         <a tabindex="-1" title="Decrement Minute">
-                                            <span data-action :class="icons.down" @click="preNextClick(-1, 'minutes', true)"></span>
+                                            <span data-action :class="icons.down" @click="preNextClick(-1 * stepping, 'minutes', true)"></span>
                                         </a>
                                     </td>
                                     <td class="separator"></td>
@@ -206,20 +212,43 @@
                                         </a>
                                     </td>
                                 </tr>
-                                <tr>
+                                <tr v-if="useAmPm">
                                     <td colspan="5">
                                         <button
                                             class="btn btn-primary"
                                             tabindex="-1"
                                             title="Toggle Period"
-                                            @click="preNextClick(currDate.getHours() - 12 > 0 ? -12 : 12, 'hours')">{{stringifyTime('period')}}</button>
+                                            @click="preNextClick(currDate.getHours() - 12 >= 0 ? -12 : 12, 'hours', true)">{{stringifyTime('period')}}</button>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
-                    <div class="timepicker-hours"></div>
-                    <div class="timepicker-minutes"></div>
+                    <div class="timepicker-hours" v-show="displayHoursView">
+                        <table class="table-condensed">
+                            <tbody>
+                                <tr v-for="i in 4">
+                                    <td v-for="j in 6" class="hour" @click="hourSelect((i + 1) * (j + 1) - 1)">
+                                        {{ (i + 1) * (j + 1) - 1 }}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <div class="timepicker-minutes" v-show="displayMinutesView">
+                        <table class="table-condensed">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <span v-for="i in 60 / stepping" class="minute" @click="minuteSelect( (i * j + 1) * stepping)">
+                                            {{  i * stepping }}
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </li>
         </ul>
@@ -232,6 +261,7 @@ import {dateFormats, timeFormats, indexOfKey} from 'src/utils/global'
 import parseDateTime from 'src/utils/parseDateTime'
 import stringifyDateTime from 'src/utils/stringifyDateTime'
 import coerceBoolean from 'src/utils/coerceBoolean'
+import coerceNumber from 'src/utils/coerceNumber'
 import translations from 'src/utils/translations'
 import Input from 'components/forms/Input'
 
@@ -278,6 +308,10 @@ export default {
             twoWay: true,
             type: String
         },
+        name: {
+            type: String,
+            default: null
+        },
         lang: {
             type: String,
             default: navigator.language
@@ -287,14 +321,14 @@ export default {
             default: 'auto'
         },
         format: {
-            default: 'YYYY-MM-dd HH:mm:ss'
-        },
-        focusOnShow: {
-            type: Boolean,
-            coerce: coerceBoolean,
-            default: true
+            default: 'YYYY-MM-DD HH:mm:ss'
         },
         readonly: {
+            type: Boolean,
+            coerce: coerceBoolean,
+            default: false
+        },
+        disabled: {
             type: Boolean,
             coerce: coerceBoolean,
             default: false
@@ -312,6 +346,11 @@ export default {
             type: Boolean,
             coerce: coerceBoolean,
             default: false
+        },
+        stepping: {
+            type: Number,
+            coerce: coerceNumber,
+            default: 1
         }
     },
     data () {
@@ -320,13 +359,15 @@ export default {
             currDate: null,
             dateRange: [],
             decadeRange: [],
+            vieMode: null,
             displayView: false,
             displayDayView: false,
             displayMonthView: false,
             displayYearView: false,
             displayTimePickerView: false,
             displayHoursView: false,
-            displayMinutesView: false
+            displayMinutesView: false,
+            enableTimePicker: false
         }
     },
     methods: {
@@ -341,7 +382,18 @@ export default {
             if (this.showDatePicker || this.showTimePicker) {
                 return;
             }
-            this.displayDayView = true;
+            // 打开默认的 viewMode
+            switch (this.viewMode) {
+            case 'days':
+                this.displayDayView = true;
+                break;
+            case 'months':
+                this.displayMonthView = true;
+                break;
+            case 'years':
+                this.displayYearView = true;
+                break;
+            }
         },
         toggleClick () {
             if (this.displayView) {
@@ -395,8 +447,12 @@ export default {
                 date.getMinutes(),
                 date.getSeconds()
             );
-            this.displayMonthView = false;
-            this.displayDayView = true;
+            if (this.viewMode === 'months') {
+                this.value = stringifyDateTime(date, this.format);
+            } else if (this.viewMode === 'days') {
+                this.displayMonthView = false;
+                this.displayDayView = true;
+            }
         },
         yearSelect (year) {
             let date = this.currDate;
@@ -411,6 +467,34 @@ export default {
                 date.getSeconds()
             );
         },
+        hourSelect (hour) {
+            let date = this.currDate;
+            this.currDate = new Date(
+                date.getFullYear(),
+                date.getMonth(),
+                date.getDate(),
+                hour,
+                date.getMinutes(),
+                date.getSeconds()
+            );
+            this.value = stringifyDateTime(date, this.format);
+            this.displayHoursView = false;
+            this.displayTimePickerView = true;
+        },
+        minuteSelect (minute) {
+            let date = this.currDate;
+            this.currDate = new Date(
+                date.getFullYear(),
+                date.getMonth(),
+                date.getDate(),
+                date.getHours(),
+                minute,
+                date.getSeconds()
+            );
+            this.value = stringifyDateTime(date, this.format);
+            this.displayMinutesView = false;
+            this.displayTimePickerView = true;
+        },
         // 切换至月视图
         switchMonthView () {
             this.displayDayView = false;
@@ -420,6 +504,14 @@ export default {
         switchYearView () {
             this.displayMonthView = false;
             this.displayYearView = true;
+        },
+        switchHoursView () {
+            this.displayTimePickerView = false;
+            this.displayHoursView = true;
+        },
+        switchMinutesView () {
+            this.displayTimePickerView = false;
+            this.displayMinutesView = true;
         },
         // 切换至时间视图
         switchTimePickerView () {
@@ -614,7 +706,6 @@ export default {
             });
             return horizontal;
         },
-
         // 上下对齐
         vertical () {
             let vertical = 'bottom';
@@ -640,31 +731,36 @@ export default {
         currDate (date) {
             // 更新dateRange
             this.setDateRange();
+        },
+        displayView (open) {
+            if (open) {
+                this.currDate = this.parseValue;
+            }
         }
     },
     // 未渲染
     created () {
-        this.currDate = new Date();
+        this.viewMode = ~this.format.indexOf('DD') ? 'days'
+            : ~this.format.indexOf('MM') ? 'months'
+            : ~this.format.indexOf('YYYY') ? 'years' : null;
+        this.enableTimePicker = ['HH', 'mm', 'ss'].some((val) => {
+            return this.format.indexOf(val) !== -1;
+        });
+        this.currDate = this.parseValue;
     },
     ready () {
         let $element = $(this.$els.element);
         let widget = this.$els.widget;
-        let parent = null;
 
         // 设置组件的位置
         if ($element.is('input')) {
-            parent = $element.after(widget).parent();
+            $element.after(widget);
         } else {
-            parent = $element[0];
             $element.children().first().after(widget);
         }
-        this._parent = parent;
 
-        // 设置 日期
-        this.currDate = this.parseValue;
-
+        // 设置日期
         dateTimePickerList.push(this);
-        console.log(dateTimePickerList)
     },
     beforeDestroy () {
         var index = -1;

@@ -394,6 +394,9 @@ h6,
 .bootstrap-datetimepicker-widget [data-action]:focus {
   outline: none;
 }
+.bootstrap-datetimepicker-widget table td span.new {
+  color: #777777;
+}
 .viewFrameWork-body {
   position: absolute;
   width: 100%;
