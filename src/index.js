@@ -26,6 +26,8 @@ import popoverMixins from 'components/mixins/popoverMixins.js'
 import buttonMixins from 'components/mixins/buttonMixins.js'
 
 import * as utils from 'src/utils/utils.js'
+import * as global from 'src/utils/global.js'
+import * as validate from 'src/utils/validate.js'
 const VueAdminBootStrap = {
     components: {
         Modal,
@@ -58,6 +60,8 @@ const VueAdminBootStrap = {
         popover: popoverMixins,
         button: buttonMixins
     },
-    utils
+    global,
+    utils,
+    validate
 }
 module.exports = VueAdminBootStrap
