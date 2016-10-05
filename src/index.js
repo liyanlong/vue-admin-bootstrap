@@ -10,6 +10,7 @@ import Panel from 'components/Panel'
 
 import ButtonGroup from 'components/forms/ButtonGroup'
 import Checkbox from 'components/forms/Checkbox'
+import DateTimePicker from 'components/forms/DateTimePicker'
 import FormGroup from 'components/forms/FormGroup'
 import Input from 'components/forms/Input'
 import Option from 'components/forms/Option'
@@ -25,6 +26,8 @@ import popoverMixins from 'components/mixins/popoverMixins.js'
 import buttonMixins from 'components/mixins/buttonMixins.js'
 
 import * as utils from 'src/utils/utils.js'
+import * as global from 'src/utils/global.js'
+import * as validate from 'src/utils/validate.js'
 const VueAdminBootStrap = {
     components: {
         Modal,
@@ -46,6 +49,7 @@ const VueAdminBootStrap = {
     forms: {
         ButtonGroup,
         Checkbox,
+        DateTimePicker,
         FormGroup,
         Input,
         Option,
@@ -56,6 +60,8 @@ const VueAdminBootStrap = {
         popover: popoverMixins,
         button: buttonMixins
     },
-    utils
+    global,
+    utils,
+    validate
 }
 module.exports = VueAdminBootStrap

@@ -191,6 +191,7 @@ export default {
 
         // 校验 函数 或者校验表达式
         pattern: null,
+
         // 是否不验证
         noValidate: {
             type: Boolean,
@@ -209,7 +210,6 @@ export default {
             coerce: coerceBoolean,
             default: true
         },
-        // 匹配
         match: {
             type: String,
             default: null

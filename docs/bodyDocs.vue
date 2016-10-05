@@ -26,7 +26,7 @@
                 <input-docs></input-docs>
                 <select-docs></select-docs>
                 <form-group-docs></form-group-docs>
-
+                <date-time-picker-docs></date-time-picker-docs>
             </div>
             <div class="col-md-3">
                 <affix-sidebar></affix-sidebar>
@@ -62,6 +62,7 @@ import buttonGroupDocs from './example/buttonGroupDocs'
 import inputDocs from './example/inputDocs'
 import selectDocs from './example/selectDocs'
 import formGroupDocs from './example/formGroupDocs'
+import dateTimePickerDocs from './example/dateTimePickerDocs'
 
 export default {
     components: {
@@ -81,7 +82,8 @@ export default {
         buttonGroupDocs,
         inputDocs,
         selectDocs,
-        formGroupDocs
+        formGroupDocs,
+        dateTimePickerDocs
     }
 }
 </script>
